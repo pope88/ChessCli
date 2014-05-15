@@ -1,0 +1,15 @@
+build/
+bin/
+obj/
+build_*/
+bin_*/
+obj_*/
+log/
+conf/ktCfg.ini
+conf/gateway.ini
+*.o
+*.obj
+*.user
+*.ncb
+*.suo
+replay/
