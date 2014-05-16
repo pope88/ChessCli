@@ -39,9 +39,8 @@ namespace TcpNetWork
 		UInt32 getAddr();
 		/* get socket remote address */
 		UInt32 getRemoteAddr();
-
 		/* select */
-		bool select(int nTimeoutMS);
+		bool select(int nTimeoutMS = 0);
 
 	public:
 		/* get last error */

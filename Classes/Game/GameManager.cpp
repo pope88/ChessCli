@@ -5,7 +5,7 @@ namespace View
 {
 	void GameManager::DisplayNowScene(int sID)
 	{
-		CBaseScene *actScene = NULL;
+		BaseScene *actScene = NULL;
 		bool bFirstScene = false;
 		do 
 		{
@@ -19,7 +19,7 @@ namespace View
 			{
 			case SCENE_INIT:
 				bFirstScene = true;
-				actScene = new CTestScene();// CBaseScene::create();
+				actScene = new CTestScene();// BaseScene::create();
 				break;
 			case SCENE_LOGIN:
 				actScene = new CTestScene();

@@ -172,4 +172,69 @@ UInt32 Socket::getRemoteAddr()
 	return ntohl(addr.sin_addr.s_addr);
 }
 
+/* select */
+bool Socket::select(int nTimeoutMS)
+{
+	bool            bRetVal = false;
+	struct timeval *pTimeout = NULL;
+	struct timeval  timeout;
+	int             ret = -1;
+	int             nError = 0;
+
+	fd_set m_errorFds;
+	fd_set m_readFds;
+	fd_set m_writeFds;
+	FD_ZERO(&m_errorFds);
+	FD_ZERO(&m_readFds);
+	FD_ZERO(&m_writeFds);
+	FD_SET(_fd, &m_errorFds);
+	FD_SET(_fd, &m_readFds);
+	FD_SET(_fd, &m_writeFds);
+
+	//---------------------------------------------------------------------
+	// If timeout has been specified then set value, otherwise set timeout
+	// to NULL which will block until a descriptor is ready for read/write
+	// or an error has occurred.
+	//---------------------------------------------------------------------
+	if ((nTimeoutMS > 0))
+	{
+		timeout.tv_sec = nTimeoutMS/1000;
+		timeout.tv_usec = nTimeoutMS % 1000;
+
+		pTimeout = &timeout;
+	}
+
+	ret = ::select(0, &m_readFds,&m_writeFds, &m_errorFds, pTimeout);
+
+	//----------------------------------------------------------------------
+	// Handle timeout
+	//----------------------------------------------------------------------
+	if (ret == 0) 
+	{
+		close();
+	}
+	//----------------------------------------------------------------------
+	// If a file descriptor (read/write) is set then check the
+	// socket error (SO_ERROR) to see if there is a pending error.
+	//----------------------------------------------------------------------
+	else if ((FD_ISSET(_fd, &m_readFds)) || (FD_ISSET(_fd, &m_writeFds)))
+	{
+		int nLen = sizeof(nError);
+
+		if (getsockopt(_fd, SOL_SOCKET, SO_ERROR, (char*)&nError, &nLen) == 0)
+		{
+			errno = nError;
+
+			if (nError == 0)
+			{
+				bRetVal = true;
+			}
+		}
+
+		lastErr();
+	}
+
+	return bRetVal;
+}
+
 }

@@ -3,13 +3,13 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-class ControllerLayer :public CCLayer
+class ControllerLayer :public Layer
 {
 public:
 	ControllerLayer();
 	~ControllerLayer() {}
 private:
-	CCPoint m_tBeginPos;
+	Point m_tBeginPos;
 	CCMenu* m_pItemMenu;
 
 };

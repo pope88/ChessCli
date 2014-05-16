@@ -7,7 +7,7 @@ namespace View
 {
 	namespace Layer
 	{
-		class GameLayer : public CCLayer
+		class GameLayer : public Layer
 		{
 			enum TAG_BG
 			{
@@ -20,17 +20,17 @@ namespace View
 		public:
 			void initBackground();
 			void update(float dt);
-			void movingBackground(CCObject *pObj, float dt);
+			void movingBackground(Ref *pObj, float dt);
 		private:
 			// ±³¾°(Ô¶¾°²ã)  
-			CCSprite *m_pSkySprite;  
-			CCSprite *m_pSkySpriteRe;  
+			Sprite *m_pSkySprite;  
+			Sprite *m_pSkySpriteRe;  
 			float m_fSkyVelocity;  
 			float m_fSkyHeight;  
 
 			// µØÍ¼(½ü¾°²ã)  
-			CCSprite *m_pTileMap;  
-			CCSprite *m_pTileMapRe;  
+			Sprite *m_pTileMap;  
+			Sprite *m_pTileMapRe;  
 			float m_fTileMapVelocity;  
 			float m_fTileMapHeight;
 

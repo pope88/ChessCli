@@ -9,16 +9,16 @@ namespace View
 {
 	void CTestScene::InitScene()
 	{
-		//CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-		//CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+		//Size visibleSize = Director::getInstance()->getVisibleSize();
+		//Point origin = Director::getInstance()->getVisibleOrigin();
 
-		//CCLayer *testLayer = CCLayer::create();
+		//Layer *testLayer = Layer::create();
 	
-		//CCSprite *pbgSprite = CCSprite::create("Images/BackGround/background_2.jpg");
+		//Sprite *pbgSprite = Sprite::create("Images/BackGround/background_2.jpg");
 
-		//CCLabelTTF* label = CCLabelTTF::create("first scene", "Arial", 20);
+		//LabelTTF* label = LabelTTF::create("first scene", "Arial", 20);
 		////#endif
-		//CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(CTestScene::OnTextmenu_Click));
+		//MenuItemLabel* pMenuItem = MenuItemLabel::create(label, this, menu_selector(CTestScene::OnTextmenu_Click));
 
 
 		// CCMenu* pMenu =CCMenu::create(pMenuItem, NULL);
@@ -33,23 +33,23 @@ namespace View
 		//this->addChild(testLayer);
 
 		////add animation
-		//CCSpriteFrameCache *cache = CCSpriteFrameCache::sharedSpriteFrameCache();
+		//SpriteFrameCache *cache = SpriteFrameCache::sharedSpriteFrameCache();
 		//cache->addSpriteFramesWithFile("Images/animation/chooserole/mt/chooserole_mt_part1.plist");
 		//cache->addSpriteFramesWithFile("Images/animation/chooserole/mt/chooserole_mt_part2.plist");
 		////cache->addSpriteFramesWithFile("Images/animation/chooserole/mt/skill_tenarmy.plist");
 		//
 
-		//CCSprite *plistSprite=CCSprite::createWithSpriteFrameName("mt_0001.png");
-		////CCSprite *plistSprite=CCSprite::createWithSpriteFrameName("tenarmy_01.png");
+		//Sprite *plistSprite=Sprite::createWithSpriteFrameName("mt_0001.png");
+		////Sprite *plistSprite=Sprite::createWithSpriteFrameName("tenarmy_01.png");
 
 		//testLayer->addChild(plistSprite);
-		//plistSprite->setPosition(ccp(CCDirector::sharedDirector()->getWinSize().width/2,CCDirector::sharedDirector()->getWinSize().height/2 + plistSprite->getContentSize().width));
+		//plistSprite->setPosition(ccp(Director::getInstance()->getWinSize().width/2,Director::getInstance()->getWinSize().height/2 + plistSprite->getContentSize().width));
 
 		////ÎªÖ¡´´½¨Í¼Æ¬
-		//CCArray *walkFrames = CCArray::createWithCapacity(11);
+		//Array *walkFrames = Array::createWithCapacity(11);
 		//for (int i = 1; i <= 11; i++)  
 		//{  
-		//	CCSpriteFrame *frame;
+		//	SpriteFrame *frame;
 		//	//if (i == 4 || i == 6 || i == 8)
 		//	//{
 		//	//	continue;
@@ -79,16 +79,16 @@ namespace View
 		//testLayer->setTouchEnabled(true);
 
 		//test
-		CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-		CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+		Size visibleSize = Director::getInstance()->getVisibleSize();
+		Point origin = Director::getInstance()->getVisibleOrigin();
 
-		CCLayer *testLayer = CCLayer::create();
+		Layer *testLayer = Layer::create();
 	
-		CCSprite *pbgSprite = CCSprite::create(s_pPathBackGround3);
+		Sprite *pbgSprite = Sprite::create(s_pPathBackGround3);
 
-		CCLabelTTF* label = CCLabelTTF::create("first scene", "Arial", 20);
+		LabelTTF* label = LabelTTF::create("first scene", "Arial", 20);
 		//#endif
-		CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(CTestScene::OnTextmenu_Click));
+		MenuItemLabel* pMenuItem = MenuItemLabel::create(label, this, menu_selector(CTestScene::OnTextmenu_Click));
 
 
 		 CCMenu* pMenu =CCMenu::create(pMenuItem, NULL);
@@ -102,62 +102,62 @@ namespace View
 		this->addChild(testLayer);
 
 
- 		CCTexture2D *pTexture = CCTextureCache::sharedTextureCache()->addImage(s_pPathDDZMainGame0);
-		CCSprite *pSprite;
-		CCSprite *pSpriteA;
-		CCSprite *pSpriteB;
-		CCSprite *pSpriteC;
-		CCSprite *pSpriteD;
-		pSprite = CCSprite::createWithTexture(pTexture, CCRect(3, 130, 123, 160));
-		pSpriteA = CCSprite::createWithTexture(pTexture, CCRect(0, 0, 40, 40)); 
-		pSpriteB = CCSprite::createWithTexture(pTexture, CCRect(0, 0, 40, 40));
+ 		Texture2D *pTexture = CCTextureCache::sharedTextureCache()->addImage(s_pPathDDZMainGame0);
+		Sprite *pSprite;
+		Sprite *pSpriteA;
+		Sprite *pSpriteB;
+		Sprite *pSpriteC;
+		Sprite *pSpriteD;
+		pSprite = Sprite::createWithTexture(pTexture, CCRect(3, 130, 123, 160));
+		pSpriteA = Sprite::createWithTexture(pTexture, CCRect(0, 0, 40, 40)); 
+		pSpriteB = Sprite::createWithTexture(pTexture, CCRect(0, 0, 40, 40));
 		
-		pSpriteC = CCSprite::createWithTexture(pTexture, CCRect(274, 215, 28, 30)); 
-		pSpriteD = CCSprite::createWithTexture(pTexture, CCRect(274, 215, 28, 30));
+		pSpriteC = Sprite::createWithTexture(pTexture, CCRect(274, 215, 28, 30)); 
+		pSpriteD = Sprite::createWithTexture(pTexture, CCRect(274, 215, 28, 30));
 
 		pSprite->addChild(pSpriteA);
-		pSpriteA->setAnchorPoint(CCPoint(0, 0));
-		pSpriteA->setPosition(CCPoint(0, 115));
+		pSpriteA->setAnchorPoint(Point(0, 0));
+		pSpriteA->setPosition(Point(0, 115));
 
 		pSprite->addChild(pSpriteB);
-		pSpriteB->setAnchorPoint(CCPoint(0, 0));
-		pSpriteB->setPosition(CCPoint(85, 5));
+		pSpriteB->setAnchorPoint(Point(0, 0));
+		pSpriteB->setPosition(Point(85, 5));
 		pSpriteB->setFlipY(true);
 
 		pSprite->addChild(pSpriteC);
-		pSpriteC->setAnchorPoint(CCPoint(0, 0));
-		pSpriteC->setPosition(CCPoint(5, 85));
+		pSpriteC->setAnchorPoint(Point(0, 0));
+		pSpriteC->setPosition(Point(5, 85));
 
 		pSprite->addChild(pSpriteD);
-		pSpriteD->setAnchorPoint(CCPoint(0, 0));
-		pSpriteD->setPosition(CCPoint(90, 47));
+		pSpriteD->setAnchorPoint(Point(0, 0));
+		pSpriteD->setPosition(Point(90, 47));
 		pSpriteD->setFlipY(true);
 
 
 		testLayer->addChild(pSprite);
-		pSprite->setAnchorPoint(CCPoint(0, 0));
-		pSprite->setPosition(CCPoint(origin.x + 100, origin.y+100));
+		pSprite->setAnchorPoint(Point(0, 0));
+		pSprite->setPosition(Point(origin.x + 100, origin.y+100));
 
 		CardBase *pcard = new CardBase(15, 0);
 		pcard->drawCard();
 		//testLayer->addChild(pcard->getCardBackGround());
-		//pcard->getCardBackGround()->setPosition(CCPoint(origin.x + 300, origin.y+100));
+		//pcard->getCardBackGround()->setPosition(Point(origin.x + 300, origin.y+100));
 
-		pcard->setPosition(CCPoint(origin.x + 300, origin.y+100));
+		pcard->setPosition(Point(origin.x + 300, origin.y+100));
 		testLayer->addChild(pcard);
 
 		CCardSprite carda;
 		carda.m_nValue = 3;
 		carda.m_nColor = 1;
-		carda.getCardSprite()->setAnchorPoint(CCPoint(0, 0));
-		carda.getCardSprite()->setPosition(CCPoint(200, 200));
+		carda.getCardSprite()->setAnchorPoint(Point(0, 0));
+		carda.getCardSprite()->setPosition(Point(200, 200));
 		testLayer->addChild(carda.getCardSprite());
 
 		CCardSprite cardb;
 		cardb.m_nValue = 3;
 		cardb.m_nColor = 1;
-		cardb.getCardSprite()->setAnchorPoint(CCPoint(0, 0));
-		cardb.getCardSprite()->setPosition(CCPoint(400, 200));
+		cardb.getCardSprite()->setAnchorPoint(Point(0, 0));
+		cardb.getCardSprite()->setPosition(Point(400, 200));
 		testLayer->addChild(cardb.getCardSprite());
 	}
 
@@ -167,17 +167,17 @@ namespace View
 
 		InitScene();
 
-		if (!CCDirector::sharedDirector()->getRunningScene())
+		if (!Director::getInstance()->getRunningScene())
 		{
-			CCDirector::sharedDirector()->runWithScene(this);
+			Director::getInstance()->runWithScene(this);
 		}
 		else
 		{
-			CCDirector::sharedDirector()->replaceScene(this);
+			Director::getInstance()->replaceScene(this);
 		}
 	}
 
-	void CTestScene::OnTextmenu_Click(CCObject *pSender)
+	void CTestScene::OnTextmenu_Click(Ref *pSender)
 	{
 		printf("nothing");
 

@@ -23,8 +23,8 @@ namespace View
 		GameManager() {}
 		~GameManager() {}
 	private:
-		std::map<UInt8, CBaseScene*> _allScenesMap;
-		//CBaseScene *actScene;
+		std::map<UInt8, BaseScene*> _allScenesMap;
+		//BaseScene *actScene;
 
 		DECLARE_SINGLETON_CLASS(GameManager);
 	};

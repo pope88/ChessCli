@@ -5,6 +5,8 @@
 
 namespace TcpNetWork
 {
+TcpNet _tcpnet;
+
 Utils *TcpNet::utils = new Utils;
 TcpNet::TcpNet():m_nOutbufLen(0), m_nInbufLen(0), m_tcpsocket(NULL)
 {
@@ -20,6 +22,10 @@ TcpNet::~TcpNet()
 	if (m_tcpsocket != NULL)
 	{
 		SAFE_DELETE(m_tcpsocket);
+	}
+	if (_thread != NULL)
+	{
+		SAFE_DELETE(_thread);
 	}
 }
 
@@ -84,6 +90,10 @@ bool TcpNet::connect(const char* ServerIP, int ServerPort, int nBlockSec, bool b
 		SAFE_DELETE(m_tcpsocket);
 		return false;
 	}
+	
+	_thread = new System::Thread(&TcpNet::runRecvMsg, this);
+	_thread->Launch();
+
 	return true;
 }
 
@@ -188,6 +198,7 @@ void TcpNet::runRecvMsg()
 			//OnNetMessage(pHead->op, m_cbDataBuf+sizeof(PktHdr), nDataSize);
 			//Packet::_processor.parseInit(m_cbDataBuf, nPacketSize, 0, 0);
 		}
+		Sleep(10);
 	}
 }
 
@@ -205,20 +216,28 @@ void TcpNet::copyDataBuf(UInt8 *dstSrc, int len)
 	memmove(dstSrc, m_cbDataBuf, len);
 }
 
-void TcpNet::setEventListener(TcpNet::SKYNETWORK_EVENT_LISTENER  listener,void* pUserData)
+//void TcpNet::setEventListener(TcpNet::SKYNETWORK_EVENT_LISTENER  listener,void* pUserData)
+//{
+//	//GameThreadMutex_lock(m_commMutex);
+//	m_pEvent_listener = listener;
+//	m_pUserData = pUserData;
+//	//GameThreadMutex_unlock(m_commMutex);
+//}
+//
+//
+//void TcpNet::callListener(TCPNETWORKEVENT evt, void* pUserData, int param0, int param1, int param2)
+//{
+//
+//}
+
+void TcpNet::close()
 {
-	//GameThreadMutex_lock(m_commMutex);
-	m_pEvent_listener = listener;
-	m_pUserData = pUserData;
-	//GameThreadMutex_unlock(m_commMutex);
+	closeSocket();
+	if (_thread)
+	{
+		SAFE_DELETE(_thread);
+	}
 }
-
-
-void TcpNet::callListener(TCPNETWORKEVENT evt, void* pUserData, int param0, int param1, int param2)
-{
-
-}
-
 
 }
 

@@ -17,8 +17,8 @@ void CardGeneral::setCardZiP()
 {
 	if (pSpriteZi)
 	{
-		pSpriteZi->setAnchorPoint(CCPoint(0, 0));         //set anchor point
-		pSpriteZi->setPosition(CCPoint(8,125));            //set position
+		pSpriteZi->setAnchorPoint(Point(0, 0));         //set anchor point
+		pSpriteZi->setPosition(Point(8,125));            //set position
 	}
 }
 
@@ -26,8 +26,8 @@ void CardGeneral::setCardHuaP()
 {
 	if (pSpriteHua)
 	{
-		pSpriteHua->setAnchorPoint(CCPoint(0, 0));         //set anchor point
-		pSpriteHua->setPosition(CCPoint(6,85));            //set position
+		pSpriteHua->setAnchorPoint(Point(0, 0));         //set anchor point
+		pSpriteHua->setPosition(Point(6,85));            //set position
 	}
 }
 
@@ -35,8 +35,8 @@ void CardGeneral::setCardGrainP()
 {
 	if (pSpriteGrain)
 	{
-		pSpriteGrain->setAnchorPoint(CCPoint(0, 0));         //set anchor point
-		pSpriteGrain->setPosition(CCPoint(20,0));            //set position
+		pSpriteGrain->setAnchorPoint(Point(0, 0));         //set anchor point
+		pSpriteGrain->setPosition(Point(20,0));            //set position
 	}
 }
 
@@ -62,34 +62,34 @@ void CardGeneral::drawCard()
 	{
 
 		//draw card background
-		pSpriteGrain = CCSprite::createWithSpriteFrameName(s_pNameListRedGGrain[gid].c_str());
+		pSpriteGrain = Sprite::createWithSpriteFrameName(s_pNameListRedGGrain[gid].c_str());
 		backGround->addChild(pSpriteGrain);
 		setCardGrainP();
 
-		pSpriteZi = CCSprite::createWithSpriteFrameName(s_pNameListNormalCardBlackZi[_keyValue].c_str());
+		pSpriteZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardBlackZi[_keyValue].c_str());
 		backGround->addChild(pSpriteZi);
 		//set zi position
 		setCardZiP();
 
 		//draw hua
-		pSpriteHua = CCSprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
+		pSpriteHua = Sprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
 		backGround->addChild(pSpriteHua);
 		setCardHuaP();
 	}
 	else if (cardColor == 1 || cardColor == 3)
 	{
 		//draw card background
-		pSpriteGrain = CCSprite::createWithSpriteFrameName(s_pNameListBlueGGrain[gid].c_str());
+		pSpriteGrain = Sprite::createWithSpriteFrameName(s_pNameListBlueGGrain[gid].c_str());
 		setCardGrainP();
 		backGround->addChild(pSpriteGrain);
 
-		pSpriteZi = CCSprite::createWithSpriteFrameName(s_pNameListNormalCardRedZi[_keyValue].c_str());
+		pSpriteZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardRedZi[_keyValue].c_str());
 		//set zi position
 		setCardZiP();
 		backGround->addChild(pSpriteZi);
 
 		//draw hua
-		pSpriteHua = CCSprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
+		pSpriteHua = Sprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
 		setCardHuaP();
 		backGround->addChild(pSpriteHua);
 	}

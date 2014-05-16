@@ -8,7 +8,7 @@ using namespace std;
 
 namespace View
 {
-	class PlayScence : public CBaseScene
+	class PlayScence : public BaseScene
 	{
 	public:
 		virtual void runThisScene();

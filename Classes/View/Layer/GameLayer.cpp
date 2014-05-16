@@ -17,16 +17,16 @@ GameLayer::~GameLayer()
 void GameLayer::initBackground()
 {
 	// Sky  
-	m_pSkySprite = CCSprite::create("farm.jpg");  
-	m_pSkySpriteRe = CCSprite::create("farm.jpg");  
+	m_pSkySprite = Sprite::create("farm.jpg");  
+	m_pSkySpriteRe = Sprite::create("farm.jpg");  
 	m_pSkySprite->setAnchorPoint(CCPointZero);  
 	m_pSkySpriteRe->setAnchorPoint(CCPointZero);  
 	this->addChild(m_pSkySprite, -10, TAG_BG_NEAR_LAYER);  
 	this->addChild(m_pSkySpriteRe, -10, TAG_BG_NEAR_LAYER);  
 
 	// Map  
-	m_pTileMap = CCSprite::create("land.png");  
-	m_pTileMapRe = CCSprite::create("land.png");  
+	m_pTileMap = Sprite::create("land.png");  
+	m_pTileMapRe = Sprite::create("land.png");  
 	m_pTileMap->setAnchorPoint(CCPointZero);  
 	m_pTileMapRe->setAnchorPoint(CCPointZero);      
 	this->addChild(m_pTileMap, -9, TAG_BG_FAR_LAYER);  
@@ -49,18 +49,18 @@ void GameLayer::initBackground()
 
 void GameLayer::update(float dt)
 {
-	CCArray *bgSprites = this->getChildren();  
-	CCObject *obj = NULL;  
+	//std::vector<Node*> bgSprites = this->getChildren();  
+	//Object *obj = NULL;  
 
-	CCARRAY_FOREACH(bgSprites, obj)  
-	{  
-		movingBackground(obj, dt);  
-	}  
+	//CCARRAY_FOREACH(bgSprites, obj)  
+	//{  
+	//	movingBackground(obj, dt);  
+	//}  
 }
 
-void GameLayer::movingBackground(CCObject *pObj, float dt)
+void GameLayer::movingBackground(Ref *pObj, float dt)
 {
-	CCNode *bgNode = (CCNode*) pObj;  
+	Node *bgNode = (Node*) pObj;  
 	int tag = bgNode->getTag();  
 
 	if (tag == TAG_BG_NEAR_LAYER)

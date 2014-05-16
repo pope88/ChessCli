@@ -7,22 +7,22 @@ namespace View
 {
 	void CMenuScene::InitScene()
 	{
-		CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-		CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+		Size visibleSize = Director::getInstance()->getVisibleSize();
+		Point origin = Director::getInstance()->getVisibleOrigin();
 
-		CCLayer *testLayer = CCLayer::create();
+		Layer *testLayer = Layer::create();
 
 		//try 九宫格
 		//CCRect rect = CCRectMake(0, 0, 320, 480);
 		//CCRect rectInsets = CCRectMake(1, 118, 1, 30);
-		//CCSize winRect = CCSizeMake(visibleSize.width, visibleSize.height);
+		//Size winRect = CCSizeMake(visibleSize.width, visibleSize.height);
 		//CCScale9Sprite *pbgSprite = CCScale9Sprite::create(s_pPathBackGround2, rect, rectInsets);
 		//pbgSprite->setContentSize(winRect);
-		CCSprite  *pbgSprite = CCSprite::create(s_pPathBackGround2);
+		Sprite  *pbgSprite = Sprite::create(s_pPathBackGround2);
 
-		CCLabelTTF* label = CCLabelTTF::create("second scene", "Arial", 20);
+		LabelTTF* label = LabelTTF::create("second scene", "Arial", 20);
 		//#endif
-		CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(CMenuScene::OnTextmenu_Click));
+		MenuItemLabel* pMenuItem = MenuItemLabel::create(label, this, menu_selector(CMenuScene::OnTextmenu_Click));
 
 		
 		CCMenu* pMenu =CCMenu::create(pMenuItem, NULL);
@@ -45,18 +45,18 @@ namespace View
 
 		InitScene();
 
-		if (!CCDirector::sharedDirector()->getRunningScene())
+		if (!Director::getInstance()->getRunningScene())
 		{
-			CCDirector::sharedDirector()->runWithScene(this);
+			Director::getInstance()->runWithScene(this);
 		}
 		else
 		{
-			//CCDirector::sharedDirector()->replaceScene(CCTransitionSlideInR::create(1.5, this));
-			CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(1.5, this));
+			//Director::getInstance()->replaceScene(CCTransitionSlideInR::create(1.5, this));
+			Director::getInstance()->replaceScene(CCTransitionFade::create(1.5, this));
 		}
 	}
 
-	void CMenuScene::OnTextmenu_Click(CCObject *pSender)
+	void CMenuScene::OnTextmenu_Click(Object *pSender)
 	{
 		printf("nothing");
 

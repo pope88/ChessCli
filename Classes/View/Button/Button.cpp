@@ -9,9 +9,9 @@
 	////setIsTouchEnabled(true);
 
 	//// 利用sprite建立三个按钮的选择状态：普通、选中、禁止，这里的第二个参数是切割的一个图片文件。（三个按钮被放在了同一个图片中）。
-	//CCSprite* spriteNormal = CCSprite::create(s_MenuItem, CCRectMake(0,23*2,115,23));
-	//CCSprite* spriteSelected = CCSprite::create(s_MenuItem, CCRectMake(0,23*1,115,23));
-	//CCSprite* spriteDisabled = CCSprite::create(s_MenuItem, CCRectMake(0,23*0,115,23));
+	//Sprite* spriteNormal = Sprite::create(s_MenuItem, CCRectMake(0,23*2,115,23));
+	//Sprite* spriteSelected = Sprite::create(s_MenuItem, CCRectMake(0,23*1,115,23));
+	//Sprite* spriteDisabled = Sprite::create(s_MenuItem, CCRectMake(0,23*0,115,23));
 
 	//CCMenuItemSprite* item1 = CCMenuItem::create(spriteNormal, spriteSelected, spriteDisabled, this, menu_selector(MenuLayer1::menuCallback) );
 //}

@@ -5,13 +5,13 @@
 namespace View
 {
 	//for test SCENE_MENU
-	class CMenuScene : public CBaseScene
+	class CMenuScene : public BaseScene
 	{
 	public:
 		virtual void runThisScene();
 		virtual void InitScene();
 		void ShowOtherScene();
-		void OnTextmenu_Click(CCObject *pSender);
+		void OnTextmenu_Click(Ref *pSender);
 
 	};
 }

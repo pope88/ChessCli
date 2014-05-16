@@ -3,13 +3,13 @@
 
 namespace View
 {
-	CBaseScene::CBaseScene(bool bPortrait)
+	BaseScene::BaseScene(bool bPortrait)
 	{
-		CCScene::init();
+		Scene::init();
 	}
 
-	void  CBaseScene::onEnter()
+	void  BaseScene::onEnter()
 	{
-		CCScene::onEnter();
+		Scene::onEnter();
 	}
 }

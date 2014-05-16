@@ -1,6 +1,7 @@
 #ifndef _TcpNet_H_
 #define _TcpNet_H_
 
+#include "System/Thread.h"
 #include "TcpSocket.h"
 
 //max message size
@@ -36,6 +37,7 @@ namespace TcpNetWork
 		bool receiveMsg(void* pBuf, int& nSize);
 		void runRecvMsg();
 		void closeSocket(){ m_tcpsocket->close();}
+		void close();
 		void drainDataBuf(int len);
 		void copyDataBuf(UInt8 *dstSrc, int len);
 		//bool OnNetMessage( const UInt16& nOpcode, const UInt8* pDataBuffer, UInt16 nDataSize );
@@ -54,11 +56,13 @@ namespace TcpNetWork
 		UInt8   m_cbDataBuf[IN_MAX_POOL_SIZE];     //暂存区
 		int		m_nInbufLen;                       //接受缓冲区中的有效数据长度     
 	private:	
+		System::Thread *_thread;
 		TcpSocket *m_tcpsocket;
 		SKYNETWORK_EVENT_LISTENER  m_pEvent_listener;
 		void* m_pUserData;
 	protected:
 		static Utils *utils;
 	};
+	extern TcpNet _tcpnet;
 }
 #endif

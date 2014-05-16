@@ -1,7 +1,7 @@
 #ifndef _CHARACTERCONVER_H_
 #define _CHARACTERCONVER_H_
 #include "Singleton.h"
-#include "iconv/iconv.h"
+//#include "iconv/iconv.h"
 namespace Utils
 {
 	class CharacterConver

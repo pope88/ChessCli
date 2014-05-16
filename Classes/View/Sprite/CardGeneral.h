@@ -11,8 +11,8 @@ private:
 	void setCardHuaP();
 	void setCardGrainP();
 private:
-	CCSprite *pSpriteZi;
-	CCSprite *pSpriteHua;
-	CCSprite *pSpriteGrain;  //back ground
+	Sprite *pSpriteZi;
+	Sprite *pSpriteHua;
+	Sprite *pSpriteGrain;  //back ground
 
 };

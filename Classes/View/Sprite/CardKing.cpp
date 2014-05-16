@@ -32,12 +32,12 @@ void CardKing::drawCard()
 	if (cardColor >= 0 && cardColor <= 1)
 	{
 		//draw card background
-		pSpriteGrain = CCSprite::createWithSpriteFrameName(s_pNameListKingGrain[cardColor].c_str());
+		pSpriteGrain = Sprite::createWithSpriteFrameName(s_pNameListKingGrain[cardColor].c_str());
 		backGround->addChild(pSpriteGrain);
 		setCardGrainP();
 
 		//draw hua
-		pSpriteHua = CCSprite::createWithSpriteFrameName(s_pNameListKingHua[cardColor].c_str());
+		pSpriteHua = Sprite::createWithSpriteFrameName(s_pNameListKingHua[cardColor].c_str());
 		backGround->addChild(pSpriteHua);
 		setCardHuaP();
 	}
@@ -57,8 +57,8 @@ void CardKing::setCardHuaP()
 {
 	if (pSpriteHua)
 	{
-		pSpriteHua->setAnchorPoint(CCPoint(0, 0));         //set anchor point
-		pSpriteHua->setPosition(CCPoint(6, 80));            //set position
+		pSpriteHua->setAnchorPoint(Point(0, 0));         //set anchor point
+		pSpriteHua->setPosition(Point(6, 80));            //set position
 	}
 }
 
@@ -66,7 +66,7 @@ void CardKing::setCardGrainP()
 {
 	if (pSpriteGrain)
 	{
-		pSpriteGrain->setAnchorPoint(CCPoint(0, 0));         //set anchor point
-		pSpriteGrain->setPosition(CCPoint(20,0));            //set position
+		pSpriteGrain->setAnchorPoint(Point(0, 0));         //set anchor point
+		pSpriteGrain->setPosition(Point(20,0));            //set position
 	}
 }
