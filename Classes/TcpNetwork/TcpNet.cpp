@@ -12,12 +12,12 @@ TcpNet::TcpNet():m_nOutbufLen(0), m_nInbufLen(0), m_tcpsocket(NULL)
 {
 	memset(m_nOutBuff, 0, sizeof(m_nOutBuff));
 	memset(m_InputBuff, 0, sizeof(m_InputBuff));
-	memset(m_cbDataBuf, 0, sizeof(m_cbDataBuf));
+	//memset(m_cbDataBuf, 0, sizeof(m_cbDataBuf));
 }
 
 TcpNet::~TcpNet()
 {
-	memset(m_nOutBuff, 0, sizeof(m_nOutBuff));
+	//memset(m_nOutBuff, 0, sizeof(m_nOutBuff));
 	memset(m_InputBuff, 0, sizeof(m_InputBuff));
 	if (m_tcpsocket != NULL)
 	{
@@ -136,8 +136,12 @@ void TcpNet::runRecvMsg()
 	for (;;)
 	{
 		// 接收数据
+		_mutex.Lock();
 		int nRecvSize = m_tcpsocket->read((char*)(m_InputBuff+m_nInbufLen), sizeof(m_InputBuff)-m_nInbufLen);
-		//::recv(m_tcpsocket->getFD(), (char*)(m_InputBuff+m_nInbufLen), sizeof(m_InputBuff)-m_nInbufLen, 0);
+		// 保存已经接收数据的大小
+		m_nInbufLen += nRecvSize;
+		_mutex.Unlock();
+
 		if (nRecvSize <= 0 && ( m_tcpsocket->lastErr() != WEINPROGRESS &&  m_tcpsocket->lastErr() != WEWOULDBLOCK))
 		{
 			//std::cout << "服务器主动断开连接!" << std::endl;
@@ -146,34 +150,18 @@ void TcpNet::runRecvMsg()
 		else if (nRecvSize <= 0 && ( m_tcpsocket->lastErr() == WEINPROGRESS || m_tcpsocket->lastErr() == WEWOULDBLOCK) )
 		{
 			//std::cout << "等待接受数据!" << std::endl;
-			break;
+			continue;;
 		}
-
-#pragma pack(push, 1)
-		struct PktHdr
-		{
-			Int32 op;
-			Int32 len;
-			Int32 cllid;
-			Int32 svrid;
-		} ATTR_PACKED();
-#pragma pack(pop)
-
-		// 保存已经接收数据的大小
-		m_nInbufLen += nRecvSize;
 
 		// 接收到的数据够不够一个包头的长度
 		while (m_nInbufLen >= PACKETHEADLEN)
 		{
-			UInt8 hdr[20] = {0};
+			UInt8 hdr[10] = {0};
 			// 读取包头
-			CopyMemory(hdr, m_InputBuff, PACKETHEADLEN);
+			memcpy(hdr, m_InputBuff, PACKETHEADLEN);
 			Packet::packhead.Unpack(hdr, PACKETHEADLEN);
 			
 			UInt16 nPacketSize = (Packet::packhead.Getlen() & 0x00FFFFFF) + PACKETHEADLEN;
-
-			// 拷贝到数据缓存
-			CopyMemory(m_cbDataBuf, m_InputBuff, nPacketSize);
 
 			// 判断是否已接收到足够一个完整包的数据
 			if (m_nInbufLen < nPacketSize)
@@ -182,21 +170,20 @@ void TcpNet::runRecvMsg()
 				break;
 			}
 
-			// 拷贝到数据缓存
-			CopyMemory(m_cbDataBuf, m_InputBuff, nPacketSize);
-
-			// 从接收缓存移除
-			MoveMemory(m_InputBuff, m_InputBuff+nPacketSize, sizeof(m_InputBuff) - nPacketSize);
-			m_nInbufLen -= nPacketSize;
-
 			//分发包
 			// 
 
 			// 分派数据包，让应用层进行逻辑处理
-		    //pHead = (PktHdr*) (m_cbDataBuf);
+		   // pHead = (PktHdr*) (m_cbDataBuf);
 			//const UInt16 nDataSize = nPacketSize - (UInt16)sizeof(PktHdr);
 			//OnNetMessage(pHead->op, m_cbDataBuf+sizeof(PktHdr), nDataSize);
-			//Packet::_processor.parseInit(m_cbDataBuf, nPacketSize, 0, 0);
+			Packet::_processor.parseInit(m_InputBuff, nPacketSize, 0, 0);
+
+			_mutex.Lock();
+			// 从接收缓存移除
+			MoveMemory(m_InputBuff, m_InputBuff+nPacketSize, sizeof(m_InputBuff) - nPacketSize);
+			m_nInbufLen -= nPacketSize;
+			_mutex.Unlock();
 		}
 		Sleep(10);
 	}
@@ -206,14 +193,18 @@ void TcpNet::drainDataBuf(int len)
 {
 	if (len > 0)
 	{
-		memset(m_cbDataBuf, 0, len);
-		memmove(m_cbDataBuf, m_cbDataBuf + len, sizeof(m_cbDataBuf) - len);
+		_mutex.Lock();
+		memset(m_InputBuff, 0, len);
+		memmove(m_InputBuff, m_InputBuff + len, sizeof(m_InputBuff) - len);
+		_mutex.Unlock();
 	}
 }
 
 void TcpNet::copyDataBuf(UInt8 *dstSrc, int len)
 {
-	memmove(dstSrc, m_cbDataBuf, len);
+	_mutex.Lock();
+	memmove(dstSrc, m_InputBuff, len);
+	_mutex.Unlock();
 }
 
 //void TcpNet::setEventListener(TcpNet::SKYNETWORK_EVENT_LISTENER  listener,void* pUserData)

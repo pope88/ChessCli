@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
+#include "TcpNetwork/TcpNet.h"
 
 USING_NS_CC;
 
@@ -31,6 +32,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     director->runWithScene(scene);
+
+	TcpNetWork::_tcpnet.connect("127.0.0.1", 7770, 50);
 
     return true;
 }

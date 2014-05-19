@@ -21,12 +21,12 @@ void decryptPacket(UInt32 key, UInt16& op, UInt32 size, UInt8 * buf)
 
 bool Processor::parseInit(UInt8 *evbuf, int len, UInt32 data, UInt32 addr)
 {
-	/*if (len < PACKETHEADLEN)
+	if (len < PACKETHEADLEN)
 	{
 		return false;
 	}
 
-	UInt8 hdr[20] = {0};
+	UInt8 hdr[10] = {0};
 	memcpy((char*)&hdr, evbuf, PACKETHEADLEN);
 	Packet::packhead.Unpack(hdr, PACKETHEADLEN);
 
@@ -37,7 +37,7 @@ bool Processor::parseInit(UInt8 *evbuf, int len, UInt32 data, UInt32 addr)
 	HandlerMsgInit * msg = (HandlerMsgInit *)malloc(sz + sizeof(HandlerMsgInit));
 	if(msg == NULL)
 	{
-		TcpNetWork::_tcpnet.drainDataBuf(sz + 6);
+		//TcpNetWork::_tcpnet.drainDataBuf(sz + 6);
 		return true;
 	}
 	msg->hdr.size = sz;
@@ -47,7 +47,7 @@ bool Processor::parseInit(UInt8 *evbuf, int len, UInt32 data, UInt32 addr)
 	//TcpNetWork::_TcpNet.drainDataBuf(6);	
 	UInt8 *buf = ((UInt8*)msg) + sizeof(HandlerMsgInit);
 	//TcpNetWork::_TcpNet.copyDataBuf(buf, sz);
-	UInt16 op = hdr.op;
+	UInt16 op = Packet::packhead.Getop();
 	decryptPacket(key, op, sz, buf);
 	Handler * hdl = _initHandlers[op];
 	if(hdl == NULL)
@@ -56,7 +56,7 @@ bool Processor::parseInit(UInt8 *evbuf, int len, UInt32 data, UInt32 addr)
 		return true;
 	}
 	msg->hdr.handler = hdl;
-	pushMsg((HandlerMsgHeader *)msg);*/
+	pushMsg((HandlerMsgHeader *)msg);
 	return true;
 		
 }
