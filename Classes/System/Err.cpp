@@ -1,3 +1,4 @@
+#include "Config.h"
 #include <System/Err.h>
 #include <streambuf>
 #include <cstdio>

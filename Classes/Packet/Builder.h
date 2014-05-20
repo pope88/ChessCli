@@ -1,36 +1,27 @@
 #ifndef _BUILDER_H_
 #define _BUILDER_H_
 
-#include "PacketsStoC.h"
-
-namespace Object
-{
-	class User;
-}
+#include "PacketsCtoS.h"
+#include "Game/Player.h"
 
 namespace Packet
 {
-	using namespace game::net::data::StoC;
+	using namespace game::net::data::CtoS;
 
 	class Builder
 	{
 	public:
-		typedef bool (*broadcastFilter)(Object::User *user);
+		typedef bool (*broadcastFilter)(Player *player);
 	public:
-		inline Builder(int o): op(o), _isGateWay(true) {}
+		inline Builder(int o): op(o), _isGateWay(false) {}
 		virtual ~Builder() {}
-		void send(Object::User *user);
-	/*	void send(Object::GPlayer *gplayer);*/
-		void send(UInt32 sid, UInt32 gid);
+		void send();
 		void sendMulti(void *multi);
-		void sendNolock(Object::User *user);
+		void sendNolock(Player *player);
 		/*void sendNolock(Object::GPlayer *gplayer);*/
 		void sendNolock(UInt32 sid, UInt32 gid);
 		void sendLock();
 		void sendUnlock();
-		void broadcast();
-		void broadcast(broadcastFilter);
-		//void broadcastCity(UInt16 cid, Object::User *user = NULL);
 		const std::string& data();
 		bool repack();
 	protected:
@@ -56,7 +47,7 @@ namespace Packet
 		}
 	};
 
-#define DefBuilder(t, o) typedef BuilderT<SC##t##_##o, o> t
+#define DefBuilder(t, o) typedef BuilderT<CS##t##_##o, o> t
 #include "Builder.inl"
 
 }

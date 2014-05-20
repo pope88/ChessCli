@@ -20,7 +20,9 @@ namespace Packet
 		void addHandler(UInt16 op, UInt8 type, Handler * handler);
 
 	private:
-		std::vector<Handler *> _initHandlers, _playerHandlers;
+		std::vector<Handler *> _initHandlers;
+		std::vector<Handler *> _playerHandlers;
+		int niub;
 	};
 	extern Processor _processor;
 }

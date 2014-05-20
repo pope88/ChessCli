@@ -1,10 +1,10 @@
 #ifndef _TPLAYER_H_
 #define _TPLAYER_H_
-class Tplayer
+class Player
 {
 public:
-	Tplayer();
-	virtual ~Tplayer();
+	Player();
+	virtual ~Player();
 	virtual void updateHandCards() {}
 	virtual void updatePutCards() {}
 	virtual void init() {}
@@ -34,22 +34,22 @@ protected:
 };
 
 
-class LeftTplayer : public Tplayer
+class LeftTplayer : public Player
 {
 
 };
 
-class TopTplayer : public Tplayer
+class TopTplayer : public Player
 {
 
 };
 
-class RightTplayer : public Tplayer
+class RightTplayer : public Player
 {
 
 };
 
-class SelfTplayer : public Tplayer
+class SelfTplayer : public Player
 {
 public:
 	SelfTplayer();

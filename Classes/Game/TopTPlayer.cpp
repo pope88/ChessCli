@@ -1,2 +1,2 @@
 #include "Config.h"
-#include "TPlayer.h"
+#include "Player.h"

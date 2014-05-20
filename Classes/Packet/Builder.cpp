@@ -5,48 +5,28 @@
 
 namespace Packet
 {
-	/*
-	//void Builder::send(Object::User *user)
-	//{
-	//	if (user->online())
-	//	{
-	//		send(user->sessionId(), user->gatewayId());
-	//	}
-	//}
-
-	//void Builder::send(Object::GPlayer *gplayer)
-	//{
-	//	if (gplayer->online())
-	//	{
-	//		send(gplayer->sessionId(), gplayer->gatewayId());
-	//	}
-	//}
-
-	void Builder::send(UInt32 sid, UInt32 gid)
+	
+	void Builder::send()
 	{
-		if (gid == 0xFFFFFFFF)
-		{
-			_isGateWay = false;
-		}
 		if (stream.get() != NULL || pack())
 		{
-			Worker::tcp.send(sid, gid, stream);
+			TcpNetWork::_tcpnet.sendMsg(&(*stream)[0], static_cast<int>(stream->size()));
 		}
 	}
 
 	void Builder::sendMulti(void *multi)
 	{
-		if(stream.get() != NULL || pack())
-			Worker::tcp.sendMulti(multi, stream);
+		//if(stream.get() != NULL || pack())
+		//	Worker::tcp.sendMulti(multi, stream);
 	}
 
 
-	void Builder::sendNolock(Object::User *player)
+	void Builder::sendNolock(Player *player)
 	{
-		if (player->online())
-		{
-			sendNolock(player->sessionId(), player->gatewayId());
-		}
+		//if (player->online())
+		//{
+		//	sendNolock(player->sessionId(), player->gatewayId());
+		//}
 	}
 
 	//void Builder::sendNolock(Object::GPlayer *gplayer)
@@ -59,46 +39,26 @@ namespace Packet
 
 	void Builder::sendNolock(UInt32 sid, UInt32 gid)
 	{
-		if (gid == 0xFFFFFFFF)
-		{
-			_isGateWay = false;
-		}
-		if (stream.get() != NULL || pack())
-		{
-			Worker::tcp.sendNolock(sid, gid, stream);
-		}
+		//if (gid == 0xFFFFFFFF)
+		//{
+		//	_isGateWay = false;
+		//}
+		//if (stream.get() != NULL || pack())
+		//{
+		//	Worker::tcp.sendNolock(sid, gid, stream);
+		//}
 	}
 
 	void Builder::sendLock()
 	{
-		Worker::tcp.sendLock();
+		//Worker::tcp.sendLock();
 	}
 
 	void Builder::sendUnlock()
 	{
-		Worker::tcp.sendLock();
+		//Worker::tcp.sendLock();
 	}
 
-	void Builder::broadcast()
-	{
-		if (stream.get() != NULL || pack())
-		{
-			Worker::tcp.broadcast(stream);
-		}
-	}
-
-	void Builder::broadcast(broadcastFilter)
-	{
-		if (stream.get() != NULL || pack())
-		{
-			Worker::tcp.broadcast(stream);
-		}
-	}
-
-	//void Builder::broadcastCity(UInt16 cid, Object::Player *player)
-	//{
-
-	//}
 
 	bool Builder::repack()
 	{
@@ -147,5 +107,5 @@ namespace Packet
 			return *stream.get();
 		}
 		return empty;
-	}*/
+	}
 }

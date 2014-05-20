@@ -1,3 +1,4 @@
+#include "Config.h"
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "TcpNetwork/TcpNet.h"

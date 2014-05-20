@@ -1,4 +1,7 @@
+#include "Config.h"
 #include "HelloWorldScene.h"
+#include "Packet/Builder.h"
+#include "Packet/Processor.h"
 
 USING_NS_CC;
 
@@ -71,6 +74,8 @@ bool HelloWorld::init()
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
+
+	scheduleUpdate();
     
     return true;
 }
@@ -83,9 +88,18 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     return;
 #endif
 
-    Director::getInstance()->end();
+   // Director::getInstance()->end();
+	Packet::UserRegister urg;
+	urg.SetUsername("test@pope");
+	urg.SetPwd("123456");
+	urg.send();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+void HelloWorld::update(float fDelta)
+{
+	Packet::_processor.process();
 }

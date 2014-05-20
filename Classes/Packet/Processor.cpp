@@ -2,10 +2,12 @@
 #include "Processor.h"
 #include "Packet/Handler/Handler.h"
 #include "../TcpNetwork/TcpNet.h"
+#include "Packet/PacketHead.h"
 
 namespace Packet
 {
 Processor _processor;
+
 void decryptPacket(UInt32 key, UInt16& op, UInt32 size, UInt8 * buf)
 {
 	if(key < 2) return;
@@ -63,27 +65,47 @@ bool Processor::parseInit(UInt8 *evbuf, int len, UInt32 data, UInt32 addr)
 
 void Processor::addHandler(UInt16 op, UInt8 type, Handler *handler)
 {
-	if (type & 0x1)
-	{
-		if (_initHandlers.size() < op)
-		{
-			_initHandlers.resize(op+1);
-			_initHandlers[op] = handler;
-		}
-	}
-	else if(type & 0x2)
-	{
-		if (_playerHandlers.size() < op)
-		{
-			_playerHandlers.resize(op+1);
-			_playerHandlers[op] = handler;
-		}
-	}
+	//if (type & 0x1)
+	//{
+	//	if (_initHandlers.size() < op)
+	//	{
+	//		_initHandlers.resize(op+1);
+	//		_initHandlers[op] = handler;
+	//	}
+	//}
+	//else if(type & 0x2)
+	//{
+	//	if (_playerHandlers.size() < op)
+	//	{
+	//		_playerHandlers.resize(op+1);
+	//		_playerHandlers[op] = handler;
+	//	}
+	//}
+
+	_initHandlers.resize(5);
+	_playerHandlers.resize(10);
+
+	int yy = 0;
+	yy = this->_initHandlers.size();
+	niub = 9;
 }
 
 void Processor::process()
 {
-
+	int yy = 0;
+	yy = this->_initHandlers.size();
+	niub;
+	std::vector<HandlerMsgHeader *>* queue = fetchMsg(1000);
+	if (queue == NULL)
+	{
+		return;
+	}
+	for (std::vector<HandlerMsgHeader *>::iterator it = queue->begin(); it != queue->end(); ++it)
+	{
+		(*it)->handler->handle(*it);
+		free(*it);
+	}
+	fetchEnd(queue);
 }
 
 }

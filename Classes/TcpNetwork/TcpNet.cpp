@@ -2,6 +2,7 @@
 #include "TcpNet.h"
 #include "../Packet/Processor.h"
 #include "../Packet/Handler/Handler.h"
+#include "../Packet/PacketHead.h"
 
 namespace TcpNetWork
 {
@@ -139,7 +140,10 @@ void TcpNet::runRecvMsg()
 		_mutex.Lock();
 		int nRecvSize = m_tcpsocket->read((char*)(m_InputBuff+m_nInbufLen), sizeof(m_InputBuff)-m_nInbufLen);
 		// 保存已经接收数据的大小
-		m_nInbufLen += nRecvSize;
+		if (nRecvSize > 0)
+		{
+			m_nInbufLen += nRecvSize;
+		}
 		_mutex.Unlock();
 
 		if (nRecvSize <= 0 && ( m_tcpsocket->lastErr() != WEINPROGRESS &&  m_tcpsocket->lastErr() != WEWOULDBLOCK))
@@ -177,6 +181,7 @@ void TcpNet::runRecvMsg()
 		   // pHead = (PktHdr*) (m_cbDataBuf);
 			//const UInt16 nDataSize = nPacketSize - (UInt16)sizeof(PktHdr);
 			//OnNetMessage(pHead->op, m_cbDataBuf+sizeof(PktHdr), nDataSize);
+
 			Packet::_processor.parseInit(m_InputBuff, nPacketSize, 0, 0);
 
 			_mutex.Lock();
