@@ -8,7 +8,14 @@ namespace Packet
 	class Processor: public System::MsgQueue<HandlerMsgHeader *>
 	{
 	public:
-		Processor(){}
+		Processor()
+		{
+		}
+		static Processor& Instance()
+		{
+			static Processor _processor;
+			return _processor;
+		}
 	public:
 		bool parseInit(UInt8 *evbuf,  int len, UInt32 data, UInt32 addr);
 		//bool parsePlayer(evbuffer *, Object::Player *) {}
@@ -24,6 +31,6 @@ namespace Packet
 		std::vector<Handler *> _playerHandlers;
 		int niub;
 	};
-	extern Processor _processor;
+
 }
 #endif

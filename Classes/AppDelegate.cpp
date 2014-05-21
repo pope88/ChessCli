@@ -34,7 +34,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // run
     director->runWithScene(scene);
 
-	TcpNetWork::_tcpnet.connect("127.0.0.1", 7770, 50);
+	TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
 
     return true;
 }

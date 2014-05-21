@@ -6,7 +6,6 @@
 
 namespace Packet
 {
-Processor _processor;
 
 void decryptPacket(UInt32 key, UInt16& op, UInt32 size, UInt8 * buf)
 {
@@ -49,8 +48,9 @@ bool Processor::parseInit(UInt8 *evbuf, int len, UInt32 data, UInt32 addr)
 	//TcpNetWork::_TcpNet.drainDataBuf(6);	
 	UInt8 *buf = ((UInt8*)msg) + sizeof(HandlerMsgInit);
 	//TcpNetWork::_TcpNet.copyDataBuf(buf, sz);
+	memcpy(buf, evbuf+PACKETHEADLEN, sz);
 	UInt16 op = Packet::packhead.Getop();
-	decryptPacket(key, op, sz, buf);
+	//decryptPacket(key, op, sz, buf);
 	Handler * hdl = _initHandlers[op];
 	if(hdl == NULL)
 	{
@@ -65,29 +65,22 @@ bool Processor::parseInit(UInt8 *evbuf, int len, UInt32 data, UInt32 addr)
 
 void Processor::addHandler(UInt16 op, UInt8 type, Handler *handler)
 {
-	//if (type & 0x1)
-	//{
-	//	if (_initHandlers.size() < op)
-	//	{
-	//		_initHandlers.resize(op+1);
-	//		_initHandlers[op] = handler;
-	//	}
-	//}
-	//else if(type & 0x2)
-	//{
-	//	if (_playerHandlers.size() < op)
-	//	{
-	//		_playerHandlers.resize(op+1);
-	//		_playerHandlers[op] = handler;
-	//	}
-	//}
-
-	_initHandlers.resize(5);
-	_playerHandlers.resize(10);
-
-	int yy = 0;
-	yy = this->_initHandlers.size();
-	niub = 9;
+	if (type & 0x2)
+	{
+		if (_initHandlers.size() < op)
+		{
+			_initHandlers.resize(op+1);
+		}
+		_initHandlers[op] = handler;
+	}
+	else if(type & 0x1)
+	{
+		if (_playerHandlers.size() < op)
+		{
+			_playerHandlers.resize(op+1);
+		}
+		_playerHandlers[op] = handler;
+	}
 }
 
 void Processor::process()

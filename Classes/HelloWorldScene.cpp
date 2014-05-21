@@ -101,5 +101,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::update(float fDelta)
 {
-	Packet::_processor.process();
+	Packet::Processor::Instance().process();
 }

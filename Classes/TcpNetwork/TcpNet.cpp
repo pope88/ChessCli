@@ -182,7 +182,7 @@ void TcpNet::runRecvMsg()
 			//const UInt16 nDataSize = nPacketSize - (UInt16)sizeof(PktHdr);
 			//OnNetMessage(pHead->op, m_cbDataBuf+sizeof(PktHdr), nDataSize);
 
-			Packet::_processor.parseInit(m_InputBuff, nPacketSize, 0, 0);
+			Packet::Processor::Instance().parseInit(m_InputBuff, nPacketSize, 0, 0);
 
 			_mutex.Lock();
 			// ¥”Ω” ’ª∫¥Ê“∆≥˝

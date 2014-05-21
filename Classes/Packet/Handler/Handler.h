@@ -1,7 +1,7 @@
 #ifndef _HANDLER_H_
 #define _HANDLER_H_
 
-#include "Packet/PacketsCtoS.h"
+#include "Packet/PacketsStoC.h"
 
 namespace Object
 {
@@ -12,7 +12,7 @@ namespace Object
 namespace Packet
 {
 
-	using namespace game::net::data::CtoS;
+	using namespace game::net::data::StoC;
 	class Handler;
 
 	struct HandlerMsgHeader
@@ -88,34 +88,23 @@ namespace Packet
 
 #define HANDLER_CLASS(n, o) \
 	namespace Packet { \
-class Handler##n: public HandlerT<Handler##n, CS##n##_##o, o> \
+class Handler##n: public HandlerT<Handler##n, SC##n##_##o, o> \
 { \
 public: \
 	inline size_t getDataBufferSize() { return sizeof(HandlerMsgPlayer); } \
-	inline void process(CS##n##_##o& pkt, HandlerMsgHeader * hdr) \
+	inline void process(SC##n##_##o& pkt, HandlerMsgHeader * hdr) \
 { \
 	Object::Player * player = ((HandlerMsgPlayer *)hdr)->player; \
 	if(player == NULL) return; \
 
-//#define HANDLER_CLASS_GPLAYER(n, o) \
-//	namespace Packet { \
-//class Handler##n: public HandlerT<Handler##n, CS##n##_##o, o, 2> \
-//{ \
-//public: \
-//	inline size_t getDataBufferSize() { return sizeof(HandlerMsgGPlayer); } \
-//	inline void process(CS##n##_##o& pkt, HandlerMsgHeader * hdr) \
-//{ \
-//	Object::GPlayer * gplayer = ((HandlerMsgGPlayer *)hdr)->gplayer; \
-//	if(gplayer == NULL) return; \
-
 
 #define HANDLER_CLASS_INIT(n, o) \
 	namespace Packet { \
-class Handler##n: public HandlerT<Handler##n, CS##n##_##o, o, 3> \
+class Handler##n: public HandlerT<Handler##n, SC##n##_##o, o, 2> \
 { \
 public: \
 	inline size_t getDataBufferSize() { return sizeof(HandlerMsgInit); } \
-	inline void process(CS##n##_##o& pkt, HandlerMsgHeader * hdr) \
+	inline void process(SC##n##_##o& pkt, HandlerMsgHeader * hdr) \
 { \
 	HandlerMsgInit * msgInit__ = (HandlerMsgInit *)hdr; \
 	UInt32 sessionId = msgInit__->sessionId; \

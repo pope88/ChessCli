@@ -6,7 +6,7 @@ namespace Packet
 {
 Handler::Handler(UInt16 op, UInt8 type)
 {
-	_processor.addHandler(op, type, this);
+	Processor::Instance().addHandler(op, type, this);
 }
 
 }
