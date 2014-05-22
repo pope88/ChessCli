@@ -2,6 +2,7 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "TcpNetwork/TcpNet.h"
+#include "View/Layer//GameLayer.h"
 
 USING_NS_CC;
 
@@ -14,11 +15,16 @@ AppDelegate::~AppDelegate()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
+
+	//design 
+	auto designSize = Size(480, 320);
+
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLView::create("My Game");
+		glview->setFrameZoomFactor(0.5);
         director->setOpenGLView(glview);
     }
 
@@ -28,8 +34,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
-    // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+	//
+	auto xx = glview->getFrameSize();
+
+	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_WIDTH);
+
+	director->setContentScaleFactor(480/designSize.height);
+
+
+	// create a scene. it's an autorelease object
+	auto scene = View::GameLayer::creatScene();
 
     // run
     director->runWithScene(scene);

@@ -10,6 +10,7 @@ namespace View
 	class BaseScene : public Scene
 	{
 	public:
+		CREATE_FUNC(BaseScene);
 		BaseScene(bool bPortrait = false);
 	public:
 		virtual void  InitScene() {}
