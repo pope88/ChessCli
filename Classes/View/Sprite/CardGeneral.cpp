@@ -44,6 +44,7 @@ void CardGeneral::drawCard()
 {
 	UInt8 _keyValue = 0;
 	UInt8 gid = 0;
+
 	if (cardValue >= 11 && cardValue <= 13)
 	{
 		_keyValue = cardValue-1;
@@ -60,7 +61,6 @@ void CardGeneral::drawCard()
 	//draw card zi
 	if (cardColor == 0 || cardColor == 2)
 	{
-
 		//draw card background
 		pSpriteGrain = Sprite::createWithSpriteFrameName(s_pNameListRedGGrain[gid].c_str());
 		backGround->addChild(pSpriteGrain);

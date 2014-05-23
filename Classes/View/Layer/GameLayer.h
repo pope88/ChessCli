@@ -1,7 +1,7 @@
 #ifndef _GAMELAYER_H_
 #define _GAMELAYER_H_
 #include "cocos2d.h"
-USING_NS_CC;
+#include "../Sprite/CardBase.h"
 
 namespace View
 {
@@ -15,13 +15,15 @@ namespace View
 	public:
 	    CREATE_FUNC(GameLayer);
 		static Scene* creatScene();
+	public :
+		void createCards();
+		void clearCards();
 	public:
 		virtual void onEnter();
 		bool init();
 	private:
 		Sprite *spBackGround;
-
-
+		std::vector<CardBase*> cardsList;
 	};
 }
 #endif

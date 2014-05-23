@@ -13,12 +13,13 @@ CardNormal::~CardNormal()
 	clearCard();
 }
 
+
 void CardNormal::setCardZiP()
 {
 	if (pSpriteZi)
 	{
 		pSpriteZi->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteZi->setPosition(Point(8,125));            //set position
+		pSpriteZi->setPosition(Point(8,55));            //set position
 	}
 }
 
@@ -36,7 +37,7 @@ void CardNormal::setCardGrainP()
 	if (pSpriteGrain)
 	{
 		pSpriteGrain->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteGrain->setPosition(Point(40,30));            //set position
+		pSpriteGrain->setPosition(Point(25,30));           //set position
 	}
 }
 
@@ -45,7 +46,7 @@ void CardNormal::drawCard()
 	UInt8 _keyValue = 0;
 	if (cardValue >= 3 && cardValue <= 10)
 	{
-		_keyValue = cardValue-1;
+		_keyValue = cardValue - 1;
 	}
 	else if (cardValue >= 14 && cardValue <= 15)
 	{
@@ -65,8 +66,6 @@ void CardNormal::drawCard()
 		backGround->addChild(pSpriteZi);
 		//set zi position
 		setCardZiP();
-
-
 	}
 	else if (cardColor == 1 || cardColor == 3)
 	{
@@ -98,9 +97,8 @@ void CardNormal::drawCard()
 		LOGERROR<<"card Color error";
 		return;
 	}
-	
-	addChild(shadow);
 }
+
 void CardNormal::clearCard()
 {
 	this->removeChild(pSpriteZi, true);

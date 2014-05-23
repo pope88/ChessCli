@@ -10,20 +10,11 @@ CardBase::~CardBase()
 {
 	clearCard();
 }
+
 void CardBase::drawCard()
 {
-	SpriteFrameCache *cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile(s_pPlistDDZMainGame0);
 	backGround = Sprite::createWithSpriteFrameName(s_pNameCardBackGround);
 	this->addChild(backGround);
-	//backGround->autorelease();
-
-	//cache->addSpriteFramesWithFile("Images/animation/chooserole/mt/chooserole_mt_part1.plist");
-	//backGround=Sprite::createWithSpriteFrameName("mt_0001.png");
-	//this->addChild(backGround);	
-
-	shadow = Sprite::createWithSpriteFrameName(s_pNameCardShadow);
-
 }
 
 void CardBase::clearCard()
@@ -54,7 +45,8 @@ bool CardBase::ccTouchBegan(Touch* touch, Event* event)
 	//glLineWidth(16);
 	//ccDrawColor4B(0, 255, 0, 255);
 	//ccDrawCircle( VisibleRect::center(), 100, 0, 10, false);
-	Size s = this->backGround->getContentSize();
+
+	Size s = backGround->getContentSize();
 
 	DrawNode *draw = DrawNode::create();
 	addChild(draw, 10);
@@ -84,7 +76,7 @@ void CardBase::ccTouchEnded(Touch *pTouch, Event *pEvent)
 	b.r = 255;
 	b.g = 255;
 	b.b = 255;
+
 	backGround->setColor(b);
 	CCLog("ccTouchEnded");
-	removeChild(shadow,false);
 }
