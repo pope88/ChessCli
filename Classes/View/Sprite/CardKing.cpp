@@ -6,12 +6,18 @@
 
 CardKing::CardKing(UInt8 cValue, UInt8 color):CardBase(cValue, color), pSpriteHua(NULL), pSpriteGrain(NULL)
 {
-	drawCard();
+	init();
 }
 
 CardKing::~CardKing()
 {
 	clearCard();
+}
+
+bool CardKing::init()
+{
+	drawCard();
+	return true;
 }
 
 void CardKing::drawCard()
@@ -50,7 +56,8 @@ void CardKing::drawCard()
 }
 void CardKing::clearCard()
 {
-
+	removeChild(pSpriteHua);
+	removeChild(pSpriteGrain);
 }
 
 void CardKing::setCardHuaP()

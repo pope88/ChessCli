@@ -4,11 +4,18 @@
 
 CardBase::CardBase(UInt8 cValue, UInt8 color):Node(), cardValue(cValue), cardColor(color)
 {
-	drawCard();
+	this->init();
 }
 CardBase::~CardBase()
 {
 	clearCard();
+}
+
+
+bool CardBase::init()
+{
+	drawCard();
+	return true;
 }
 
 void CardBase::drawCard()

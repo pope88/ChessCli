@@ -5,6 +5,7 @@ class CardNormal : public CardBase
 public:
 	CardNormal(UInt8 cValue, UInt8 color);
 	virtual ~CardNormal();
+	virtual bool init();
 	virtual void drawCard(); 
 	virtual void clearCard();
 private:

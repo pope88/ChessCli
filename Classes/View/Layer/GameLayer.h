@@ -21,6 +21,8 @@ namespace View
 	public:
 		virtual void onEnter();
 		bool init();
+		bool onTouchBegan(Touch* touch, Event  *event);
+		void onTouchEnded(Touch* touch, Event  *event);
 	private:
 		Sprite *spBackGround;
 		std::vector<CardBase*> cardsList;

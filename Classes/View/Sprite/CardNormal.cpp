@@ -5,7 +5,7 @@
 
 CardNormal::CardNormal(UInt8 cValue, UInt8 color):CardBase(cValue, color),pSpriteZi(NULL), pSpriteHua(NULL), pSpriteGrain(NULL)
 {
-	drawCard();
+	init();
 }
 
 CardNormal::~CardNormal()
@@ -13,6 +13,11 @@ CardNormal::~CardNormal()
 	clearCard();
 }
 
+bool CardNormal::init()
+{
+	drawCard();
+	return true;
+}
 
 void CardNormal::setCardZiP()
 {
@@ -101,7 +106,7 @@ void CardNormal::drawCard()
 
 void CardNormal::clearCard()
 {
-	this->removeChild(pSpriteZi, true);
-	this->removeChild(pSpriteHua, true);
-	this->removeChild(pSpriteGrain, true);
+	removeChild(pSpriteZi, true);
+	removeChild(pSpriteHua, true);
+	removeChild(pSpriteGrain, true);
 }

@@ -12,6 +12,11 @@ void GameLayer::onEnter()
 
 bool GameLayer::init()
 {
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	SpriteFrameCache *cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile(s_pPlistDDZcards);
 
@@ -36,18 +41,32 @@ Scene* GameLayer::creatScene()
 
 void GameLayer::createCards()
 {
-	CardBase *pcard = new CardNormal(3, 0);
-	this->addChild(pcard);
-	pcard->setPosition(100, 100);
-	cardsList.push_back(pcard);
+	for (int i = 0; i < 7; ++i)
+	{
+		CardBase *pcard = new CardNormal(3+i, 0);
+		this->addChild(pcard);
+		pcard->setPosition(100+30*i, 100);
+		cardsList.push_back(pcard);
+	}
 }
 
 void GameLayer::clearCards()
 {
 	for (size_t i = 0; i < cardsList.size(); ++i)
 	{
+		this->removeChild(cardsList[i]);
 		delete cardsList[i];
 	}
+}
+
+bool GameLayer::onTouchBegan(Touch* touch, Event  *event)
+{
+	return true;
+}
+
+void GameLayer::onTouchEnded(Touch* touch, Event  *event)
+{
+	clearCards();
 }
 
 }

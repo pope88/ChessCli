@@ -5,7 +5,7 @@
 
 CardGeneral::CardGeneral(UInt8 cValue, UInt8 color):CardBase(cValue, color),pSpriteZi(NULL), pSpriteHua(NULL), pSpriteGrain(NULL)
 {
-	drawCard();
+	init();
 }
 
 CardGeneral::~CardGeneral()
@@ -38,6 +38,13 @@ void CardGeneral::setCardGrainP()
 		pSpriteGrain->setAnchorPoint(Point(0, 0));         //set anchor point
 		pSpriteGrain->setPosition(Point(20,0));            //set position
 	}
+}
+
+
+bool CardGeneral::init()
+{
+	drawCard();
+	return  true;
 }
 
 void CardGeneral::drawCard()

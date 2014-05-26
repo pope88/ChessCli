@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 USING_NS_CC;
-class CardBase : public Node//, public TargetedTouchDelegate
+class CardBase : public Node
 {
 	enum 
 	{
@@ -13,6 +13,7 @@ public:
 	CardBase(UInt8 cValue, UInt8 color); //card value , card color
 	virtual ~CardBase();
 public:
+	virtual bool init();
 	virtual void drawCard();
 	virtual void clearCard();
 	inline UInt8 getCardValue() { return cardValue; }
