@@ -27,6 +27,8 @@ bool GameLayer::init()
 	spBackGround->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 	this->addChild(spBackGround);
 
+	forTest();
+
 	return true;
 }
 
@@ -35,7 +37,7 @@ Scene* GameLayer::creatScene()
 	auto scene = Scene::create();
 	auto layer = GameLayer::create();
 	scene->addChild(layer);
-	layer->createCards();
+	//layer->createCards();
 	return scene;
 }
 
@@ -57,6 +59,7 @@ void GameLayer::clearCards()
 		this->removeChild(cardsList[i]);
 		delete cardsList[i];
 	}
+	cardsList.clear();
 }
 
 bool GameLayer::onTouchBegan(Touch* touch, Event  *event)
@@ -66,7 +69,65 @@ bool GameLayer::onTouchBegan(Touch* touch, Event  *event)
 
 void GameLayer::onTouchEnded(Touch* touch, Event  *event)
 {
-	clearCards();
+	//clearCards();
+}
+
+void GameLayer::forTest()
+{
+	auto origin = Director::getInstance()->getVisibleOrigin();
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto pButton1 = MenuItemImage::create(
+		"CloseNormal.png",
+		"CloseSelected.png",
+		CC_CALLBACK_1(GameLayer::onButtonClick1, this));
+	pButton1->setPosition(Point(0, 0));
+
+	auto pButton2 = MenuItemImage::create(
+		"CloseNormal.png",
+		"CloseSelected.png",
+		CC_CALLBACK_1(GameLayer::onButtonClick2, this));
+	pButton2->setPosition(Point(50, 0));
+
+
+	auto pButton3 = MenuItemImage::create(
+		"CloseNormal.png",
+		"CloseSelected.png",
+		CC_CALLBACK_1(GameLayer::onButtonClick3, this));
+	pButton3->setPosition(Point(100, 0));
+
+	auto menu = Menu::create();
+	menu->addChild(pButton1);
+	menu->addChild(pButton2);
+	menu->addChild(pButton3);
+
+	this->addChild(menu);
+	menu->setPosition(Point(50, 300));
+
+	auto label = LabelTTF::create("Hello World", "Arial", 20);
+	label->setTag(101);
+
+	// position the label on the center of the screen
+	label->setPosition(Point(origin.x + visibleSize.width/2,
+		origin.y + visibleSize.height - label->getContentSize().height));
+
+	// add the label as a child to this layer
+	this->addChild(label, 1);
+}
+
+void GameLayer::onButtonClick1(Ref* pSender)
+{
+	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 1");
+}
+
+void GameLayer::onButtonClick2(Ref* pSender)
+{
+	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 2");
+}
+
+void GameLayer::onButtonClick3(Ref* pSender)
+{
+	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 3");
 }
 
 }
