@@ -89,10 +89,6 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 #endif
 
    // Director::getInstance()->end();
-	Packet::UserRegister urg;
-	urg.SetUsername("test@pope");
-	urg.SetPwd("123456");
-	urg.send();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);

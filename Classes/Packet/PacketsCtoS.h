@@ -116,9 +116,9 @@ class CSUserInfo_0x03: public ::ssu::Object {
 
 };
 
-class CSUserRoomInfo_0x04: public ::ssu::Object {
+class CSUserRoomList_0x04: public ::ssu::Object {
  public:
-  virtual ~CSUserRoomInfo_0x04() { }
+  virtual ~CSUserRoomList_0x04() { }
 
  public:
   virtual uint8_t * PackBuffer(uint8_t * buf);
@@ -128,11 +128,23 @@ class CSUserRoomInfo_0x04: public ::ssu::Object {
 
 };
 
-class CSUserEnterRoom_0x05: public ::ssu::Object {
+class CSUserRoomInfo_0x05: public ::ssu::Object {
  public:
-  inline CSUserEnterRoom_0x05(): _roomid(0) { }
+  virtual ~CSUserRoomInfo_0x05() { }
 
-  virtual ~CSUserEnterRoom_0x05() { }
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+
+};
+
+class CSUserEnterRoom_0x06: public ::ssu::Object {
+ public:
+  inline CSUserEnterRoom_0x06(): _roomid(0) { }
+
+  virtual ~CSUserEnterRoom_0x06() { }
 
  public:
   virtual uint8_t * PackBuffer(uint8_t * buf);

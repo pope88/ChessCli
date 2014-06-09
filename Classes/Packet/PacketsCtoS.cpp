@@ -116,24 +116,36 @@ size_t CSUserInfo_0x03::Size() const {
   return 0;
 }
 
-uint8_t * CSUserRoomInfo_0x04::PackBuffer(uint8_t * buf) {
+uint8_t * CSUserRoomList_0x04::PackBuffer(uint8_t * buf) {
   return buf;
 }
 
-bool CSUserRoomInfo_0x04::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+bool CSUserRoomList_0x04::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
   return true;
 }
 
-size_t CSUserRoomInfo_0x04::Size() const {
+size_t CSUserRoomList_0x04::Size() const {
   return 0;
 }
 
-uint8_t * CSUserEnterRoom_0x05::PackBuffer(uint8_t * buf) {
+uint8_t * CSUserRoomInfo_0x05::PackBuffer(uint8_t * buf) {
+  return buf;
+}
+
+bool CSUserRoomInfo_0x05::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  return true;
+}
+
+size_t CSUserRoomInfo_0x05::Size() const {
+  return 0;
+}
+
+uint8_t * CSUserEnterRoom_0x06::PackBuffer(uint8_t * buf) {
   buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _roomid);
   return buf;
 }
 
-bool CSUserEnterRoom_0x05::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+bool CSUserEnterRoom_0x06::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
   uint32_t tag_; uint8_t type_;
   while(leftSize > 0) {
     if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
@@ -147,7 +159,7 @@ bool CSUserEnterRoom_0x05::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) 
   return true;
 }
 
-size_t CSUserEnterRoom_0x05::Size() const {
+size_t CSUserEnterRoom_0x06::Size() const {
   return 1 + ::ssu::Utils::SizeUInt32(_roomid);
 }
 

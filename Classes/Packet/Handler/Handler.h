@@ -5,7 +5,7 @@
 
 namespace Object
 {
-	class Player;
+	class User;
 }
 
 
@@ -22,26 +22,13 @@ namespace Packet
 		UInt32 size;
 	};
 
-	struct HandlerMsgGPlayer
-	{
-		HandlerMsgHeader hdr;
-		union
-		{
-			Object::Player *player;
-			struct
-			{
-				UInt32 gpId;
-				UInt16 op;
-			}gateway;
-		};
-	};
 
 	struct HandlerMsgPlayer
 	{
 		HandlerMsgHeader hdr;
 		union
 		{
-			Object::Player * player;
+			Object::User *user;
 			struct
 			{
 				UInt32 pId;
@@ -94,8 +81,8 @@ public: \
 	inline size_t getDataBufferSize() { return sizeof(HandlerMsgPlayer); } \
 	inline void process(SC##n##_##o& pkt, HandlerMsgHeader * hdr) \
 { \
-	Object::Player * player = ((HandlerMsgPlayer *)hdr)->player; \
-	if(player == NULL) return; \
+	Object::User * user = ((HandlerMsgPlayer *)hdr)->user; \
+	if(user == NULL) return; \
 
 
 #define HANDLER_CLASS_INIT(n, o) \

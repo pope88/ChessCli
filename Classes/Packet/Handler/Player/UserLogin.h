@@ -11,6 +11,6 @@ inline UInt8 hextov(char s)
 
 HANDLER_CLASS_INIT(UserLogin, 0x02)
 {
-	int yy = 0;
+ printf("on server user login ");
 }
 HANDLER_END(UserLogin)

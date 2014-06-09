@@ -70,12 +70,21 @@ class SCUserLogin_0x02: public ::ssu::Object {
   inline void SetBanTime(uint32_t val__) { _banTime = val__; _isSetFlag[0] |= 0x08; }
   inline bool HasBanTime() const { return (_isSetFlag[0] & 0x08) > 0; }
 
+  inline uint32_t Steps(size_t index__) const { return _steps[index__]; }
+  inline void AddSteps(uint32_t val__) { _steps.Add(val__); }
+  inline void SetSteps(size_t index__, uint32_t val__) { _steps[index__] = val__; }
+  inline ::ssu::RepeatedObject<uint32_t>& MutableSteps() { return _steps; }
+  inline size_t StepsSize() const { return _steps.Size(); }
+  inline void ClearSteps() { _steps.Clear(); }
+  inline void ReserveSteps(size_t size__) { if(_steps.Size() < size__) _steps.Reserve(size__); }
+
  protected:
   uint32_t _result;
   uint32_t _userId;
   std::string _userName;
   uint32_t _vipLevel;
   uint32_t _banTime;
+  ::ssu::RepeatedObject<uint32_t> _steps;
 
   uint32_t _isSetFlag[1];
 
@@ -109,9 +118,55 @@ class SCUserInfo_0x03: public ::ssu::Object {
 
 };
 
-class SCUserRoomInfo_0x04: public ::ssu::Object {
+class RoomInfo: public ::ssu::Object {
  public:
-  virtual ~SCUserRoomInfo_0x04() { }
+  inline RoomInfo(): _roomId(0), _palyerNum(0) { }
+
+  virtual ~RoomInfo() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline uint32_t RoomId() const { return _roomId; }
+  inline void SetRoomId(uint32_t val__) { _roomId = val__; }
+
+  inline uint32_t PalyerNum() const { return _palyerNum; }
+  inline void SetPalyerNum(uint32_t val__) { _palyerNum = val__; }
+
+ protected:
+  uint32_t _roomId;
+  uint32_t _palyerNum;
+
+};
+
+class SCUserRoomList_0x04: public ::ssu::Object {
+ public:
+  virtual ~SCUserRoomList_0x04();
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline const RoomInfo& Rmlist(size_t index__) const { return *_rmlist[index__]; }
+  inline RoomInfo * NewRmlist() { return new(std::nothrow) RoomInfo; }
+  inline RoomInfo * AddRmlist() { RoomInfo * val__ = new(std::nothrow) RoomInfo; if(val__ == NULL) return NULL; _rmlist.Add(val__); return val__; }
+  inline ::ssu::RepeatedObject<RoomInfo *>& MutableRmlist() { return _rmlist; }
+  inline size_t RmlistSize() const { return _rmlist.Size(); }
+  inline void ClearRmlist() { for(::ssu::RepeatedObject<RoomInfo *>::iterator iter = _rmlist.begin(); iter != _rmlist.end(); ++ iter) { delete *iter; } _rmlist.Clear(); }
+  inline void ReserveRmlist(size_t size__) { if(_rmlist.Size() < size__) _rmlist.Reserve(size__); }
+
+ protected:
+  ::ssu::RepeatedObject<RoomInfo *> _rmlist;
+
+};
+
+class SCUserRoomInfo_0x05: public ::ssu::Object {
+ public:
+  virtual ~SCUserRoomInfo_0x05() { }
 
  public:
   virtual uint8_t * PackBuffer(uint8_t * buf);
@@ -121,11 +176,11 @@ class SCUserRoomInfo_0x04: public ::ssu::Object {
 
 };
 
-class SCUserEnterRoom_0x05: public ::ssu::Object {
+class SCUserEnterRoom_0x06: public ::ssu::Object {
  public:
-  inline SCUserEnterRoom_0x05(): _res(0) { }
+  inline SCUserEnterRoom_0x06(): _res(0) { }
 
-  virtual ~SCUserEnterRoom_0x05() { }
+  virtual ~SCUserEnterRoom_0x06() { }
 
  public:
   virtual uint8_t * PackBuffer(uint8_t * buf);

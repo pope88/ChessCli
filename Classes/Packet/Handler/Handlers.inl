@@ -1,3 +1,6 @@
 #include "Player/UserLogin.h"
 #include "Player/UserRegister.h"
-
+#include "Hall/UserEnterRoom.h"
+#include "Hall/UserInfo.h"
+#include "Hall/UserRoomInfo.h"
+#include "Hall/UserRoomList.h"

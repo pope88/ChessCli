@@ -1,0 +1,67 @@
+option optimize_for = LITE_RUNTIME;
+option cc_generic_services = false;
+package game.net.data.CtoS;
+
+
+//packet head
+message HeadPack
+{
+	required fixed32 cmdtype = 1;
+	required fixed32 cmdlen = 2;
+}
+
+
+// 0xFFFF
+// 登出信息
+message CSUserLogout_0xFFFF 
+{
+}
+
+// 0x01
+// 玩家注册
+message CSUserRegister_0x01
+{
+  // 玩家ID(一般为username@servername)，如果ID为空则请求新的随机姓名
+  required string username = 1;    
+  //pwd
+  required string pwd = 2;
+
+}
+
+// 0x02
+// 登录信息
+message CSUserLogin_0x02
+{
+  // 玩家ID
+  required string username = 1;
+  // 验证key
+  optional string pwd = 2;
+  // 强制防沉迷状态
+  optional uint32 wallow = 3;
+}
+
+// 0x03
+// 请求玩家信息
+message CSUserInfo_0x03 
+{
+}
+
+//0x04
+//玩家请求房间列表信息
+message CSUserRoomList_0x04
+{
+}
+
+//0x05
+//玩家请求房间列表信息
+message CSUserRoomInfo_0x05
+{
+}
+
+//0x06
+//玩家请求进入房间
+message CSUserEnterRoom_0x06
+{
+   //玩家选择要进入的游戏房间号
+   required uint32 roomid = 1;
+}

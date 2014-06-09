@@ -2,6 +2,8 @@
 #include "GameLayer.h"
 #include "../Sprite/CardNormal.h"
 #include "../GameResources.h"
+#include "../../Packet/Builder.h"
+
 namespace View
 {
 
@@ -117,12 +119,23 @@ void GameLayer::forTest()
 
 void GameLayer::onButtonClick1(Ref* pSender)
 {
-	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 1");
+	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("User Register");
+
+	Packet::UserRegister urg;
+	urg.SetUsername("chess@pope");
+	urg.SetPwd("123456");
+	urg.send();
+
 }
 
 void GameLayer::onButtonClick2(Ref* pSender)
 {
-	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 2");
+	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("User Login");
+
+	Packet::UserLogin ulogin;
+	ulogin.SetUsername("chess@pope");
+	ulogin.SetPwd("123456");
+	ulogin.send();
 }
 
 void GameLayer::onButtonClick3(Ref* pSender)
