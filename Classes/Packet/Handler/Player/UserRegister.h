@@ -1,4 +1,4 @@
-HANDLER_CLASS_INIT(UserRegister, 0x01)
+HANDLER_CLASS(UserRegister, 0x01)
 {
 	printf("on server UserRegister");
 }

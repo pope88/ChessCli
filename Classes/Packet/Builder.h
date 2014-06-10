@@ -2,8 +2,9 @@
 #define _BUILDER_H_
 
 #include "PacketsCtoS.h"
-#include "Game/Player.h"
+#include "../Game/Player.h"
 
+using namespace Game;
 namespace Packet
 {
 	using namespace game::net::data::CtoS;

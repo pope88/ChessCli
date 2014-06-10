@@ -51,7 +51,7 @@ bool Processor::parseInit(UInt8 *evbuf, int len, UInt32 data, UInt32 addr)
 	memcpy(buf, evbuf+PACKETHEADLEN, sz);
 	UInt16 op = Packet::packhead.Getop();
 	//decryptPacket(key, op, sz, buf);
-	Handler * hdl = _initHandlers[op];
+	Handler * hdl = _playerHandlers[op];
 	if(hdl == NULL)
 	{
 		free(msg);
@@ -81,6 +81,11 @@ void Processor::addHandler(UInt16 op, UInt8 type, Handler *handler)
 		}
 		_playerHandlers[op] = handler;
 	}
+}
+
+void Processor::update(float delta)
+{
+	this->process();
 }
 
 void Processor::process()

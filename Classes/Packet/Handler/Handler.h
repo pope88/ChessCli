@@ -3,9 +3,9 @@
 
 #include "Packet/PacketsStoC.h"
 
-namespace Object
+namespace Game
 {
-	class User;
+	class Player;
 }
 
 
@@ -28,7 +28,7 @@ namespace Packet
 		HandlerMsgHeader hdr;
 		union
 		{
-			Object::User *user;
+			Game::Player *player;
 			struct
 			{
 				UInt32 pId;
@@ -78,11 +78,13 @@ namespace Packet
 class Handler##n: public HandlerT<Handler##n, SC##n##_##o, o> \
 { \
 public: \
-	inline size_t getDataBufferSize() { return sizeof(HandlerMsgPlayer); } \
+	inline size_t getDataBufferSize() { return sizeof(HandlerMsgInit); } \
 	inline void process(SC##n##_##o& pkt, HandlerMsgHeader * hdr) \
 { \
-	Object::User * user = ((HandlerMsgPlayer *)hdr)->user; \
-	if(user == NULL) return; \
+	HandlerMsgInit * msgInit__ = (HandlerMsgInit *)hdr; \
+	UInt32 sessionId = msgInit__->sessionId; \
+	UInt32 gatewayId = msgInit__->fromGateway; \
+	UInt32 remoteAddr = msgInit__->remoteAddr; \
 
 
 #define HANDLER_CLASS_INIT(n, o) \

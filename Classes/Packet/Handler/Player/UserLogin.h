@@ -9,8 +9,9 @@ inline UInt8 hextov(char s)
 	return 0;
 }
 
-HANDLER_CLASS_INIT(UserLogin, 0x02)
+HANDLER_CLASS(UserLogin, 0x02)
 {
  printf("on server user login ");
+
 }
 HANDLER_END(UserLogin)

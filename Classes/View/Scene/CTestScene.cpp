@@ -1,7 +1,7 @@
 #include "Config.h"
 #include "CTestScene.h"
 #include "Utils/CharacterConver.h"
-#include "../../Game/GameManager.h"
+#include "../../View/GameManager.h"
 #include "../GameResources.h"
 //#include "../Sprite/CardBase.h"
 #include "../Sprite/CCardSprite.h"
