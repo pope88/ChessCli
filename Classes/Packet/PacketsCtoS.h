@@ -160,6 +160,38 @@ class CSUserEnterRoom_0x06: public ::ssu::Object {
 
 };
 
+class CSUserEnterTable_0x07: public ::ssu::Object {
+ public:
+  inline CSUserEnterTable_0x07(): _tableno(0) { }
+
+  virtual ~CSUserEnterTable_0x07() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline uint32_t Tableno() const { return _tableno; }
+  inline void SetTableno(uint32_t val__) { _tableno = val__; }
+
+ protected:
+  uint32_t _tableno;
+
+};
+
+class CSUserPlayNow_0x08: public ::ssu::Object {
+ public:
+  virtual ~CSUserPlayNow_0x08() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+
+};
+
 }
 }
 }

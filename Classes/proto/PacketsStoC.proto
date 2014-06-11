@@ -76,3 +76,19 @@ message SCUserEnterRoom_0x06
   //玩家进入失败
   required uint32 res = 1;
 }
+
+//0x07
+//玩家请求进入桌子
+message SCUserEnterTable_0x07
+{
+  //玩家进入桌子失败
+  required uint32 res = 1;
+}
+
+//0x08
+//快速比赛失败
+message SCUserPlayNow_0x08
+{
+  //玩家快速比赛结果
+  required uint32 res = 1;
+}

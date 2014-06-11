@@ -21,12 +21,14 @@ namespace View
 	public:
 		virtual void onEnter();
 		bool init();
-		bool onTouchBegan(Touch* touch, Event  *event);
-		void onTouchEnded(Touch* touch, Event  *event);
+		bool onTouchBegan(Touch *touch, Event *event);
+		void onTouchEnded(Touch *touch, Event *event);
 		void forTest();
-		void onButtonClick1(Ref* pSender);
-		void onButtonClick2(Ref* pSender);
-		void onButtonClick3(Ref* pSender);
+		void onButtonClick1(Ref *pSender);
+		void onButtonClick2(Ref *pSender);
+		void onButtonClick3(Ref *pSender);
+		void onButtonClick4(Ref *psender);
+		void onButtonClick5(Ref *psender);
 	private:
 		Sprite *spBackGround;
 		std::vector<CardBase*> cardsList;

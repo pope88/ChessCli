@@ -141,6 +141,18 @@ void GameLayer::onButtonClick2(Ref* pSender)
 void GameLayer::onButtonClick3(Ref* pSender)
 {
 	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 3");
+
+	Packet::UserEnterRoom uer;
+	uer.SetRoomid(0);
+	uer.send();
+}
+
+void GameLayer::onButtonClick4(Ref* psender)
+{
+	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 4");
+	
+	Packet::UserPlayNow upn;
+	upn.send();
 }
 
 }

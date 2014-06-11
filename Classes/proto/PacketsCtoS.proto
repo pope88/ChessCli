@@ -65,3 +65,18 @@ message CSUserEnterRoom_0x06
    //玩家选择要进入的游戏房间号
    required uint32 roomid = 1;
 }
+
+//0x07
+//玩家请求进入房间
+message CSUserEnterTable_0x07
+{
+ //桌子号
+  required uint32 tableno = 1;
+}
+
+//0x08
+//快速比赛
+message CSUserPlayNow_0x08
+{
+}
+

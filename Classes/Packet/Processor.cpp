@@ -67,7 +67,7 @@ void Processor::addHandler(UInt16 op, UInt8 type, Handler *handler)
 {
 	if (type & 0x2)
 	{
-		if (_initHandlers.size() < op)
+		if (_initHandlers.size() <= op)
 		{
 			_initHandlers.resize(op+1);
 		}
@@ -75,7 +75,7 @@ void Processor::addHandler(UInt16 op, UInt8 type, Handler *handler)
 	}
 	else if(type & 0x1)
 	{
-		if (_playerHandlers.size() < op)
+		if (_playerHandlers.size() <= op)
 		{
 			_playerHandlers.resize(op+1);
 		}

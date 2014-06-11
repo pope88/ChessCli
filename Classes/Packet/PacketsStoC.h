@@ -196,6 +196,46 @@ class SCUserEnterRoom_0x06: public ::ssu::Object {
 
 };
 
+class SCUserEnterTable_0x07: public ::ssu::Object {
+ public:
+  inline SCUserEnterTable_0x07(): _res(0) { }
+
+  virtual ~SCUserEnterTable_0x07() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline uint32_t Res() const { return _res; }
+  inline void SetRes(uint32_t val__) { _res = val__; }
+
+ protected:
+  uint32_t _res;
+
+};
+
+class SCUserPlayNow_0x08: public ::ssu::Object {
+ public:
+  inline SCUserPlayNow_0x08(): _res(0) { }
+
+  virtual ~SCUserPlayNow_0x08() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline uint32_t Res() const { return _res; }
+  inline void SetRes(uint32_t val__) { _res = val__; }
+
+ protected:
+  uint32_t _res;
+
+};
+
 }
 }
 }

@@ -163,6 +163,41 @@ size_t CSUserEnterRoom_0x06::Size() const {
   return 1 + ::ssu::Utils::SizeUInt32(_roomid);
 }
 
+uint8_t * CSUserEnterTable_0x07::PackBuffer(uint8_t * buf) {
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _tableno);
+  return buf;
+}
+
+bool CSUserEnterTable_0x07::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  uint32_t tag_; uint8_t type_;
+  while(leftSize > 0) {
+    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
+    switch(tag_) {
+     case 1:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _tableno)) return false;
+      break;
+     default: break;
+    }
+  }
+  return true;
+}
+
+size_t CSUserEnterTable_0x07::Size() const {
+  return 1 + ::ssu::Utils::SizeUInt32(_tableno);
+}
+
+uint8_t * CSUserPlayNow_0x08::PackBuffer(uint8_t * buf) {
+  return buf;
+}
+
+bool CSUserPlayNow_0x08::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  return true;
+}
+
+size_t CSUserPlayNow_0x08::Size() const {
+  return 0;
+}
+
 }
 }
 }
