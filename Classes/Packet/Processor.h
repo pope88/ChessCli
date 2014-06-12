@@ -15,6 +15,12 @@ namespace Packet
 			this->onEnterTransitionDidFinish();
 			this->scheduleUpdate();
 		}
+
+		~Processor()
+		{
+			this->onExit();
+		}
+
 		static Processor& Instance()
 		{
 			static Processor _processor;

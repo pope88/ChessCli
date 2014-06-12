@@ -98,10 +98,24 @@ void GameLayer::forTest()
 		CC_CALLBACK_1(GameLayer::onButtonClick3, this));
 	pButton3->setPosition(Point(100, 0));
 
+	auto pButton4 = MenuItemImage::create(
+		"CloseNormal.png",
+		"CloseSelected.png",
+		CC_CALLBACK_1(GameLayer::onButtonClick4, this));
+	pButton4->setPosition(Point(150, 0));
+
+	auto pButton5 = MenuItemImage::create(
+		"CloseNormal.png",
+		"CloseSelected.png",
+		CC_CALLBACK_1(GameLayer::onButtonClick5, this));
+	pButton5->setPosition(Point(200, 0));
+
 	auto menu = Menu::create();
 	menu->addChild(pButton1);
 	menu->addChild(pButton2);
 	menu->addChild(pButton3);
+	menu->addChild(pButton4);
+	menu->addChild(pButton5);
 
 	this->addChild(menu);
 	menu->setPosition(Point(50, 300));
@@ -110,7 +124,7 @@ void GameLayer::forTest()
 	label->setTag(101);
 
 	// position the label on the center of the screen
-	label->setPosition(Point(origin.x + visibleSize.width/2,
+	label->setPosition(Point(origin.x + visibleSize.width/2 + visibleSize.width/3,
 		origin.y + visibleSize.height - label->getContentSize().height));
 
 	// add the label as a child to this layer
@@ -151,6 +165,15 @@ void GameLayer::onButtonClick4(Ref* psender)
 {
 	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 4");
 	
+	Packet::UserEnterTable uet;
+	uet.SetTableno(0);
+	uet.send();
+}
+
+void GameLayer::onButtonClick5(Ref* psender)
+{
+	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("fuck you 5");
+
 	Packet::UserPlayNow upn;
 	upn.send();
 }
