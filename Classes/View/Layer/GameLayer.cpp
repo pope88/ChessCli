@@ -3,6 +3,7 @@
 #include "../Sprite/CardNormal.h"
 #include "../GameResources.h"
 #include "../../Packet/Builder.h"
+#include "View/Sprite/CSeat.h"
 
 namespace View
 {
@@ -25,7 +26,7 @@ bool GameLayer::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 	Layer::init();
-	spBackGround = Sprite::create(s_pPathBackGround1);
+	spBackGround = Sprite::create(s_pPathTabeBackG);
 	spBackGround->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 	this->addChild(spBackGround);
 
@@ -78,6 +79,17 @@ void GameLayer::forTest()
 {
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto bigPot = Sprite::create(s_pPathTablePot);
+	this->addChild(bigPot);
+	bigPot->setPosition(Point(visibleSize.width/2, 200));
+
+	//auto seat1 = Sprite::create(s_pPathSeat);
+    auto seat1 = View::CSeat::create();
+	seat1->setPosition(Point(400, 400));
+	this->addChild(seat1);
+
+
 
 	auto pButton1 = MenuItemImage::create(
 		"CloseNormal.png",
