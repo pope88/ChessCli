@@ -1,0 +1,94 @@
+option optimize_for = LITE_RUNTIME;
+option cc_generic_services = false;
+package game.net.data.StoC;
+
+
+// 0x01
+// 玩家注册
+message SCUserRegister_0x01
+{
+  // 注册结果
+  // 0 - 成功  1 - 名字重复  2 - 名字含有非法字符
+  required uint32 result = 1;
+  // 登录后用户ID
+  optional uint32 userId = 2;
+}
+
+// 0x02
+// 登录信息
+message SCUserLogin_0x02
+ {
+  // 登录结果
+  // 0 - 成功  1 - 新用户需要注册  2 - 被封禁
+  required uint32 result = 1;
+  // 登录后用户ID （即用户名）
+  optional uint32 userId = 2;
+  // 登录用户名，或者推荐注册名
+  optional string userName = 3;
+  // 登录用户vip等级
+  optional uint32 vipLevel = 4;
+  // 封禁剩余时间
+  optional uint32 banTime = 5;
+  //新手引导步骤更新
+  repeated uint32 steps = 6 [packed=true];
+  
+}
+
+//0x03
+// 玩家信息
+message SCUserInfo_0x03
+{
+  // 金币
+  required uint32 gold = 1;
+  // 总充值量
+  required uint32 totalTopup = 2;
+  // 总消费值
+  required uint32 totalConsume = 3;
+}
+
+//房间信息
+message RoomInfo
+{
+   //房间号
+   required uint32 roomId = 1;
+   //玩家数
+   required uint32 palyerNum = 2;
+}
+//0x04
+//玩家请求房间信息
+message SCUserRoomList_0x04
+{
+   //list
+   repeated RoomInfo rmlist = 1;
+}
+
+//0x05
+//玩家请求房间列表信息
+message SCUserRoomInfo_0x05
+{
+ 
+}
+
+//0x06
+//玩家请求进入房间
+message SCUserEnterRoom_0x06
+{
+  //玩家进入失败
+  required uint32 res = 1;
+}
+
+//0x07
+//玩家请求进入桌子
+message SCUserEnterTable_0x07
+{
+  //玩家进入桌子失败
+  required uint32 res = 1;
+}
+
+//0x08
+//快速比赛失败
+message SCUserPlayNow_0x08
+{
+  //玩家快速比赛结果
+  required uint32 res = 1;
+}

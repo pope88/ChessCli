@@ -1,0 +1,8 @@
+#include "Hall/UserEnterRoom.h"
+#include "Hall/UserEnterTable.h"
+#include "Hall/UserInfo.h"
+#include "Hall/UserRoomInfo.h"
+#include "Hall/UserRoomList.h"
+#include "Player/UserLogin.h"
+#include "Player/UserRegister.h"
+#include "Hall/UserPlayNow.h"
