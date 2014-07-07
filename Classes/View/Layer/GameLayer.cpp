@@ -4,6 +4,7 @@
 #include "../GameResources.h"
 #include "../../Packet/Builder.h"
 #include "View/Sprite/CSeat.h"
+#include "View/Anima/TimeBar.h"
 
 namespace View
 {
@@ -89,7 +90,9 @@ void GameLayer::forTest()
 	seat1->setPosition(Point(400, 400));
 	this->addChild(seat1);
 
-
+	auto timebar = View::TimerBar::create();
+	timebar->setPosition(Point(300, 300));
+	this->addChild(timebar);
 
 	auto pButton1 = MenuItemImage::create(
 		"CloseNormal.png",
