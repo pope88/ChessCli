@@ -1,11 +1,14 @@
-﻿生成启动时间为 2014/6/30 23:14:35。
+﻿生成启动时间为 2014/7/6 22:22:46。
      1>项目“F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\audio\proj.win32\CocosDenshion.vcxproj”在节点 4 上(Build 个目标)。
      1>InitializeBuildStatus:
          正在创建“Debug.win32\libAudio.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        ClCompile:
-         所有输出均为最新。
+         D:\VS2012\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\include" /I..\Include /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos\2d" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos\2d\renderer" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos\ui" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos\base" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos\physics" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos\math\kazmath" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos\2d\platform\win32" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\cocos\2d\platform\desktop" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\external\glfw3\include\win32" /I"F:\cocos2d-x-3.0\projects\chess\cocos2d\cocos\2d\..\..\external\win32-specific\gles\include\OGLES" /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _CRT_SECURE_NO_WARNINGS /D _VARIADIC_MAX=10 /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc110.pdb" /Gd /TP /wd4251 /analyze- /errorReport:prompt ..\win32\MciPlayer.cpp ..\win32\SimpleAudioEngine.cpp
+         MciPlayer.cpp
+         SimpleAudioEngine.cpp
        Lib:
-         所有输出均为最新。
+         D:\VS2012\VC\bin\Lib.exe /OUT:"F:\cocos2d-x-3.0\projects\chess\proj.win32\Debug.win32\libAudio.lib" /NOLOGO Debug.win32\MciPlayer.obj
+         Debug.win32\SimpleAudioEngine.obj
          CocosDenshion.vcxproj -> F:\cocos2d-x-3.0\projects\chess\proj.win32\Debug.win32\libAudio.lib
        FinalizeBuildStatus:
          正在删除文件“Debug.win32\libAudio.unsuccessfulbuild”。
@@ -14,4 +17,4 @@
 
 生成成功。
 
-已用时间 00:00:00.04
+已用时间 00:02:00.53

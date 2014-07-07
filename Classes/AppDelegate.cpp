@@ -17,7 +17,9 @@ AppDelegate::~AppDelegate()
 bool AppDelegate::applicationDidFinishLaunching() {
 
 	//design 
-	auto designSize = Size(480, 320);
+
+	auto designSize = Size(640, 960);
+
 
     // initialize director
     auto director = Director::getInstance();
@@ -34,9 +36,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
-	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_WIDTH);
+	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
 
-	director->setContentScaleFactor(480/designSize.height);
+	glview->setFrameSize(640, 960);
+
+    auto wisize = director->getWinSize();
+
+
+	director->setContentScaleFactor(1136/designSize.height);
 
 
 	// create a scene. it's an autorelease object
