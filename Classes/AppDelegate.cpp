@@ -24,7 +24,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLView::create("My Game");
-		glview->setFrameZoomFactor(0.5);
+	//	glview->setFrameZoomFactor(0.5);
         director->setOpenGLView(glview);
     }
 

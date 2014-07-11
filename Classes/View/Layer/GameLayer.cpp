@@ -9,6 +9,10 @@
 namespace View
 {
 
+GameLayer::GameLayer(): xxx(400), _angle(0.0)
+{
+
+}
 void GameLayer::onEnter()
 {
 	Layer::onEnter();
@@ -144,6 +148,18 @@ void GameLayer::forTest()
 
 	// add the label as a child to this layer
 	this->addChild(label, 1);
+
+	// create the streak object and add it to the scene
+	streak = MotionStreak::create(2, 3, 32, Color3B::GREEN, "Images/streak.png");
+	this->addChild(streak);
+	this->scheduleUpdate();
+
+}
+
+void GameLayer::update(float ft)
+{
+	xxx+=2;
+	streak->setPosition(Point(xxx, 300));
 }
 
 void GameLayer::onButtonClick1(Ref* pSender)

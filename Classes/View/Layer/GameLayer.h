@@ -5,6 +5,7 @@
 
 namespace View
 {
+
 	class GameLayer : public Layer
 	{
 		enum TAG_BG
@@ -13,6 +14,7 @@ namespace View
 			TAG_BG_FAR_LAYER = 1
 		};
 	public:
+		GameLayer();
 	    CREATE_FUNC(GameLayer);
 		static Scene* creatScene();
 	public :
@@ -29,9 +31,13 @@ namespace View
 		void onButtonClick3(Ref *pSender);
 		void onButtonClick4(Ref *psender);
 		void onButtonClick5(Ref *psender);
+		void update(float ft);
 	private:
 		Sprite *spBackGround;
 		std::vector<CardBase*> cardsList;
+		MotionStreak *streak;
+			UInt32 xxx ;
+			float _angle;
 	};
 }
 #endif
