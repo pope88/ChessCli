@@ -11,6 +11,10 @@
 namespace View
 {
 
+GameLayer::GameLayer(): _angle(0.0)
+{
+
+}
 void GameLayer::onEnter()
 {
 	Layer::onEnter();
@@ -151,6 +155,14 @@ void GameLayer::forTest()
 
 	// add the label as a child to this layer
 	this->addChild(label, 1);
+
+	// create the streak object and add it to the scene
+	this->scheduleUpdate();
+
+}
+
+void GameLayer::update(float ft)
+{
 }
 
 void GameLayer::onButtonClick1(Ref* pSender)
