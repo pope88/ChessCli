@@ -36,8 +36,7 @@ namespace View
 		Sprite *spBackGround;
 		std::vector<CardBase*> cardsList;
 		MotionStreak *streak;
-			UInt32 xxx ;
-			float _angle;
+		float _angle;
 	};
 }
 #endif

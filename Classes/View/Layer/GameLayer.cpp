@@ -9,7 +9,7 @@
 namespace View
 {
 
-GameLayer::GameLayer(): xxx(400), _angle(0.0)
+GameLayer::GameLayer(): _angle(0.0)
 {
 
 }
@@ -158,8 +158,6 @@ void GameLayer::forTest()
 
 void GameLayer::update(float ft)
 {
-	xxx+=2;
-	streak->setPosition(Point(xxx, 300));
 }
 
 void GameLayer::onButtonClick1(Ref* pSender)

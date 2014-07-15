@@ -2,7 +2,8 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "TcpNetwork/TcpNet.h"
-#include "View/Layer//GameLayer.h"
+#include "View/Layer/GameLayer.h"
+#include "View/Table/Table.h"
 
 USING_NS_CC;
 
@@ -44,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	director->setContentScaleFactor(1136/designSize.height);
 
 	// create a scene. it's an autorelease object
-	auto scene = View::GameLayer::creatScene();
+	auto scene = View::Table::creatScene();
 
     // run
     director->runWithScene(scene);
