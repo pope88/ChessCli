@@ -35,7 +35,7 @@ namespace View
 	private:
 		Sprite *spBackGround;
 		std::vector<CardBase*> cardsList;
-		MotionStreak *streak;
+
 		float _angle;
 	};
 }

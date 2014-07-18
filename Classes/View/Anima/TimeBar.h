@@ -14,11 +14,12 @@ namespace View
     static const float	 RED_FINISH = 1 - 0.25;
 	static const std::string  s_pPathTimeGlowTable = "Images/Ftable/white_pill_glow_tablet.png";
 	static const std::string  s_pPathTimeGradient = "Images/Ftable/black_pill_gradient_tablet.png";
-	static const std::string  s_pPathTimeWite = "Images/White.png";
+	static const std::string  s_pPathTimeWite = "White.png";
 
 	static const UInt8 GREEN[3] = {0x5c, 0xff, 0x00};
 	static const UInt8 YELLOW[3] = {0xff,0xf7,0x00};
 	static const UInt8 RED[3] = {0xff, 0x1e, 0x00};
+	static UInt32 timecout = 0;
 
 	class TimerBar : public Node
 	{
@@ -38,6 +39,7 @@ namespace View
 		UInt32 _totalSeconds;
 		UInt32 _secondsLeft;
 		UInt32 _pathLength;
+		Size _pathSize;
 		float _timePct;
 		std::string _currentTimerLabel;
 		Color3B _clockColor;

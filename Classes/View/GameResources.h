@@ -25,10 +25,12 @@ static const std::string s_pNameListNormalGrain[4] = {"bcardheitao.png", "bcardh
 static const std::string s_pNameListBlueGGrain[3] = {"bcardbluej.png", "bcardblueq.png", "bcardbluek.png"};
 static const std::string s_pNameListRedGGrain[3] = {"bcardredj.png", "bcardredq.png", "bcardredk.png"};
 static const std::string s_pNameListKingGrain[2] = {"bcardlittleking.png", "bcardbigking.png"};
+
 //*******************************-table-******************************
 static const char s_pPathTabeBackG[]  = "Images/Table/bg-room.jpg";
 static const char s_pPathSeat[] = "Images/Table/sit-open.png";
 static const char s_pPathTablePot[] = "Images/Table/bg-pot.png";
+
 
 /********************************icon********************************/
 

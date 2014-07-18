@@ -3,8 +3,10 @@
 #include "../Sprite/CardNormal.h"
 #include "../GameResources.h"
 #include "../../Packet/Builder.h"
+
 #include "View/Sprite/CSeat.h"
 #include "View/Anima/TimeBar.h"
+
 
 namespace View
 {
@@ -32,7 +34,9 @@ bool GameLayer::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
 	Layer::init();
+
 	spBackGround = Sprite::create(s_pPathTabeBackG);
+
 	spBackGround->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 	this->addChild(spBackGround);
 
@@ -87,6 +91,7 @@ void GameLayer::forTest()
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
+
 	auto bigPot = Sprite::create(s_pPathTablePot);
 	this->addChild(bigPot);
 	bigPot->setPosition(Point(visibleSize.width/2, 200));
@@ -96,9 +101,11 @@ void GameLayer::forTest()
 	seat1->setPosition(Point(400, 400));
 	this->addChild(seat1);
 
+
 	auto timebar = View::TimerBar::create();
 	timebar->setPosition(Point(300, 300));
 	this->addChild(timebar);
+
 
 	auto pButton1 = MenuItemImage::create(
 		"CloseNormal.png",
@@ -152,8 +159,6 @@ void GameLayer::forTest()
 	this->addChild(label, 1);
 
 	// create the streak object and add it to the scene
-	streak = MotionStreak::create(2, 3, 32, Color3B::GREEN, "Images/streak.png");
-	this->addChild(streak);
 	this->scheduleUpdate();
 
 }

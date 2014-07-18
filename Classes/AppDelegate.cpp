@@ -18,7 +18,9 @@ AppDelegate::~AppDelegate()
 bool AppDelegate::applicationDidFinishLaunching() {
 
 	//design 
+
 	auto designSize = Size(640, 960);
+
 
     // initialize director
     auto director = Director::getInstance();
@@ -43,6 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
 	director->setContentScaleFactor(1136/designSize.height);
+
 
 	// create a scene. it's an autorelease object
 	auto scene = View::Table::creatScene();

@@ -4,7 +4,7 @@
 
 namespace View
 {
-	Table::Table()
+	Table::Table(): mBaseChip(0), mBigBlindPos(0), mSmallBlindPos(0)
 	{
 	}
 
@@ -22,7 +22,7 @@ namespace View
 		Layer::onEnter();
 	}
 
-	void Table::initOhterPlayers(UInt8 others)
+	void Table::initOtherSeats(UInt8 others)
 	{
 		_votherSeats.resize(others);
 		for (size_t i = 0; i < others; ++i)
@@ -30,13 +30,23 @@ namespace View
 			VBasePlayer *ps = VBasePlayer::create();
 			this->addChild(ps);
 			_votherSeats[i] = ps;
-			ps->setPosition(200, 200);
+		}
+	}
+
+	void Table::initOtherPlayers(UInt8 others)
+	{
+		_votherPlayers.resize(others);
+		for (size_t i = 0; i < others; ++i)
+		{
+			VOtherPlayer *ps  = VOtherPlayer::create();
+			this->addChild(ps);
+			_votherPlayers[i] = ps;
 		}
 	}
 
 
 	//this must run after initOhterPlayers
-	void Table::initOhterPos(UInt8 others)
+	void Table::initOtherPos(UInt8 others)
 	{
 		float posPlus = 10.0;
 		_votherPoints.resize(others);
@@ -55,10 +65,14 @@ namespace View
 			for (size_t i = 0; i < others; ++i)
 			{
 				_votherSeats[i]->setPosition(_votherPoints[i]);
+				if (_votherPlayers[i] != NULL)
+				{
+					_votherPlayers[i]->setPosition(_votherPoints[i]);
+				}
 			}
 
 		}
-		else
+		else//
 		{
 
 		}
@@ -88,8 +102,9 @@ namespace View
 		this->addChild(_backGroud);
 		this->addChild(s);
 
-		initOhterPlayers(1);
-		//initOhterPos(OTHER);
+		initOtherSeats(OTHER);
+		initOtherPlayers(OTHER);
+		initOtherPos(OTHER);
 
 		//auto listener  = EventListenerTouchOneByOne::create();
 		//listener->setSwallowTouches(true);
@@ -110,4 +125,18 @@ namespace View
 		UInt8 t = 0;
 		++t;
 	}
+
+	void Table::onPokerStart(UInt32 mChip, UInt8 bBlindPos, UInt8 sBlindPos)
+	{
+		mGameFlag = GAMEBEGIN;
+		mBaseChip = mChip;
+		mBigBlindPos = bBlindPos;
+		mSmallBlindPos = sBlindPos;
+	}
+
+	void Table::dealingCard()
+	{
+
+	}
+
 }

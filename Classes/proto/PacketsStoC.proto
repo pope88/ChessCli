@@ -92,3 +92,15 @@ message SCUserPlayNow_0x08
   //玩家快速比赛结果
   required uint32 res = 1;
 }
+
+//0x10
+//游戏开始通知
+message SCPokerStartNoti_0x10
+{
+  //玩家底注
+  required uint32 baseChip = 1;
+  //大盲注位置
+  required uint32 bigBlindPos = 2;
+  //小盲注位置
+  required uint32 smallBlindPos = 3;
+}

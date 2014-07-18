@@ -1,9 +1,10 @@
+
 #include "Config.h"
 #include "TimeBar.h"
 
 namespace View
 {
-	TimerBar::TimerBar(): _timeElapsed(0), _totalSeconds(30), _secondsLeft(0), _timePct(0.0)
+	TimerBar::TimerBar(): _timeElapsed(0), _totalSeconds(10), _secondsLeft(0), _timePct(0.0)
 	{
 		_clockColor = gimmyColor(GREEN, 3);
 		//CCScale9Sprite
@@ -19,8 +20,7 @@ namespace View
 		_glowOutStroke = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGlowTable,glowBounds, glowCenter);
 		addChild(_glowOutStroke);
 
-		//_ribbon = MotionStreak::create(100, 0.5, 1, ccc3(66, 66, 66), s_pPathTimeWite);
-		_ribbon = MotionStreak::create(2, 3, 32, Color3B::ORANGE, s_pPathTimeWite);
+		_ribbon = MotionStreak::create(100, 5, 1, ccc3(66, 66, 66), s_pPathTimeWite);
 		addChild(_ribbon, 10);
 
 		_gradientPill = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGradient, gradientBounds, gradientCenter);
@@ -41,6 +41,8 @@ namespace View
 		_timerLabel->setString("fuck you");
 
 		this->scheduleUpdate();
+
+		reInit(20);
 	}
 
 	RepeatForever* TimerBar::makePulseAction()
@@ -67,6 +69,11 @@ namespace View
 
 	void TimerBar::update(float dt)
 	{
+
+		std::stringstream ss;
+		ss<<timecout;
+		timecout++;
+		_timerLabel->setString(ss.str());
 		_timeElapsed += dt*60;
 		_glowOutStroke->runAction(makePulseAction());
 		float timePct  = (float)_timeElapsed  / (_totalSeconds) ;
@@ -92,46 +99,44 @@ namespace View
 		}
 	//	_pathLength 
 
-		 float _x = 30 ;
+		 float _x = 0;
 		 float xLoc = 0.0;
 		 float yLoc = 0.0;
-		//if (_x < _segments[0])
+		 _x = _pathLength *timePct;
+		if (_x < _segments[0])
 		{
 			xLoc = _x;
 			yLoc = 0;
 		}
-		//else if (_x < )
-		//{
-		//}
-		//
-		//if x < segments[0] then
-		//	xLoc = x
-		//	yLoc = 0
-		//	elseif x < segments[1] then
-		//	local segmentLoc = x - segments[0]
-		//local theta = segmentLoc/(pathSize.height/2)
-
-		//	xLoc = math.sin(theta) * (pathSize.height/2) + pathSize.width/2
-		//	yLoc = math.cos(theta) * (pathSize.height/2) - pathSize.height/2
-		//	elseif x < segments[2] then
-		//	xLoc = pathSize.width/2 - (x - segments[1])
-		//	yLoc = -pathSize.height
-
-		//	elseif x < segments[3] then
-		//	local segmentLoc = x - segments[2]
-		//local theta = segmentLoc/(pathSize.height/2)
-
-		//	xLoc = -math.sin(theta) * (pathSize.height/2) - pathSize.width/2
-		//	yLoc = -math.cos(theta) * (pathSize.height/2) - pathSize.height/2
-		//	elseif x < segments[4] then
-		//	local segmentLoc = x - segments[3]
-
-		//xLoc = -pathSize.width/2 + segmentLoc
-		//	yLoc = 0
-		//else
-		//LOGWARN("off the edge of the map cap'n")
-		//return
-		//end
+		else if (_x < _segments[1])
+		{
+			float segmentLoc = _x - _segments[0];
+			float theta = segmentLoc/(_pathSize.height/2);
+			xLoc = sin(theta) * (_pathSize.height/2) + _pathSize.width/2;
+			yLoc = cos(theta) * (_pathSize.height/2) - _pathSize.height/2;
+		}
+		else if(_x < _segments[2])
+		{
+			xLoc = _pathSize.width/2 - (_x-_segments[1]);
+		    yLoc = -_pathSize.height;
+		}
+		else if(_x < _segments[3])
+		{
+			float segmentLoc = _x - _segments[2];
+			float theta = segmentLoc/(_pathSize.height/2);
+			xLoc = -sin(theta) * (_pathSize.height/2) - _pathSize.width/2;
+			yLoc = -cos(theta) * (_pathSize.height/2) - _pathSize.height/2;
+		}
+		else if (_x < _segments[4])
+		{
+			float segmentLoc = _x - _segments[3];
+			xLoc = -_pathSize.width/2 + segmentLoc;
+			yLoc = 0;
+		}
+		else
+		{
+			return;
+		}
 
 
 		_underStroke->setColor(_clockColor);
@@ -139,10 +144,9 @@ namespace View
 		_gradientPill->setColor(_clockColor);
 		_timerLabel->setColor(_clockColor);
 
-		_ribbon->setPosition(Point(xLoc, yLoc) );
-		_x +=5;
-	}
 
+		_ribbon->setPosition(Point(xLoc, yLoc) );
+	}
 
 	void TimerBar::reInit(UInt8 time)
 	{
@@ -170,14 +174,15 @@ namespace View
 		_gradientPill->setContentSize(timeSize);
 		_gradientPill->setPosition(tx, ty);
 
-		auto pathSize = Size(timerContentWidth, timerContentHeight);
-		_ribbon->setPosition(Point(tx, ty+pathSize.height/2));
-		_pathLength = pathSize.width*2 + M_PI * pathSize.height;
+		_pathSize = Size(timerContentWidth, timerContentHeight);
+		_ribbon->setPosition(Point(tx, ty+_pathSize.height/2));
+		_pathLength = _pathSize.width*2 + M_PI * _pathSize.height;
 
-		_segments[0] = pathSize.width / 2;
-		_segments[1] = _segments[0] + (pathSize.height/2)*M_PI;
-		_segments[2] = _segments[1] + pathSize.width;
-		_segments[3] = _segments[2] + (pathSize.height/2)*M_PI;
-		_segments[4] = _segments[3] + pathSize.width/2;
+		_segments[0] = _pathSize.width / 2;
+		_segments[1] = _segments[0] + (_pathSize.height/2)*M_PI;
+		_segments[2] = _segments[1] + _pathSize.width;
+		_segments[3] = _segments[2] + (_pathSize.height/2)*M_PI;
+		_segments[4] = _segments[3] + _pathSize.width/2;
 	}
 }
+
