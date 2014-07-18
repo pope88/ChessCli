@@ -21,6 +21,7 @@ void GameLayer::onEnter()
 bool GameLayer::init()
 {
 	auto listener = EventListenerTouchOneByOne::create();
+	listener->setSwallowTouches(true);
 	listener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
 	listener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
@@ -78,6 +79,7 @@ bool GameLayer::onTouchBegan(Touch* touch, Event  *event)
 void GameLayer::onTouchEnded(Touch* touch, Event  *event)
 {
 	//clearCards();
+	//return true;
 }
 
 void GameLayer::forTest()

@@ -25,7 +25,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLView::create("My Game");
-	//	glview->setFrameZoomFactor(0.5);
+    //	glview->setFrameZoomFactor(0.5);
         director->setOpenGLView(glview);
     }
 
@@ -37,7 +37,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
 
-	glview->setFrameSize(640, 960);
+	glview->setFrameSize(640, 800);
 
     auto wisize = director->getWinSize();
 

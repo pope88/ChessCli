@@ -4,14 +4,16 @@
 USING_NS_CC;
 namespace View
 {
-	static const std::string spathSitOpen = "flump/table_player/sit_open.png";
-	static const UInt16 otherSitsX[6] = {100, 130, 160, 190, 210, 240};
-	static const UInt16 otherSitsY[6] = {100, 130, 160, 190, 210, 240};
+
+    static const std::string spathSitOpen = "flump/table_player/sit_open.png";
 	class VBasePlayer : public Node
 	{
 	public:
 		CREATE_FUNC(VBasePlayer);
 		VBasePlayer();
+		const Size& getSeatSize();
+		bool onTouchBegan(Touch *touch, Event *event);
+		void onTouchEnded(Touch *touch, Event *event);
 	protected:
 		Sprite *baseFloor;
 	};
