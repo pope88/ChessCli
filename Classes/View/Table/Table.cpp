@@ -139,4 +139,14 @@ namespace View
 
 	}
 
+	void Table::initCardBacks()
+	{
+
+	}
+	
+	void Table::initCardBacksPos()
+	{
+
+	}
+
 }
