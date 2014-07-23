@@ -106,6 +106,10 @@ namespace View
 		initOtherPlayers(OTHER);
 		initOtherPos(OTHER);
 
+		initCardBacks(OTHER);
+		
+		dealingCard();
+
 		//auto listener  = EventListenerTouchOneByOne::create();
 		//listener->setSwallowTouches(true);
 		//listener->onTouchBegan = CC_CALLBACK_2(Table::onTouchBegan, this);
@@ -136,17 +140,40 @@ namespace View
 
 	void Table::dealingCard()
 	{
-
+		MoveTo *move = MoveTo::create(2.0f, ccp(300, 300));
+		_cardBacks[0]->runAction(move);
 	}
 
-	void Table::initCardBacks()
+	void Table::initCardBacks(UInt8 others)
 	{
-
+		_cardBacks.resize(others);
+		for (size_t i = 0; i < 3; ++i)
+		{
+			Sprite *sb0 = Sprite::create(spCardBacks[i]);
+			Sprite *sb1 = Sprite::create(spCardBacks[i]);
+			this->addChild(sb0);
+			sb1->setScaleX(-1);
+			this->addChild(sb1);
+			_cardBacks[i] = sb0;
+			_cardBacks[i+3] = sb1;
+		}
 	}
 	
 	void Table::initCardBacksPos()
 	{
+		_initCardBackPos[0] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_initCardBackPos[1] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_initCardBackPos[2] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_initCardBackPos[3] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_initCardBackPos[4] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_initCardBackPos[5] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 
+		_endCardBackPos[0] = Point(VisibleRect::left().x, VisibleRect::left().y);
+		_endCardBackPos[1] = Point(VisibleRect::left().x, VisibleRect::left().y);
+		_endCardBackPos[2] = Point(VisibleRect::left().x, VisibleRect::left().y);
+		_endCardBackPos[3] = Point(VisibleRect::right().x, VisibleRect::right().y);
+		_endCardBackPos[4] = Point(VisibleRect::right().x, VisibleRect::right().y);
+		_endCardBackPos[5] = Point(VisibleRect::right().x, VisibleRect::right().y);
 	}
 
 }

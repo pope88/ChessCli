@@ -7,7 +7,7 @@ namespace View
 {
 	static const std::string spTableBackGroud = "flump/table_backgroud/table0.jpg";
 	static const std::string spStest = "CloseNormal.png";
-	static const std::string spCardBack = "flump/table/CardBack.jpg";
+	static const std::string spCardBacks[3] = { "flump/table/cardback0.png", "flump/table/cardback1.png", "flump/table/cardback2.png" };
 
     static const UInt8 OTHER = 6;
 	enum GameFlag
@@ -31,7 +31,7 @@ namespace View
 		void onTouchEnded(Touch *touch, Event *unused_event);
 		void onPokerStart(UInt32 mBaseChip, UInt8 bBlindPos, UInt8 sBlindPos);
 		void dealingCard();
-		void initCardBacks();
+		void initCardBacks(UInt8 others);
 		void initCardBacksPos();
 	private:
 		Sprite *_backGroud;
@@ -39,6 +39,8 @@ namespace View
 		std::vector<VOtherPlayer*> _votherPlayers;
 		std::vector<Point> _votherPoints;
 		std::vector<Sprite*> _cardBacks;
+		std::vector<Point> _initCardBackPos;
+		std::vector<Point> _endCardBackPos;
 	private:
 		UInt32 mBaseChip;
 		UInt8 mBigBlindPos;
