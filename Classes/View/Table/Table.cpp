@@ -85,6 +85,8 @@ namespace View
 			return false;
 		}
 
+		scheduleUpdate();
+
 		auto listener = EventListenerTouchOneByOne::create();
 		listener->setSwallowTouches(true);
 		listener->onTouchBegan = CC_CALLBACK_2(Table::onTouchBegan, this);
@@ -119,6 +121,11 @@ namespace View
 		return true;
 	}
 
+	void Table::reInit()
+	{
+
+	}
+
 	bool Table::onTouchBegan(Touch *touch, Event *unused_event)
 	{
 		return true;
@@ -136,12 +143,23 @@ namespace View
 		mBaseChip = mChip;
 		mBigBlindPos = bBlindPos;
 		mSmallBlindPos = sBlindPos;
+		reInit();
 	}
 
 	void Table::dealingCard()
 	{
-		MoveTo *move = MoveTo::create(2.0f, ccp(300, 300));
-		_cardBacks[0]->runAction(move);
+		MoveTo *move0 = MoveTo::create(DEALINGTIME, ccp(300, 300));
+		MoveTo *move1 = MoveTo::create(DEALINGTIME, ccp(300, 300));
+		MoveTo *move2 = MoveTo::create(DEALINGTIME, ccp(300, 300));
+		MoveTo *move3 = MoveTo::create(DEALINGTIME, ccp(300, 300));
+		MoveTo *move4 = MoveTo::create(DEALINGTIME, ccp(300, 300));
+		MoveTo *move5 = MoveTo::create(DEALINGTIME, ccp(300, 300));
+		_cardBacks[0]->runAction(move0);
+		_cardBacks[1]->runAction(move1);
+		_cardBacks[2]->runAction(move2);
+		_cardBacks[3]->runAction(move3);
+		_cardBacks[4]->runAction(move4);
+		_cardBacks[5]->runAction(move5);
 	}
 
 	void Table::initCardBacks(UInt8 others)
@@ -176,4 +194,58 @@ namespace View
 		_endCardBackPos[5] = Point(VisibleRect::right().x, VisibleRect::right().y);
 	}
 
+	void Table::initAni()
+	{
+
+	}
+
+	void Table::initUI()
+	{
+
+	}
+
+	void Table::update(float fDelta)
+	{
+		printf("update!!%d", fDelta);
+	}
+
+	void Table::addPlayer()
+	{
+
+	}
+
+	void Table::getPlayer()
+	{
+
+	}
+
+	void Table::setLeftTime(int nChair, int nPeriod)
+	{
+
+	}
+
+	void Table::playSound(int mSound)
+	{
+
+	}
+
+	void Table::clearAllButton()
+	{
+
+	}
+
+	inline int Table::S2CPos(char cChair)
+	{
+		return 0;
+	}
+
+	inline int Table::C2SPos(char cChair)
+	{
+		return 0;
+	}
+
+	void Table::initPos()
+	{
+
+	}
 }

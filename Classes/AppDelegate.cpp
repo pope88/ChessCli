@@ -1,4 +1,3 @@
-#include "Config.h"
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 #include "TcpNetwork/TcpNet.h"
@@ -17,17 +16,13 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching() {
 
-	//design 
-
 	auto designSize = Size(640, 960);
-
 
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLView::create("My Game");
-    //	glview->setFrameZoomFactor(0.5);
         director->setOpenGLView(glview);
     }
 
@@ -39,21 +34,23 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
 
-	glview->setFrameSize(640, 800);
+	glview->setFrameSize(640, 960);
 
-    auto wisize = director->getWinSize();
+	auto wisize = director->getWinSize();
 
 
 	director->setContentScaleFactor(1136/designSize.height);
 
-
 	// create a scene. it's an autorelease object
 	auto scene = View::Table::creatScene();
 
-    // run
-    director->runWithScene(scene);
+	// run
+	director->runWithScene(scene);
 
 	TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
+
+    // run
+    director->runWithScene(scene);
 
     return true;
 }

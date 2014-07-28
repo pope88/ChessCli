@@ -17,8 +17,6 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
-
-	virtual void update(float fDelta);  
 };
 
 #endif // __HELLOWORLD_SCENE_H__
