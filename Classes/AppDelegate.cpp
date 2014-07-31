@@ -15,22 +15,22 @@ AppDelegate::~AppDelegate()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-
 	auto designSize = Size(640, 960);
 
-    // initialize director
-    auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
-    if(!glview) {
-        glview = GLView::create("My Game");
-        director->setOpenGLView(glview);
-    }
+	// initialize director
+	auto director = Director::getInstance();
+	auto glview = director->getOpenGLView();
+	if(!glview) {
+		glview = GLView::create("My Game");
+		director->setOpenGLView(glview);
+	}
 
-    // turn on display FPS
-    director->setDisplayStats(true);
+	director->setOpenGLView(glview);
+	// turn on display FPS
+	director->setDisplayStats(true);
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
+	// set FPS. the default value is 1.0/60 if you don't call this
+	director->setAnimationInterval(1.0 / 60);
 
 	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
 
@@ -47,12 +47,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// run
 	director->runWithScene(scene);
 
-	TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
+	//	TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
 
-    // run
-    director->runWithScene(scene);
-
-    return true;
+	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too

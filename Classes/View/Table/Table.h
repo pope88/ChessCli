@@ -42,7 +42,7 @@ namespace View
 		void initAni();
 		void initUI();
 		void initPos();
-		virtual void update(float fDelta);
+		void update(float fDelta);
 		void addPlayer();
 		void getPlayer();
 		void setLeftTime(int nChair, int nPeriod);

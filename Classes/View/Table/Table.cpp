@@ -85,8 +85,6 @@ namespace View
 			return false;
 		}
 
-		scheduleUpdate();
-
 		auto listener = EventListenerTouchOneByOne::create();
 		listener->setSwallowTouches(true);
 		listener->onTouchBegan = CC_CALLBACK_2(Table::onTouchBegan, this);
@@ -112,6 +110,7 @@ namespace View
 		
 		dealingCard();
 
+		this->scheduleUpdate();
 		//auto listener  = EventListenerTouchOneByOne::create();
 		//listener->setSwallowTouches(true);
 		//listener->onTouchBegan = CC_CALLBACK_2(Table::onTouchBegan, this);
