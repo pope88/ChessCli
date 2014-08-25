@@ -3,6 +3,7 @@
 #include "TcpNetwork/TcpNet.h"
 #include "View/Layer/GameLayer.h"
 #include "View/Table/Table.h"
+#include "View/Hall/Hall.h"
 
 USING_NS_CC;
 
@@ -42,12 +43,18 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	director->setContentScaleFactor(1136/designSize.height);
 
 	// create a scene. it's an autorelease object
-	auto scene = View::Table::creatScene();
+	auto scene = View::Hall::createScene();
 
 	// run
 	director->runWithScene(scene);
 
-	//	TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
+	bool bConnect = false;
+	bConnect = TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
+	if (bConnect)
+	{
+
+	}
+	
 
 	return true;
 }

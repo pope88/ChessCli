@@ -147,12 +147,14 @@ namespace View
 
 	void Table::dealingCard()
 	{
-		MoveTo *move0 = MoveTo::create(DEALINGTIME, ccp(300, 300));
-		MoveTo *move1 = MoveTo::create(DEALINGTIME, ccp(300, 300));
-		MoveTo *move2 = MoveTo::create(DEALINGTIME, ccp(300, 300));
-		MoveTo *move3 = MoveTo::create(DEALINGTIME, ccp(300, 300));
-		MoveTo *move4 = MoveTo::create(DEALINGTIME, ccp(300, 300));
-		MoveTo *move5 = MoveTo::create(DEALINGTIME, ccp(300, 300));
+		float posPlus = 50;
+		auto vSize = Director::getInstance()->getVisibleSize();
+		MoveTo *move0 = MoveTo::create(DEALINGTIME, ccp(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y - vSize.height/3));
+		MoveTo *move1 = MoveTo::create(DEALINGTIME, ccp(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y));
+		MoveTo *move2 = MoveTo::create(DEALINGTIME, ccp(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y + vSize.height/3));
+		MoveTo *move3 = MoveTo::create(DEALINGTIME, ccp(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::right().y +  - vSize.height/3));
+		MoveTo *move4 = MoveTo::create(DEALINGTIME, ccp(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::left().y));
+		MoveTo *move5 = MoveTo::create(DEALINGTIME, ccp(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::left().y -  - vSize.height/3));
 		_cardBacks[0]->runAction(move0);
 		_cardBacks[1]->runAction(move1);
 		_cardBacks[2]->runAction(move2);
@@ -163,6 +165,7 @@ namespace View
 
 	void Table::initCardBacks(UInt8 others)
 	{
+		auto vSize = Director::getInstance()->getVisibleSize();
 		_cardBacks.resize(others);
 		for (size_t i = 0; i < 3; ++i)
 		{
@@ -171,6 +174,8 @@ namespace View
 			this->addChild(sb0);
 			sb1->setScaleX(-1);
 			this->addChild(sb1);
+			sb0->setPosition(Point(vSize.width/2-sb0->getContentSize().width/2, sb0->getContentSize().height));
+			sb1->setPosition(Point(vSize.width/2-sb1->getContentSize().width/2, sb1->getContentSize().height));
 			_cardBacks[i] = sb0;
 			_cardBacks[i+3] = sb1;
 		}
