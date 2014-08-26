@@ -9,9 +9,22 @@ inline UInt8 hextov(char s)
 	return 0;
 }
 
+#include "cocos2d.h"
+#include "View/Hall/Hall.h"
+USING_NS_CC;
 HANDLER_CLASS(UserLogin, 0x02)
 {
- printf("on server user login ");
+	printf("on server user login ");
+	if (pkt.Result() == 0)
+	{
+		// create a scene. it's an autorelease object
+		auto scene = View::Hall::createScene();
+		Director::getInstance()->runWithScene(scene);
+	}
+	else
+	{
+
+	}
 
 }
 HANDLER_END(UserLogin)

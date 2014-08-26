@@ -5,7 +5,7 @@ USING_NS_CC;
 
 namespace View
 {
-	static const std::string spHallBackGround = "flump/table_backgroud/table0.jpg";
+	static const std::string spHallBackGround = "flump/hall/hall0.jpg";
 	class Hall : public Layer
 	{
 	public:

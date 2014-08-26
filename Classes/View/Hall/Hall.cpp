@@ -24,5 +24,6 @@ namespace View
 
 		_hbackGround = Sprite::create();
 		this->addChild(_hbackGround);
+		return true;
 	}
 }
