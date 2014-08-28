@@ -44,7 +44,7 @@ bool TcpNet::connect(const char* ServerIP, int ServerPort, int nBlockSec, bool b
 	}
 
 	m_tcpsocket = new TcpSocket();
-	if (m_tcpsocket == NULL || !m_tcpsocket->initialized())
+	if (!m_tcpsocket->initialized())
 	{
 		SAFE_DELETE(m_tcpsocket);
 	}
@@ -137,6 +137,10 @@ void TcpNet::runRecvMsg()
 	for (;;)
 	{
 		// 接收数据
+		if (m_tcpsocket == NULL)
+		{
+			return;
+		}
 		_mutex.Lock();
 		int nRecvSize = m_tcpsocket->read((char*)(m_InputBuff+m_nInbufLen), sizeof(m_InputBuff)-m_nInbufLen);
 		// 保存已经接收数据的大小

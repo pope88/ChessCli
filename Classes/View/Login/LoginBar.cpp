@@ -25,7 +25,11 @@ namespace View
 			return false;
 		}
 
+		auto vOrigin = Director::getInstance()->getVisibleOrigin();
+		auto vSize = Director::getInstance()->getVisibleSize();
+		Point pCenter = Point(vOrigin.x + vSize.width/2, vOrigin.y + vSize.height/2);
 		_lbackGround = Sprite::create(spLoginBackGround);
+		_lbackGround->setPosition(pCenter.x, pCenter.y);
 		this->addChild(_lbackGround);
 
 		bool bConnect = false;

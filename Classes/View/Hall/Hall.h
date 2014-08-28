@@ -9,12 +9,14 @@ namespace View
 	class Hall : public Layer
 	{
 	public:
-		Hall();
 		CREATE_FUNC(Hall);
 		static Scene* createScene();
 	    bool init();
+		void onButtonQuickStart(Ref *psender);
 	private:
 		Sprite *_hbackGround;
+		//MenuItemSprite* pQuikStartB;
+		Menu *menu;
 	};
 }
 

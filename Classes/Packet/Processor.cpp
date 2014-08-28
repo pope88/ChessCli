@@ -94,7 +94,7 @@ void Processor::process()
 	int yy = 0;
 	yy = this->_initHandlers.size();
 	niub;
-	std::vector<HandlerMsgHeader *>* queue = fetchMsg(0);
+	std::vector<HandlerMsgHeader *>* queue = fetchMsg();
 	if (queue == NULL)
 	{
 		return;
