@@ -8,7 +8,7 @@ namespace View
 	Scene* Hall::createScene()
 	{
 		auto scene = Scene::create();
-		auto layer = Hall::create();
+		Hall *layer = Hall::create();
 		scene->addChild(layer);
 		return scene;
 	}
@@ -20,7 +20,6 @@ namespace View
 			return false;
 		}
 
-
 		auto vOrigin = Director::getInstance()->getVisibleOrigin();
 		auto vSize = Director::getInstance()->getVisibleSize();
 		Point pCenter = Point(vOrigin.x + vSize.width/2, vOrigin.y + vSize.height/2);
@@ -28,15 +27,16 @@ namespace View
 		this->addChild(_hbackGround);
 		_hbackGround->setPosition(pCenter.x, pCenter.y);
 
-		auto pQuikStartB = MenuItemImage::create(
+		pQuikStartB = MenuItemImage::create(
 			"CloseNormal.png",
 			"CloseSelected.png",
-			CC_CALLBACK_1(View::Hall::onButtonQuickStart, this));
+			CC_CALLBACK_1(Hall::onButtonQuickStart, this));
 		
 		menu = Menu::create(pQuikStartB, NULL);
-		this->addChild(menu);
-		menu->setPosition(Point(500, 500));
+		menu->setPosition(Vec2::ZERO);
+		this->addChild(menu, 10);
 		menu->setEnabled(true);
+		pQuikStartB->setPosition(300, 400);
 		return true;
 	}
 

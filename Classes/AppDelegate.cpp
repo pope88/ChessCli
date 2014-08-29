@@ -24,7 +24,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto director = Director::getInstance();
 	auto glview = director->getOpenGLView();
 	if(!glview) {
-		glview = GLView::create("My Game");
+		glview = GLView::createWithRect("My Game", Rect(0, 0, 640, 960));
 		director->setOpenGLView(glview);
 	}
 
@@ -37,17 +37,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
 
-	glview->setFrameSize(640, 960);
 
 	auto wisize = director->getWinSize();
-
 
 	director->setContentScaleFactor(1136/designSize.height);
 
 	// create a scene. it's an autorelease object
 	//auto scene = View::Hall::createScene();
-	auto scene = View::GameLayer::creatScene();
+	//auto scene = View::GameLayer::creatScene();
 	// run
+	auto scene = HelloWorld::createScene();
+
 	Director::getInstance()->runWithScene(scene); 
 
 	return true;

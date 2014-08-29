@@ -9,13 +9,13 @@ namespace View
 	class Hall : public Layer
 	{
 	public:
-		CREATE_FUNC(Hall);
 		static Scene* createScene();
-	    bool init();
+	    virtual bool init();
 		void onButtonQuickStart(Ref *psender);
+		CREATE_FUNC(Hall);
 	private:
 		Sprite *_hbackGround;
-		//MenuItemSprite* pQuikStartB;
+		MenuItemSprite* pQuikStartB;
 		Menu *menu;
 	};
 }
