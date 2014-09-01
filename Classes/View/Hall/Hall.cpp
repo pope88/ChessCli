@@ -33,10 +33,12 @@ namespace View
 			CC_CALLBACK_1(Hall::onButtonQuickStart, this));
 		
 		menu = Menu::create(pQuikStartB, NULL);
-		menu->setPosition(Vec2::ZERO);
-		this->addChild(menu, 10);
+		menu->setPosition(Point(100, 100));
+		this->addChild(menu);
 		menu->setEnabled(true);
-		pQuikStartB->setPosition(300, 400);
+
+		auto testsprite = Sprite::create("CloseSelected.png");
+		this->addChild(testsprite);
 		return true;
 	}
 

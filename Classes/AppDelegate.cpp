@@ -26,6 +26,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	if(!glview) {
 		glview = GLView::createWithRect("My Game", Rect(0, 0, 640, 960));
 		director->setOpenGLView(glview);
+		glview->setFrameSize(640, 960);
+		glview->setFrameZoomFactor(0.8);
 	}
 
 	director->setOpenGLView(glview);
@@ -35,7 +37,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// set FPS. the default value is 1.0/60 if you don't call this
 	director->setAnimationInterval(1.0 / 60);
 
-	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_HEIGHT);
+	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::FIXED_WIDTH);
 
 
 	auto wisize = director->getWinSize();
@@ -46,7 +48,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//auto scene = View::Hall::createScene();
 	//auto scene = View::GameLayer::creatScene();
 	// run
-	auto scene = HelloWorld::createScene();
+	auto scene = View::LoginBar::createScene();
 
 	Director::getInstance()->runWithScene(scene); 
 
