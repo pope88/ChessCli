@@ -38,7 +38,7 @@ namespace View
 		{
 
 			Packet::UserLogin ulogin;
-			ulogin.SetUsername("chess@pope");
+			ulogin.SetUsername("chess1@pope");
 			ulogin.SetPwd("123456");
 			ulogin.send();
 
