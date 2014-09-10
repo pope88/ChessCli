@@ -24,7 +24,7 @@ namespace View
 	{
 	public:
 		Table();
-		CREATE_FUNC(Table);
+		//CREATE_FUNC(Table);
 		static Scene* creatScene();
 		virtual void onEnter();
 		bool init();
@@ -67,5 +67,6 @@ namespace View
 		UInt8 mSmallBlindPos;
 		UInt8 mGameFlag;
 	};
+	extern Table _table;
 }
 #endif // !_TABLE_H_

@@ -1,3 +1,4 @@
+
 option optimize_for = LITE_RUNTIME;
 option cc_generic_services = false;
 package game.net.data.CtoS;
@@ -80,3 +81,10 @@ message CSUserPlayNow_0x08
 {
 }
 
+//0x14
+//回应下注
+message CSPlayerOperate_0x14
+{
+  //操作(弃牌，跟注)
+  required uint32 opcode = 1;
+}

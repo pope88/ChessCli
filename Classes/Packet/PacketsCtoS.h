@@ -192,6 +192,26 @@ class CSUserPlayNow_0x08: public ::ssu::Object {
 
 };
 
+class CSPlayerOperate_0x14: public ::ssu::Object {
+ public:
+  inline CSPlayerOperate_0x14(): _opcode(0) { }
+
+  virtual ~CSPlayerOperate_0x14() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline uint32_t Opcode() const { return _opcode; }
+  inline void SetOpcode(uint32_t val__) { _opcode = val__; }
+
+ protected:
+  uint32_t _opcode;
+
+};
+
 }
 }
 }

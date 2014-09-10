@@ -77,6 +77,10 @@ message SCUserEnterRoom_0x06
   required uint32 res = 1;
 }
 
+message UserInfo
+{
+}
+
 //0x07
 //玩家请求进入桌子
 message SCUserEnterTable_0x07
@@ -87,20 +91,123 @@ message SCUserEnterTable_0x07
 
 //0x08
 //快速比赛失败
-message SCUserPlayNow_0x08
+message SCUserPlayerNow_0x08
 {
   //玩家快速比赛结果
   required uint32 res = 1;
 }
 
-//0x10
-//游戏开始通知
-message SCPokerStartNoti_0x10
+message PGStatus
 {
-  //玩家底注
-  required uint32 baseChip = 1;
-  //大盲注位置
-  required uint32 bigBlindPos = 2;
-  //小盲注位置
-  required uint32 smallBlindPos = 3;
+  //位置号
+  required uint32 chairid = 1;
+  //状态
+  required uint32 status = 2;
+}
+
+message PlayerBaseInfo
+{
+  //位置号 
+  required uint32 chairid = 1;
+  //昵称
+  required string nickname = 2;
+  //所带筹码
+  required uint32 allchips = 3;
+}
+
+//0x09
+//游戏开始通知
+message SCPlayerGameSart_0x09
+{
+   //基础底注
+   required uint32 basechips = 1;
+   //至少带入的筹码数
+   required uint32 lowestchips = 2;
+   //玩家信息
+   repeated PlayerBaseInfo playerinfos = 3;
+}
+
+//0x10
+//通知玩家的状态
+message SCPlayerGameStatus_0x10
+{
+  //玩家状态
+  repeated PGStatus playerstatus = 1;
+}
+
+//0x11
+//自动下大小盲底注
+message SCPlayerBlindChips_0x11
+{
+  message blindInfo
+  {
+    //blind chairid
+	required uint32 chairid;
+	//blind chips
+	required uint32 chips;
+	//remain chips
+	required uint32 remainchips;
+	
+  }
+  required uint32 tableamount = 1;
+  repeated blindInfo blindinfos = 2;
+}
+
+//卡牌
+message card
+{
+  //卡牌
+  required uint32 cardvalue = 1;
+  //花色
+  required uint32 cardcolor = 2;
+}
+
+//0x12
+//手牌
+message SCPlayerHandCards_0x12
+{
+  //位置
+  required uint32 pos = 1;
+  //手牌
+  repeated card cards = 2;
+}
+
+//0x13
+//公共
+message SCPlayerCommonCards_0x13
+{
+   //阶段
+   required uint32 step = 1;
+   //cards
+   repeated card cards = 2;
+}
+
+//0x14
+//操作请求
+message SCPlayerOperateReq_0x14
+{
+   //操作
+   required uint32 opcode = 1;
+   //chairId
+   required uint32 chairid = 2;
+   //基础筹码
+   required uint32 basechips = 3;
+   //当前下注
+   required uint32 currentchips = 4;
+}
+
+//0x15
+//操作通知
+message SCPlayerOperateNot_0x15
+{
+   //操作
+   required uint32 opcode = 1;
+   //chairId
+   required uint32 chairid = 2;
+   //当前下注
+   required uint32 currentchips = 3;
+   //当前剩余筹码
+   required uint32 leavechips = 4;
+   //总筹码
+   required uint32 totalchips = 5;
 }

@@ -4,8 +4,11 @@
 
 namespace View
 {
+	Table _table;
 	Table::Table(): mBaseChip(0), mBigBlindPos(0), mSmallBlindPos(0)
 	{
+		int xx = 0;
+		++xx;
 	}
 
 	Scene* Table::creatScene()
