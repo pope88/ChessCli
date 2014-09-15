@@ -202,4 +202,17 @@ typedef unsigned long long UInt64;
 
 #define SAFE_DELETE(obj) do { delete(obj); obj = NULL; } while(0)
 
+// 为了方便起见，自定义宏，并且为 varName 的实现加上了 __ls_ 的前缀，前缀可以修改，可以很长很长很长
+// 加 __ls_ 前缀是为了，在使用的过程只通过 set 和 get 属性包装器调用，而不要直接使用此属性
+#define LS_PRE(p) __ls_##p
+
+// 经朋友提醒，发现 cocos2d-x 已经实现了相应功能的宏，并且更好用，那这里的二次包装就算是仅仅加个前缀吧 ！！！
+#define LS_PROPERTY_RETAIN(varType, varName, funName)\
+	CC_SYNTHESIZE_RETAIN(varType, LS_PRE(varName), funName);
+
+// 初始化和释放包装宏，主要为了封装前缀，始定义统一
+#define LS_P_INIT(p) LS_PRE(p)(0)
+#define LS_P_RELEASE(p) CC_SAFE_RELEASE_NULL(LS_PRE(p))
+
+
 #endif // SYSTEM_CONFIG_H

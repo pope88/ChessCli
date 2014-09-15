@@ -11,13 +11,16 @@ namespace View
 	public:
 		CREATE_FUNC(VBasePlayer);
 		VBasePlayer();
+		void reInit();
 		const Size& getSeatSize();
 		bool onTouchBegan(Touch *touch, Event *event);
 		void onTouchEnded(Touch *touch, Event *event);
 		bool touchHits(Touch  *touch);
-
-	protected:
+		inline UInt8 getPos() { return _pos; }
+		inline void setPos(UInt8 c) { _pos = c; }
+ 	protected:
 		Sprite *baseFloor;
+		UInt8 _pos;
 	};
 
 	static const std::string spathSitIn = "flump/table_player/sit_in.png";

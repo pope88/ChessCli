@@ -3,7 +3,7 @@
 
 namespace View
 {
-	VBasePlayer::VBasePlayer()
+	VBasePlayer::VBasePlayer():_pos(0)
 	{
 		baseFloor = Sprite::create(spathSitOpen);
 		this->addChild(baseFloor);
@@ -12,6 +12,11 @@ namespace View
 		listener->onTouchBegan = CC_CALLBACK_2(VBasePlayer::onTouchBegan, this);
 		listener->onTouchEnded = CC_CALLBACK_2(VBasePlayer::onTouchEnded, this);
 		_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+	}
+
+	void VBasePlayer::reInit()
+	{
 
 	}
 

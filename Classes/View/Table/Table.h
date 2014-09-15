@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "View/Table/VOtherPlayer.h"
 #include "ui/CocosGUI.h"
+#include "../../Packet/Builder.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -20,6 +21,21 @@ namespace View
 		GAMEING = 2,
 		GAMEEND = 3,
 	};
+
+	struct PlayerInfo
+	{
+		UInt8 chairid;
+		std::string nickname;
+		UInt32 allchips;
+	};
+
+	struct BaseTableInfo
+	{
+		UInt32 allchips;
+		UInt8 bigblind;
+		UInt8 smallblind;
+	};
+
 	class Table : public Layer
 	{
 	public:
@@ -48,8 +64,12 @@ namespace View
 		void setLeftTime(int nChair, int nPeriod);
 		void playSound(int mSound);
 		void clearAllButton();
-		inline int S2CPos(char cChair);
-		inline int C2SPos(char cChiar);
+		static int S2CPos(char cChair);
+		static int C2SPos(char cChiar);
+		void onOhterPlayerEnter();
+		void onPlayerEnter(std::vector<PlayerInfo> &pInfos);
+		inline UInt8 getOnwerChairId() { return  onwerCharid; }
+		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
 	private:
 		Sprite *_backGroud;
 		std::vector<VBasePlayer*> _votherSeats;
@@ -66,6 +86,7 @@ namespace View
 		UInt8 mBigBlindPos;
 		UInt8 mSmallBlindPos;
 		UInt8 mGameFlag;
+		UInt8 onwerCharid; //chair server id
 	};
 	extern Table _table;
 }

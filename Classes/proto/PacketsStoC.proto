@@ -77,34 +77,6 @@ message SCUserEnterRoom_0x06
   required uint32 res = 1;
 }
 
-message UserInfo
-{
-}
-
-//0x07
-//玩家请求进入桌子
-message SCUserEnterTable_0x07
-{
-  //玩家进入桌子失败
-  required uint32 res = 1;
-}
-
-//0x08
-//快速比赛失败
-message SCUserPlayerNow_0x08
-{
-  //玩家快速比赛结果
-  required uint32 res = 1;
-}
-
-message PGStatus
-{
-  //位置号
-  required uint32 chairid = 1;
-  //状态
-  required uint32 status = 2;
-}
-
 message PlayerBaseInfo
 {
   //位置号 
@@ -115,6 +87,37 @@ message PlayerBaseInfo
   required uint32 allchips = 3;
 }
 
+//0x07
+//玩家请求进入桌子
+message SCUserEnterTable_0x07
+{
+  //玩家进入桌子(for the enter palayer 0:success 1:fail)
+  optional uint32 res = 1;
+  //for the enter player, playerinfos is the other player infos ，for the ohter player,playerinfos is the enter player's info
+  repeated PlayerBaseInfo playerinfos= 2;
+}
+
+//0x08
+//快速比赛失败
+message SCUserPlayerNow_0x08
+{
+  //玩家快速比赛结果
+  required uint32 res = 1;
+  //快速进入桌子信息
+  //基础底注
+  required uint32 basechips = 2;
+  //至少带入的筹码数
+  required uint32 lowestchips = 3;
+}
+
+message PGStatus
+{
+  //位置号
+  required uint32 chairid = 1;
+  //状态
+  required uint32 status = 2;
+}
+
 //0x09
 //游戏开始通知
 message SCPlayerGameSart_0x09
@@ -123,8 +126,6 @@ message SCPlayerGameSart_0x09
    required uint32 basechips = 1;
    //至少带入的筹码数
    required uint32 lowestchips = 2;
-   //玩家信息
-   repeated PlayerBaseInfo playerinfos = 3;
 }
 
 //0x10

@@ -200,91 +200,6 @@ size_t SCUserEnterRoom_0x06::Size() const {
   return 1 + ::ssu::Utils::SizeUInt32(_res);
 }
 
-uint8_t * UserInfo::PackBuffer(uint8_t * buf) {
-  return buf;
-}
-
-bool UserInfo::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
-  return true;
-}
-
-size_t UserInfo::Size() const {
-  return 0;
-}
-
-uint8_t * SCUserEnterTable_0x07::PackBuffer(uint8_t * buf) {
-  buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _res);
-  return buf;
-}
-
-bool SCUserEnterTable_0x07::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
-  uint32_t tag_; uint8_t type_;
-  while(leftSize > 0) {
-    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
-    switch(tag_) {
-     case 1:
-      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _res)) return false;
-      break;
-     default: break;
-    }
-  }
-  return true;
-}
-
-size_t SCUserEnterTable_0x07::Size() const {
-  return 1 + ::ssu::Utils::SizeUInt32(_res);
-}
-
-uint8_t * SCUserPlayerNow_0x08::PackBuffer(uint8_t * buf) {
-  buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _res);
-  return buf;
-}
-
-bool SCUserPlayerNow_0x08::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
-  uint32_t tag_; uint8_t type_;
-  while(leftSize > 0) {
-    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
-    switch(tag_) {
-     case 1:
-      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _res)) return false;
-      break;
-     default: break;
-    }
-  }
-  return true;
-}
-
-size_t SCUserPlayerNow_0x08::Size() const {
-  return 1 + ::ssu::Utils::SizeUInt32(_res);
-}
-
-uint8_t * PGStatus::PackBuffer(uint8_t * buf) {
-  buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _chairid);
-  buf = ::ssu::Utils::PackUInt32Tag(buf, 2, _status);
-  return buf;
-}
-
-bool PGStatus::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
-  uint32_t tag_; uint8_t type_;
-  while(leftSize > 0) {
-    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
-    switch(tag_) {
-     case 1:
-      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _chairid)) return false;
-      break;
-     case 2:
-      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _status)) return false;
-      break;
-     default: break;
-    }
-  }
-  return true;
-}
-
-size_t PGStatus::Size() const {
-  return 1 + ::ssu::Utils::SizeUInt32(_chairid) + 1 + ::ssu::Utils::SizeUInt32(_status);
-}
-
 uint8_t * PlayerBaseInfo::PackBuffer(uint8_t * buf) {
   buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _chairid);
   buf = ::ssu::Utils::PackStringTag(buf, 2, _nickname);
@@ -316,14 +231,99 @@ size_t PlayerBaseInfo::Size() const {
   return 1 + ::ssu::Utils::SizeUInt32(_chairid) + 1 + ::ssu::Utils::SizeString(_nickname) + 1 + ::ssu::Utils::SizeUInt32(_allchips);
 }
 
-SCPlayerGameSart_0x09::~SCPlayerGameSart_0x09() {
+SCUserEnterTable_0x07::~SCUserEnterTable_0x07() {
   for(::ssu::RepeatedObject<PlayerBaseInfo *>::iterator iter = _playerinfos.begin(); iter != _playerinfos.end(); ++ iter) { delete *iter; } _playerinfos.Clear();
+}
+
+uint8_t * SCUserEnterTable_0x07::PackBuffer(uint8_t * buf) {
+  if(HasRes()) buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _res);
+  buf = ::ssu::Utils::PackRepeatedTag(buf, 2, _playerinfos, ::ssu::Utils::PackObjectTag<PlayerBaseInfo>);
+  return buf;
+}
+
+bool SCUserEnterTable_0x07::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  uint32_t tag_; uint8_t type_;
+  while(leftSize > 0) {
+    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
+    switch(tag_) {
+     case 1:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _res)) return false;
+      _isSetFlag[0] |= 0x01;
+      break;
+     case 2:
+      if(type_ != 2 || !::ssu::Utils::UnpackRepeatedPtr(buf, leftSize, _playerinfos, ::ssu::Utils::UnpackObjectPtr<PlayerBaseInfo>)) return false;
+      break;
+     default: break;
+    }
+  }
+  return true;
+}
+
+size_t SCUserEnterTable_0x07::Size() const {
+  return (HasRes() ? (1 + ::ssu::Utils::SizeUInt32(_res)) : 0) + 1 * _playerinfos.Size() + ::ssu::Utils::SizeRepeated(_playerinfos, ::ssu::Utils::SizeObject<PlayerBaseInfo>);
+}
+
+uint8_t * SCUserPlayerNow_0x08::PackBuffer(uint8_t * buf) {
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _res);
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 2, _basechips);
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 3, _lowestchips);
+  return buf;
+}
+
+bool SCUserPlayerNow_0x08::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  uint32_t tag_; uint8_t type_;
+  while(leftSize > 0) {
+    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
+    switch(tag_) {
+     case 1:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _res)) return false;
+      break;
+     case 2:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _basechips)) return false;
+      break;
+     case 3:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _lowestchips)) return false;
+      break;
+     default: break;
+    }
+  }
+  return true;
+}
+
+size_t SCUserPlayerNow_0x08::Size() const {
+  return 1 + ::ssu::Utils::SizeUInt32(_res) + 1 + ::ssu::Utils::SizeUInt32(_basechips) + 1 + ::ssu::Utils::SizeUInt32(_lowestchips);
+}
+
+uint8_t * PGStatus::PackBuffer(uint8_t * buf) {
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _chairid);
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 2, _status);
+  return buf;
+}
+
+bool PGStatus::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  uint32_t tag_; uint8_t type_;
+  while(leftSize > 0) {
+    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
+    switch(tag_) {
+     case 1:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _chairid)) return false;
+      break;
+     case 2:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _status)) return false;
+      break;
+     default: break;
+    }
+  }
+  return true;
+}
+
+size_t PGStatus::Size() const {
+  return 1 + ::ssu::Utils::SizeUInt32(_chairid) + 1 + ::ssu::Utils::SizeUInt32(_status);
 }
 
 uint8_t * SCPlayerGameSart_0x09::PackBuffer(uint8_t * buf) {
   buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _basechips);
   buf = ::ssu::Utils::PackUInt32Tag(buf, 2, _lowestchips);
-  buf = ::ssu::Utils::PackRepeatedTag(buf, 3, _playerinfos, ::ssu::Utils::PackObjectTag<PlayerBaseInfo>);
   return buf;
 }
 
@@ -338,9 +338,6 @@ bool SCPlayerGameSart_0x09::UnpackBuffer(const uint8_t *& buf, size_t& leftSize)
      case 2:
       if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _lowestchips)) return false;
       break;
-     case 3:
-      if(type_ != 2 || !::ssu::Utils::UnpackRepeatedPtr(buf, leftSize, _playerinfos, ::ssu::Utils::UnpackObjectPtr<PlayerBaseInfo>)) return false;
-      break;
      default: break;
     }
   }
@@ -348,7 +345,7 @@ bool SCPlayerGameSart_0x09::UnpackBuffer(const uint8_t *& buf, size_t& leftSize)
 }
 
 size_t SCPlayerGameSart_0x09::Size() const {
-  return 1 + ::ssu::Utils::SizeUInt32(_basechips) + 1 + ::ssu::Utils::SizeUInt32(_lowestchips) + 1 * _playerinfos.Size() + ::ssu::Utils::SizeRepeated(_playerinfos, ::ssu::Utils::SizeObject<PlayerBaseInfo>);
+  return 1 + ::ssu::Utils::SizeUInt32(_basechips) + 1 + ::ssu::Utils::SizeUInt32(_lowestchips);
 }
 
 SCPlayerGameStatus_0x10::~SCPlayerGameStatus_0x10() {

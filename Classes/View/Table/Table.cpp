@@ -5,10 +5,8 @@
 namespace View
 {
 	Table _table;
-	Table::Table(): mBaseChip(0), mBigBlindPos(0), mSmallBlindPos(0)
+	Table::Table(): mBaseChip(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
 	{
-		int xx = 0;
-		++xx;
 	}
 
 	Scene* Table::creatScene()
@@ -241,12 +239,16 @@ namespace View
 
 	}
 
-	inline int Table::S2CPos(char cChair)
+	int Table::S2CPos(char cChair)
 	{
+		if (onwerCharid == cChair)
+		{
+
+		}
 		return 0;
 	}
 
-	inline int Table::C2SPos(char cChair)
+	int Table::C2SPos(char cChair)
 	{
 		return 0;
 	}
@@ -254,5 +256,22 @@ namespace View
 	void Table::initPos()
 	{
 
+	}
+
+	void Table::onOhterPlayerEnter()
+	{
+		
+	}
+	void Table::onPlayerEnter(std::vector<PlayerInfo> &pInfos)
+	{
+
+		for (size_t i = 0; i < pInfos.size(); ++i)
+		{
+			if (i == 0) // mine chairid of server
+			{ 
+				mineCharid = pInfos[0].chairid;
+			}
+			UInt8 pos = S2CPos(pInfos[i].chairid);
+		}
 	}
 }
