@@ -243,9 +243,9 @@ namespace View
 	{
 		if (onwerCharid == cChair)
 		{
-
+			return 0;
 		}
-		return 0;
+		return (cChair + onwerCharid)
 	}
 
 	int Table::C2SPos(char cChair)

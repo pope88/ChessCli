@@ -64,8 +64,8 @@ namespace View
 		void setLeftTime(int nChair, int nPeriod);
 		void playSound(int mSound);
 		void clearAllButton();
-		static int S2CPos(char cChair);
-		static int C2SPos(char cChiar);
+	    int S2CPos(char cChair);
+	    int C2SPos(char cChiar);
 		void onOhterPlayerEnter();
 		void onPlayerEnter(std::vector<PlayerInfo> &pInfos);
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }
