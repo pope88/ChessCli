@@ -18,8 +18,10 @@ namespace View
 		bool touchHits(Touch  *touch);
 		inline UInt8 getPos() { return _pos; }
 		inline void setPos(UInt8 c) { _pos = c; }
+		void setNickName(std::string nickname);
  	protected:
 		Sprite *baseFloor;
+		LabelTTF *nameLabel;
 		UInt8 _pos;
 	};
 

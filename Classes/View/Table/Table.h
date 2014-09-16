@@ -15,6 +15,7 @@ namespace View
 
     static const UInt8 OTHER = 6;
 	static const float DEALINGTIME = 0.5;
+	static const UInt8 MAXPLAYER = 7;
 	enum GameFlag
 	{
 		GAMEBEGIN = 1,
@@ -64,8 +65,8 @@ namespace View
 		void setLeftTime(int nChair, int nPeriod);
 		void playSound(int mSound);
 		void clearAllButton();
-		static int S2CPos(char cChair);
-		static int C2SPos(char cChiar);
+		int S2CPos(char cChair);
+		int C2SPos(char cChiar);
 		void onOhterPlayerEnter();
 		void onPlayerEnter(std::vector<PlayerInfo> &pInfos);
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }

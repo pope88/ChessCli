@@ -243,14 +243,18 @@ namespace View
 	{
 		if (onwerCharid == cChair)
 		{
-
+			return 0;
 		}
-		return 0;
+		return (cChair + MAXPLAYER - onwerCharid) % MAXPLAYER;
 	}
 
 	int Table::C2SPos(char cChair)
 	{
-		return 0;
+		if (cChair == 0)
+		{
+			return onwerCharid;
+		}
+		return (onwerCharid + cChair) % MAXPLAYER;
 	}
 
 	void Table::initPos()
@@ -269,7 +273,7 @@ namespace View
 		{
 			if (i == 0) // mine chairid of server
 			{ 
-				mineCharid = pInfos[0].chairid;
+				onwerCharid = pInfos[0].chairid;
 			}
 			UInt8 pos = S2CPos(pInfos[i].chairid);
 		}

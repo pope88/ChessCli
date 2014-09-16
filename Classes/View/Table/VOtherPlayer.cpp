@@ -3,10 +3,15 @@
 
 namespace View
 {
+
 	VBasePlayer::VBasePlayer():_pos(0)
 	{
 		baseFloor = Sprite::create(spathSitOpen);
 		this->addChild(baseFloor);
+
+		nameLabel = LabelTTF::create("", "LubalinGraphStd-Medium", 28);
+		this->addChild(nameLabel);
+
 		auto listener = EventListenerTouchOneByOne::create();
 		listener->setSwallowTouches(true);
 		listener->onTouchBegan = CC_CALLBACK_2(VBasePlayer::onTouchBegan, this);
@@ -48,10 +53,18 @@ namespace View
 		return area.containsPoint(baseFloor->convertToNodeSpace(touch->getLocation()));
 	}
 
+	void VBasePlayer::setNickName(std::string nickname)
+	{
+		if (nameLabel != NULL)
+		{
+			nameLabel->setString(nickname);
+		}
+	}
+
+
 	VOtherPlayer::VOtherPlayer()
 	{
 		defaultFloor = Sprite::create(spathSitIn);
 		this->addChild(defaultFloor);
 	}
-
 }
