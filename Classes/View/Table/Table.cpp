@@ -12,8 +12,9 @@ namespace View
 	Scene* Table::creatScene()
 	{
 		auto scene = Scene::create();
-		auto layer = Table::create();
-		scene->addChild(layer);
+		//auto layer = Table::create();
+		scene->addChild(&_table);
+		_table.init();
 		//layer->createCards();
 		return scene;
 	}
@@ -28,7 +29,7 @@ namespace View
 		_votherSeats.resize(others);
 		for (size_t i = 0; i < others; ++i)
 		{
-			VBasePlayer *ps = VBasePlayer::create();
+			VBaseSeat *ps = VBaseSeat::create();
 			this->addChild(ps);
 			_votherSeats[i] = ps;
 		}
@@ -79,6 +80,19 @@ namespace View
 		}
 	}
 
+	void Table::initMySelf()
+	{
+		auto vSize = Director::getInstance()->getVisibleSize();
+		_pMySeat =  VBaseSeat::create();
+		this->addChild(_pMySeat);
+		_pMySeat->setPosition(Point(VisibleRect::bottom().x, VisibleRect::left().y - vSize.height/3));
+
+		_pMy = VPlayer::create();
+		this->addChild(_pMy);
+		_pMy->setPosition(Point(VisibleRect::bottom().x, VisibleRect::left().y - vSize.height/3));
+
+	}
+
 	bool Table::init()
 	{
 		if (!Layer::init())
@@ -106,8 +120,9 @@ namespace View
 		initOtherSeats(OTHER);
 		initOtherPlayers(OTHER);
 		initOtherPos(OTHER);
-
 		initCardBacks(OTHER);
+		
+		initMySelf();
 		
 		dealingCard();
 
@@ -266,6 +281,7 @@ namespace View
 	{
 		
 	}
+
 	void Table::onPlayerEnter(std::vector<PlayerInfo> &pInfos)
 	{
 
@@ -274,8 +290,24 @@ namespace View
 			if (i == 0) // mine chairid of server
 			{ 
 				onwerCharid = pInfos[0].chairid;
+				_pMy->setNickName(pInfos[0].nickname);
+				char chipStr[30];
+				sprintf(chipStr, "%d", pInfos[i].allchips);
+				_pMy->setChips(chipStr);
 			}
-			UInt8 pos = S2CPos(pInfos[i].chairid);
+			else
+			{
+				UInt8 pos = S2CPos(pInfos[i].chairid);
+				if (pos < MAXPLAYER)
+				{
+					_votherPlayers[i]->setNickName(pInfos[i].nickname);
+
+					char chipStr[30];
+					sprintf(chipStr, "%d", pInfos[i].allchips);
+					_votherPlayers[i]->setChips(chipStr);
+				}
+			}
+
 		}
 	}
 }

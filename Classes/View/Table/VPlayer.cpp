@@ -3,8 +3,8 @@
 
 namespace View
 {
-	VPlayer::VPlayer()
-	{
+	//VPlayer::VPlayer()
+	//{
 
-	}
+	//}
 }

@@ -3,14 +3,31 @@
 
 namespace View
 {
+	VBaseSeat::VBaseSeat():_pos(0)
+	{
+		baseFloor = Sprite::create(spathSitOpen);
+		this->addChild(baseFloor);
+	}
+
+	const Size& VBaseSeat::getSeatSize()
+	{
+		return baseFloor->getContentSize();
+	}
 
 	VBasePlayer::VBasePlayer():_pos(0)
 	{
 		baseFloor = Sprite::create(spathSitOpen);
 		this->addChild(baseFloor);
 
-		nameLabel = LabelTTF::create("", "LubalinGraphStd-Medium", 28);
+		nameLabel = Label::create("", "LubalinGraphStd-Medium", 28);
 		this->addChild(nameLabel);
+		nameLabel->setPosition(Point(0, baseFloor->getContentSize().height/2 + nameLabel->getDimensions().height + 10));
+		nameLabel->setColor(Color3B(255,215,0));
+
+		chipLabel = Label::create("", "LubalinGraphStd-Medium", 28);
+		this->addChild(chipLabel);
+		chipLabel->setPosition(Point(0, -baseFloor->getContentSize().height/2 - chipLabel->getDimensions().height - 10));
+		chipLabel->setColor(Color3B(255,215,0));
 
 		auto listener = EventListenerTouchOneByOne::create();
 		listener->setSwallowTouches(true);
@@ -61,10 +78,13 @@ namespace View
 		}
 	}
 
-
-	VOtherPlayer::VOtherPlayer()
+	void VBasePlayer::setChips(std::string chips)
 	{
-		defaultFloor = Sprite::create(spathSitIn);
-		this->addChild(defaultFloor);
+		if (chipLabel != NULL)
+		{
+			chipLabel->setString(chips);
+		}
 	}
+
+
 }

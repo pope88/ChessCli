@@ -49,6 +49,7 @@ namespace View
 		void initOtherPos(UInt8 others);
 		void initOtherSeats(UInt8 others);
 		void initOtherPlayers(UInt8 ohters);
+		void initMySelf();
 		bool onTouchBegan(Touch *touch, Event *unused_event);
 		void onTouchEnded(Touch *touch, Event *unused_event);
 		void onPokerStart(UInt32 mBaseChip, UInt8 bBlindPos, UInt8 sBlindPos);
@@ -73,12 +74,14 @@ namespace View
 		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
 	private:
 		Sprite *_backGroud;
-		std::vector<VBasePlayer*> _votherSeats;
+		std::vector<VBaseSeat*> _votherSeats;
 		std::vector<VOtherPlayer*> _votherPlayers;
 		std::vector<Point> _votherPoints;
 		std::vector<Sprite*> _cardBacks;
 		std::vector<Point> _initCardBackPos;
 		std::vector<Point> _endCardBackPos;
+		VPlayer *_pMy;
+		VBaseSeat *_pMySeat;
 	private:
 		Button *_checkButton;
 		Button *_foldButton;
