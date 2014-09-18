@@ -5,7 +5,7 @@
 namespace View
 {
 	Table _table;
-	Table::Table(): mBaseChip(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
+	Table::Table(): _backGroud(NULL), mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
 	{
 	}
 
@@ -52,7 +52,7 @@ namespace View
 	{
 		float posPlus = 10.0;
 		_votherPoints.resize(others);
-		if (others == 6)
+		if (others == OTHER)
 		{
 			auto vSize = Director::getInstance()->getVisibleSize();
 			float a = VisibleRect::left().x;
@@ -111,11 +111,22 @@ namespace View
 		Point pCenter = Point(vOrigin.x + vSize.width/2, vOrigin.y + vSize.height/2);
 		_backGroud = Sprite::create(spTableBackGroud);
 		_backGroud->setPosition(pCenter.x, pCenter.y);
+		
 		auto s = Sprite::create(spStest);
 		s->setAnchorPoint(Point(0.5, 0.5));
 		s->setPosition(VisibleRect::center().x, VisibleRect::center().y);
 		this->addChild(_backGroud);
 		this->addChild(s);
+
+		baseChipLabel = Label::create("", "LubalinGraphStd-Medium", 28);
+		this->addChild(baseChipLabel);
+		baseChipLabel->setPosition(VisibleRect::top().x - 30, VisibleRect::top().y - 30);
+		baseChipLabel->setString("BASECHIP:");
+
+		allChipLabel = Label::create("", "LubalinGraphStd-Medium", 28);
+		this->addChild(allChipLabel);
+		allChipLabel->setPosition(VisibleRect::top().x - 25, VisibleRect::top().y - 60);
+		allChipLabel->setString("ALLCHIP:");
 
 		initOtherSeats(OTHER);
 		initOtherPlayers(OTHER);
@@ -138,7 +149,11 @@ namespace View
 
 	void Table::reInit()
 	{
-
+		char bchipstr[30];
+		sprintf(bchipstr, "BASECHIP: %d", mBaseChip);
+		std::string bchipStr(bchipstr);
+		baseChipLabel->setString(bchipStr);
+		allChipLabel->setString("ALLCHIP: 0");
 	}
 
 	bool Table::onTouchBegan(Touch *touch, Event *unused_event)
@@ -277,12 +292,26 @@ namespace View
 
 	}
 
-	void Table::onOhterPlayerEnter()
+	void Table::onOhterPlayerEnter(const PlayerInfo &pi)
 	{
-		
+		UInt8 chairid = 0;
+		chairid = S2CPos(pi.chairid);
+		_votherPlayers[chairid]->setNickName(pi.nickname);
+
+		char chipStr[30];
+		sprintf(chipStr, "%d", pi.allchips);
+		_votherPlayers[chairid]->setChips(chipStr);
 	}
 
-	void Table::onPlayerEnter(std::vector<PlayerInfo> &pInfos)
+	void Table::onOtherPlayerLeave(UInt8 chairid)
+	{
+		UInt8 clichairid = 0;
+		clichairid = S2CPos(clichairid);
+		_votherPlayers[clichairid]->setNickName("");
+		_votherPlayers[clichairid]->setChips("");
+	}
+
+	void Table::onPlayerEnter(const std::vector<PlayerInfo> &pInfos)
 	{
 
 		for (size_t i = 0; i < pInfos.size(); ++i)

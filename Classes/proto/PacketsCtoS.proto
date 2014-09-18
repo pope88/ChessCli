@@ -68,7 +68,7 @@ message CSUserEnterRoom_0x06
 }
 
 //0x07
-//玩家请求进入房间
+//玩家请求进入桌子
 message CSUserEnterTable_0x07
 {
  //桌子号
@@ -87,4 +87,12 @@ message CSPlayerOperate_0x14
 {
   //操作(弃牌，跟注)
   required uint32 opcode = 1;
+}
+
+//0x16
+//玩家请求离开桌子
+message CSUserLeaveTable_0x16
+{
+ //桌子号
+  required uint32 tableno = 1;
 }

@@ -93,7 +93,7 @@ message SCUserEnterTable_0x07
 {
   //玩家进入桌子(for the enter palayer 0:success 1:fail)
   optional uint32 res = 1;
-  //for the enter player, playerinfos is the other player infos ，for the ohter player,playerinfos is the enter player's info
+  //for the enter player, playerinfos is the other player infos ，for the ohter player,playerinfos is the enter player's info first must be the palyer own
   repeated PlayerBaseInfo playerinfos= 2;
 }
 
@@ -126,6 +126,12 @@ message SCPlayerGameSart_0x09
    required uint32 basechips = 1;
    //至少带入的筹码数
    required uint32 lowestchips = 2;
+   //庄家位置
+   required uint32 bosschairpos = 3;
+   //大盲注的位置
+   required uint32 bigblindpos = 4;
+   //小盲注的位置
+   required uint32 smallblindpos = 5;
 }
 
 //0x10
@@ -211,4 +217,12 @@ message SCPlayerOperateNot_0x15
    required uint32 leavechips = 4;
    //总筹码
    required uint32 totalchips = 5;
+}
+
+//0x16
+//玩家请求离开桌子
+message SCUserLeaveTable_0x16
+{
+ //桌子号
+  required uint32 chairid = 1;
 }

@@ -212,6 +212,26 @@ class CSPlayerOperate_0x14: public ::ssu::Object {
 
 };
 
+class CSUserLeaveTable_0x16: public ::ssu::Object {
+ public:
+  inline CSUserLeaveTable_0x16(): _tableno(0) { }
+
+  virtual ~CSUserLeaveTable_0x16() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline uint32_t Tableno() const { return _tableno; }
+  inline void SetTableno(uint32_t val__) { _tableno = val__; }
+
+ protected:
+  uint32_t _tableno;
+
+};
+
 }
 }
 }

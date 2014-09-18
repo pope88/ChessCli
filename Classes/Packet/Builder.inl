@@ -8,3 +8,4 @@ DefBuilder(UserEnterRoom, 0x06);
 DefBuilder(UserEnterTable, 0x07);
 DefBuilder(UserPlayNow, 0x08);
 DefBuilder(PlayerOperate, 0x14);
+DefBuilder(UserLeaveTable, 0x16);

@@ -68,12 +68,14 @@ namespace View
 		void clearAllButton();
 		int S2CPos(char cChair);
 		int C2SPos(char cChiar);
-		void onOhterPlayerEnter();
-		void onPlayerEnter(std::vector<PlayerInfo> &pInfos);
+		void onOhterPlayerEnter(const PlayerInfo &pi);
+		void onOtherPlayerLeave(UInt8 charid);
+		void onPlayerEnter(const std::vector<PlayerInfo> &pInfos);
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }
 		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
 	private:
 		Sprite *_backGroud;
+		Sprite *_bossSprite;
 		std::vector<VBaseSeat*> _votherSeats;
 		std::vector<VOtherPlayer*> _votherPlayers;
 		std::vector<Point> _votherPoints;
@@ -82,11 +84,14 @@ namespace View
 		std::vector<Point> _endCardBackPos;
 		VPlayer *_pMy;
 		VBaseSeat *_pMySeat;
+		Label *baseChipLabel;
+		Label *allChipLabel;
 	private:
 		Button *_checkButton;
 		Button *_foldButton;
 	private:
 		UInt32 mBaseChip;
+		UInt8 mBankerPos;
 		UInt8 mBigBlindPos;
 		UInt8 mSmallBlindPos;
 		UInt8 mGameFlag;

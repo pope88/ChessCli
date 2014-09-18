@@ -311,7 +311,7 @@ class PGStatus: public ::ssu::Object {
 
 class SCPlayerGameSart_0x09: public ::ssu::Object {
  public:
-  inline SCPlayerGameSart_0x09(): _basechips(0), _lowestchips(0) { }
+  inline SCPlayerGameSart_0x09(): _basechips(0), _lowestchips(0), _bosschairpos(0), _bigblindpos(0), _smallblindpos(0) { }
 
   virtual ~SCPlayerGameSart_0x09() { }
 
@@ -327,9 +327,21 @@ class SCPlayerGameSart_0x09: public ::ssu::Object {
   inline uint32_t Lowestchips() const { return _lowestchips; }
   inline void SetLowestchips(uint32_t val__) { _lowestchips = val__; }
 
+  inline uint32_t Bosschairpos() const { return _bosschairpos; }
+  inline void SetBosschairpos(uint32_t val__) { _bosschairpos = val__; }
+
+  inline uint32_t Bigblindpos() const { return _bigblindpos; }
+  inline void SetBigblindpos(uint32_t val__) { _bigblindpos = val__; }
+
+  inline uint32_t Smallblindpos() const { return _smallblindpos; }
+  inline void SetSmallblindpos(uint32_t val__) { _smallblindpos = val__; }
+
  protected:
   uint32_t _basechips;
   uint32_t _lowestchips;
+  uint32_t _bosschairpos;
+  uint32_t _bigblindpos;
+  uint32_t _smallblindpos;
 
 };
 
@@ -557,6 +569,26 @@ class SCPlayerOperateNot_0x15: public ::ssu::Object {
   uint32_t _currentchips;
   uint32_t _leavechips;
   uint32_t _totalchips;
+
+};
+
+class SCUserLeaveTable_0x16: public ::ssu::Object {
+ public:
+  inline SCUserLeaveTable_0x16(): _chairid(0) { }
+
+  virtual ~SCUserLeaveTable_0x16() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline uint32_t Chairid() const { return _chairid; }
+  inline void SetChairid(uint32_t val__) { _chairid = val__; }
+
+ protected:
+  uint32_t _chairid;
 
 };
 

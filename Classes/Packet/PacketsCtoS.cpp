@@ -221,6 +221,29 @@ size_t CSPlayerOperate_0x14::Size() const {
   return 1 + ::ssu::Utils::SizeUInt32(_opcode);
 }
 
+uint8_t * CSUserLeaveTable_0x16::PackBuffer(uint8_t * buf) {
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _tableno);
+  return buf;
+}
+
+bool CSUserLeaveTable_0x16::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  uint32_t tag_; uint8_t type_;
+  while(leftSize > 0) {
+    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
+    switch(tag_) {
+     case 1:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _tableno)) return false;
+      break;
+     default: break;
+    }
+  }
+  return true;
+}
+
+size_t CSUserLeaveTable_0x16::Size() const {
+  return 1 + ::ssu::Utils::SizeUInt32(_tableno);
+}
+
 }
 }
 }

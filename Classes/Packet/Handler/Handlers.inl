@@ -13,3 +13,4 @@
 #include "Hall/UserRoomList.h"
 #include "Player/UserLogin.h"
 #include "Player/UserRegister.h"
+#include "UserLeaveTable.h"

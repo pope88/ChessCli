@@ -324,6 +324,9 @@ size_t PGStatus::Size() const {
 uint8_t * SCPlayerGameSart_0x09::PackBuffer(uint8_t * buf) {
   buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _basechips);
   buf = ::ssu::Utils::PackUInt32Tag(buf, 2, _lowestchips);
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 3, _bosschairpos);
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 4, _bigblindpos);
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 5, _smallblindpos);
   return buf;
 }
 
@@ -338,6 +341,15 @@ bool SCPlayerGameSart_0x09::UnpackBuffer(const uint8_t *& buf, size_t& leftSize)
      case 2:
       if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _lowestchips)) return false;
       break;
+     case 3:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _bosschairpos)) return false;
+      break;
+     case 4:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _bigblindpos)) return false;
+      break;
+     case 5:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _smallblindpos)) return false;
+      break;
      default: break;
     }
   }
@@ -345,7 +357,7 @@ bool SCPlayerGameSart_0x09::UnpackBuffer(const uint8_t *& buf, size_t& leftSize)
 }
 
 size_t SCPlayerGameSart_0x09::Size() const {
-  return 1 + ::ssu::Utils::SizeUInt32(_basechips) + 1 + ::ssu::Utils::SizeUInt32(_lowestchips);
+  return 1 + ::ssu::Utils::SizeUInt32(_basechips) + 1 + ::ssu::Utils::SizeUInt32(_lowestchips) + 1 + ::ssu::Utils::SizeUInt32(_bosschairpos) + 1 + ::ssu::Utils::SizeUInt32(_bigblindpos) + 1 + ::ssu::Utils::SizeUInt32(_smallblindpos);
 }
 
 SCPlayerGameStatus_0x10::~SCPlayerGameStatus_0x10() {
@@ -598,6 +610,29 @@ bool SCPlayerOperateNot_0x15::UnpackBuffer(const uint8_t *& buf, size_t& leftSiz
 
 size_t SCPlayerOperateNot_0x15::Size() const {
   return 1 + ::ssu::Utils::SizeUInt32(_opcode) + 1 + ::ssu::Utils::SizeUInt32(_chairid) + 1 + ::ssu::Utils::SizeUInt32(_currentchips) + 1 + ::ssu::Utils::SizeUInt32(_leavechips) + 1 + ::ssu::Utils::SizeUInt32(_totalchips);
+}
+
+uint8_t * SCUserLeaveTable_0x16::PackBuffer(uint8_t * buf) {
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _chairid);
+  return buf;
+}
+
+bool SCUserLeaveTable_0x16::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  uint32_t tag_; uint8_t type_;
+  while(leftSize > 0) {
+    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
+    switch(tag_) {
+     case 1:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _chairid)) return false;
+      break;
+     default: break;
+    }
+  }
+  return true;
+}
+
+size_t SCUserLeaveTable_0x16::Size() const {
+  return 1 + ::ssu::Utils::SizeUInt32(_chairid);
 }
 
 }
