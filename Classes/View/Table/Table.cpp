@@ -5,7 +5,7 @@
 namespace View
 {
 	Table _table;
-	Table::Table(): _backGroud(NULL), mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
+	Table::Table(): _backGroud(NULL), _bossSprite(NULL), _pMy(NULL), _pMySeat(NULL), baseChipLabel(NULL), allChipLabel(NULL), _checkButton(NULL), _foldButton(NULL), mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
 	{
 	}
 
@@ -80,6 +80,18 @@ namespace View
 		}
 	}
 
+	void Table::initBossPos()
+	{
+		_bossPos.resize(MAXPLAYER);
+		_bossPos[0] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_bossPos[1] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_bossPos[2] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_bossPos[3] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_bossPos[4] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_bossPos[5] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_bossPos[6] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+	}
+
 	void Table::initMySelf()
 	{
 		auto vSize = Director::getInstance()->getVisibleSize();
@@ -128,6 +140,10 @@ namespace View
 		allChipLabel->setPosition(VisibleRect::top().x - 25, VisibleRect::top().y - 60);
 		allChipLabel->setString("ALLCHIP:");
 
+		_bossSprite = Sprite::create("spBoss");
+		this->addChild(_bossSprite);
+		_bossSprite->setPosition();
+
 		initOtherSeats(OTHER);
 		initOtherPlayers(OTHER);
 		initOtherPos(OTHER);
@@ -135,8 +151,6 @@ namespace View
 		
 		initMySelf();
 		
-		dealingCard();
-
 		this->scheduleUpdate();
 		//auto listener  = EventListenerTouchOneByOne::create();
 		//listener->setSwallowTouches(true);
@@ -174,6 +188,7 @@ namespace View
 		mBigBlindPos = bBlindPos;
 		mSmallBlindPos = sBlindPos;
 		reInit();
+		dealingCard();
 	}
 
 	void Table::dealingCard()
@@ -313,7 +328,6 @@ namespace View
 
 	void Table::onPlayerEnter(const std::vector<PlayerInfo> &pInfos)
 	{
-
 		for (size_t i = 0; i < pInfos.size(); ++i)
 		{
 			if (i == 0) // mine chairid of server

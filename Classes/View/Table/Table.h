@@ -12,6 +12,7 @@ namespace View
 	static const std::string spTableBackGroud = "flump/table_backgroud/table0.jpg";
 	static const std::string spStest = "CloseNormal.png";
 	static const std::string spCardBacks[3] = { "flump/table/cardback0.png", "flump/table/cardback1.png", "flump/table/cardback2.png" };
+	static const std::string spBoss = "flump/table/boss.png";
 
     static const UInt8 OTHER = 6;
 	static const float DEALINGTIME = 0.5;
@@ -46,7 +47,9 @@ namespace View
 		virtual void onEnter();
 		bool init();
 		void reInit();
-		void initOtherPos(UInt8 others);
+		void initOtherPos(UInt8 others = OTHER);
+		void initBossPos();
+		inline Point& getBossPos(UInt8 pos) { if(pos < MAXPLAYER) return _bossPos[pos]; }
 		void initOtherSeats(UInt8 others);
 		void initOtherPlayers(UInt8 ohters);
 		void initMySelf();
@@ -82,6 +85,7 @@ namespace View
 		std::vector<Sprite*> _cardBacks;
 		std::vector<Point> _initCardBackPos;
 		std::vector<Point> _endCardBackPos;
+		std::vector<Point> _bossPos;
 		VPlayer *_pMy;
 		VBaseSeat *_pMySeat;
 		Label *baseChipLabel;
