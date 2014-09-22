@@ -76,6 +76,7 @@ namespace View
 		void onPlayerEnter(const std::vector<PlayerInfo> &pInfos);
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }
 		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
+		inline VBasePlayer* getPMy() { return _pMy; }
 	private:
 		Sprite *_backGroud;
 		Sprite *_bossSprite;

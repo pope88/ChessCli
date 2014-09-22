@@ -108,7 +108,13 @@ void CardGeneral::drawCard()
 
 void CardGeneral::clearCard()
 {
+	this->removeChild(backGround, true);
 	this->removeChild(pSpriteZi, true);
 	this->removeChild(pSpriteHua, true);
 	this->removeChild(pSpriteGrain, true);
+
+	if (this->getParent() != NULL)
+	{
+		this->getParent()->removeChild(this, true);
+	}
 }

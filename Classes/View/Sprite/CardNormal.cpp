@@ -106,7 +106,12 @@ void CardNormal::drawCard()
 
 void CardNormal::clearCard()
 {
+	removeChild(backGround, true);
 	removeChild(pSpriteZi, true);
 	removeChild(pSpriteHua, true);
 	removeChild(pSpriteGrain, true);
+	if (this->getParent() != NULL)
+	{
+		this->getParent()->removeChild(this, true);
+	}
 }

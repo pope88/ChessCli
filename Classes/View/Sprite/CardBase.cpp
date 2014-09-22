@@ -8,7 +8,6 @@ CardBase::CardBase(UInt8 cValue, UInt8 color):Node(), cardValue(cValue), cardCol
 }
 CardBase::~CardBase()
 {
-	clearCard();
 }
 
 

@@ -14,8 +14,11 @@ namespace View
 		return baseFloor->getContentSize();
 	}
 
-	VBasePlayer::VBasePlayer():_pos(0)
+	VBasePlayer::VBasePlayer(): _pos(0)
 	{
+		_handCards[0] = NULL;
+		_handCards[1] = NULL;
+
 		baseFloor = Sprite::create(spathSitOpen);
 		this->addChild(baseFloor);
 
@@ -84,6 +87,24 @@ namespace View
 		{
 			chipLabel->setString(chips);
 		}
+	}
+
+	void VBasePlayer::clearCards()
+	{
+		if (_handCards[0] != NULL)
+		{
+			_handCards[0]->clearCard();
+		}
+
+		if (_handCards[1] != NULL)
+		{
+			_handCards[1]->clearCard();
+		}
+	}
+	
+	void VBasePlayer::renDerCards(const std::vector<CCard> &hcVec)
+	{
+		_handCards[0] = new 
 	}
 
 

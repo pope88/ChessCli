@@ -56,8 +56,14 @@ void CardKing::drawCard()
 }
 void CardKing::clearCard()
 {
+	removeChild(backGround, true);
 	removeChild(pSpriteHua);
 	removeChild(pSpriteGrain);
+
+	if (this->getParent() != NULL)
+	{
+		this->getParent()->removeChild(this, true);
+	}
 }
 
 void CardKing::setCardHuaP()

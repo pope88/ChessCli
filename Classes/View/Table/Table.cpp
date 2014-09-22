@@ -142,7 +142,8 @@ namespace View
 
 		_bossSprite = Sprite::create("spBoss");
 		this->addChild(_bossSprite);
-		_bossSprite->setPosition();
+		_bossSprite->setPosition(_bossPos[0]);
+		_bossSprite->setVisible(false);
 
 		initOtherSeats(OTHER);
 		initOtherPlayers(OTHER);
@@ -188,7 +189,6 @@ namespace View
 		mBigBlindPos = bBlindPos;
 		mSmallBlindPos = sBlindPos;
 		reInit();
-		dealingCard();
 	}
 
 	void Table::dealingCard()

@@ -1,6 +1,8 @@
 #ifndef _VOTHERPLAYER_H_
 #define _VOTHERPLAYER_H_
 #include "cocos2d.h"
+#include "../Sprite/CardBase.h"
+#include "../../Common/CCard.h"
 USING_NS_CC;
 namespace View
 {
@@ -37,7 +39,10 @@ namespace View
 		inline void setPos(UInt8 c) { _pos = c; }
 		void setNickName(std::string nickname);
 		void setChips(std::string chips);
+		virtual void clearCards();
+		void renDerCards(const std::vector<CCard> &hcVec);
  	protected:
+		CardBase *_handCards[2];
 		Sprite *baseFloor;
 		Label *nameLabel;
 		Label *chipLabel;
