@@ -4,12 +4,14 @@
 
 CardBase::CardBase(UInt8 cValue, UInt8 color):Node(), cardValue(cValue), cardColor(color)
 {
+	LS_P_INIT(backGround);
 	this->init();
 }
+
 CardBase::~CardBase()
 {
+	LS_P_RELEASE(backGround);
 }
-
 
 bool CardBase::init()
 {
@@ -19,13 +21,14 @@ bool CardBase::init()
 
 void CardBase::drawCard()
 {
-	backGround = Sprite::createWithSpriteFrameName(s_pNameCardBackGround);
-	this->addChild(backGround);
+	Sprite *bg = Sprite::createWithSpriteFrameName(s_pNameCardBackGround);
+	setbackGround(bg);
+	this->addChild(getbackGround());
 }
 
 void CardBase::clearCard()
 {
-	this->removeChild(backGround, true);
+	setbackGround(NULL);
 }
 
 void CardBase::onEnter()
@@ -52,7 +55,7 @@ bool CardBase::ccTouchBegan(Touch* touch, Event* event)
 	//ccDrawColor4B(0, 255, 0, 255);
 	//ccDrawCircle( VisibleRect::center(), 100, 0, 10, false);
 
-	Size s = backGround->getContentSize();
+	Size s = getbackGround()->getContentSize();
 
 	DrawNode *draw = DrawNode::create();
 	addChild(draw, 10);
@@ -83,6 +86,6 @@ void CardBase::ccTouchEnded(Touch *pTouch, Event *pEvent)
 	b.g = 255;
 	b.b = 255;
 
-	backGround->setColor(b);
+	getbackGround()->setColor(b);
 	CCLog("ccTouchEnded");
 }

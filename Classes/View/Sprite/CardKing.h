@@ -12,7 +12,6 @@ private:
 	void setCardHuaP();
 	void setCardGrainP();
 private:
-	Sprite *pSpriteHua;
-	Sprite *pSpriteGrain;  //back ground
-
+	LS_PROPERTY_RETAIN(Sprite*, pSpriteHua, pSpriteHua);
+	LS_PROPERTY_RETAIN(Sprite*, pSpriteGrain, pSpriteGrain);
 };

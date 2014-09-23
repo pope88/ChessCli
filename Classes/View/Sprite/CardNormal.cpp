@@ -3,14 +3,19 @@
 #include "../../Utils/MobileLog.h"
 #include "../GameResources.h"
 
-CardNormal::CardNormal(UInt8 cValue, UInt8 color):CardBase(cValue, color),pSpriteZi(NULL), pSpriteHua(NULL), pSpriteGrain(NULL)
+CardNormal::CardNormal(UInt8 cValue, UInt8 color):CardBase(cValue, color)
 {
+	LS_P_INIT(pSpriteZi);
+	LS_P_INIT(pSpriteHua);
+	LS_P_INIT(pSpriteGrain);
 	init();
 }
 
 CardNormal::~CardNormal()
 {
-	clearCard();
+	LS_P_RELEASE(pSpriteZi);
+	LS_P_RELEASE(pSpriteHua);
+	LS_P_RELEASE(pSpriteGrain);
 }
 
 bool CardNormal::init()
@@ -21,28 +26,28 @@ bool CardNormal::init()
 
 void CardNormal::setCardZiP()
 {
-	if (pSpriteZi)
+	if (getpSpriteZi() != NULL)
 	{
-		pSpriteZi->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteZi->setPosition(Point(8,55));            //set position
+		getpSpriteZi()->setAnchorPoint(Point(0, 0));         //set anchor point
+		getpSpriteZi()->setPosition(Point(8,55));            //set position
 	}
 }
 
 void CardNormal::setCardHuaP()
 {
-	if (pSpriteHua)
+	if (getpSpriteHua() != NULL)
 	{
-		pSpriteHua->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteHua->setPosition(Point(6,85));            //set position
+		getpSpriteHua()->setAnchorPoint(Point(0, 0));         //set anchor point
+		getpSpriteHua()->setPosition(Point(6,85));            //set position
 	}
 }
 
 void CardNormal::setCardGrainP()
 {
-	if (pSpriteGrain)
+	if (getpSpriteGrain())
 	{
-		pSpriteGrain->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteGrain->setPosition(Point(25,30));           //set position
+		getpSpriteGrain()->setAnchorPoint(Point(0, 0));         //set anchor point
+		getpSpriteGrain()->setPosition(Point(25,30));           //set position
 	}
 }
 
@@ -67,15 +72,16 @@ void CardNormal::drawCard()
 	//draw card zi
 	if (cardColor == 0 || cardColor == 2)
 	{
-		pSpriteZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardBlackZi[_keyValue].c_str());
-		backGround->addChild(pSpriteZi);
+		Sprite* pZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardBlackZi[_keyValue].c_str());
+		setpSpriteZi(pZi);
+		getbackGround()->addChild(getpSpriteZi());
 		//set zi position
 		setCardZiP();
 	}
 	else if (cardColor == 1 || cardColor == 3)
 	{
-		pSpriteZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardRedZi[_keyValue].c_str());
-		backGround->addChild(pSpriteZi);
+		Sprite* pZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardRedZi[_keyValue].c_str());
+		getbackGround()->addChild(pZi);
 		//set zi position
 		setCardZiP();
 	}
@@ -87,14 +93,16 @@ void CardNormal::drawCard()
 	if (cardColor >= 0 && cardColor <= 3)
 	{
 		//draw hua
-		pSpriteHua = Sprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
+		Sprite* spHua = Sprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
+		setpSpriteHua(spHua);
 		setCardHuaP();
-		backGround->addChild(pSpriteHua);
+		getbackGround()->addChild(getpSpriteHua());
 
 		//draw card background
-		pSpriteGrain = Sprite::createWithSpriteFrameName(s_pNameListNormalGrain[cardColor].c_str());
+		Sprite *spGrain = Sprite::createWithSpriteFrameName(s_pNameListNormalGrain[cardColor].c_str());
+	    setpSpriteGrain(spGrain);
 		setCardGrainP();
-		backGround->addChild(pSpriteGrain);
+		getbackGround()->addChild(spGrain);
 	}
 	else
 	{
@@ -106,10 +114,10 @@ void CardNormal::drawCard()
 
 void CardNormal::clearCard()
 {
-	removeChild(backGround, true);
-	removeChild(pSpriteZi, true);
-	removeChild(pSpriteHua, true);
-	removeChild(pSpriteGrain, true);
+	getbackGround()->removeChild(getpSpriteZi(), true);
+	getbackGround()->removeChild(getpSpriteHua(), true);
+	getbackGround()->removeChild(getpSpriteGrain(), true);
+	removeChild(getbackGround(), true);
 	if (this->getParent() != NULL)
 	{
 		this->getParent()->removeChild(this, true);

@@ -104,7 +104,7 @@ namespace View
 	
 	void VBasePlayer::renDerCards(const std::vector<CCard> &hcVec)
 	{
-		_handCards[0] = new 
+		//_handCards[0] = new 
 	}
 
 

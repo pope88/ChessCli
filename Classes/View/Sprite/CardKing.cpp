@@ -4,7 +4,7 @@
 #include "../GameResources.h"
 
 
-CardKing::CardKing(UInt8 cValue, UInt8 color):CardBase(cValue, color), pSpriteHua(NULL), pSpriteGrain(NULL)
+CardKing::CardKing(UInt8 cValue, UInt8 color):CardBase(cValue, color)
 {
 	init();
 }
@@ -38,13 +38,15 @@ void CardKing::drawCard()
 	if (cardColor >= 0 && cardColor <= 1)
 	{
 		//draw card background
-		pSpriteGrain = Sprite::createWithSpriteFrameName(s_pNameListKingGrain[cardColor].c_str());
-		backGround->addChild(pSpriteGrain);
+		Sprite *pSGrain = Sprite::createWithSpriteFrameName(s_pNameListKingGrain[cardColor].c_str());
+		setpSpriteGrain(pSGrain);
+		getbackGround()->addChild(getpSpriteGrain());
 		setCardGrainP();
 
 		//draw hua
-		pSpriteHua = Sprite::createWithSpriteFrameName(s_pNameListKingHua[cardColor].c_str());
-		backGround->addChild(pSpriteHua);
+		Sprite *pSHua = Sprite::createWithSpriteFrameName(s_pNameListKingHua[cardColor].c_str());
+		setpSpriteHua(pSHua);
+		getbackGround()->addChild(getpSpriteHua());
 		setCardHuaP();
 	}
 	else
@@ -56,9 +58,9 @@ void CardKing::drawCard()
 }
 void CardKing::clearCard()
 {
-	removeChild(backGround, true);
-	removeChild(pSpriteHua);
-	removeChild(pSpriteGrain);
+	getbackGround()->removeChild(getpSpriteHua(), true);
+	getbackGround()->removeChild(getpSpriteGrain(), true);
+	removeChild(getbackGround(), true);
 
 	if (this->getParent() != NULL)
 	{
@@ -68,18 +70,18 @@ void CardKing::clearCard()
 
 void CardKing::setCardHuaP()
 {
-	if (pSpriteHua)
+	if (getpSpriteHua())
 	{
-		pSpriteHua->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteHua->setPosition(Point(6, 80));            //set position
+		getpSpriteHua()->setAnchorPoint(Point(0, 0));         //set anchor point
+		getpSpriteHua()->setPosition(Point(6, 80));            //set position
 	}
 }
 
 void CardKing::setCardGrainP()
 {
-	if (pSpriteGrain)
+	if (getpSpriteGrain())
 	{
-		pSpriteGrain->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteGrain->setPosition(Point(20,0));            //set position
+		getpSpriteGrain()->setAnchorPoint(Point(0, 0));         //set anchor point
+		getpSpriteGrain()->setPosition(Point(20,0));            //set position
 	}
 }

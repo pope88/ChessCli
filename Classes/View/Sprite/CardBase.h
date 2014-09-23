@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 USING_NS_CC;
+#include "../PreConfig.h"
 class CardBase : public Node
 {
 	enum 
@@ -12,6 +13,7 @@ class CardBase : public Node
 public:
 	CardBase(UInt8 cValue, UInt8 color); //card value , card color
 	virtual ~CardBase();
+	CREATE_FUNC2(CardBase, UInt8, UInt8);
 public:
 	virtual bool init();
 	virtual void drawCard();
@@ -25,10 +27,10 @@ public:
 	virtual void ccTouchEnded(Touch *pTouch, Event *pEvent);
 	//Sprite *shadow;
 protected:
-	Sprite *backGround;
+	LS_PROPERTY_RETAIN(Sprite*, backGround, backGround);
 protected:
 	UInt8 cardValue;
 	UInt8 cardColor;
 };
 
-#endif
+#endif 

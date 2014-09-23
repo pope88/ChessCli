@@ -3,40 +3,45 @@
 #include "../../Utils/MobileLog.h"
 #include "../GameResources.h"
 
-CardGeneral::CardGeneral(UInt8 cValue, UInt8 color):CardBase(cValue, color),pSpriteZi(NULL), pSpriteHua(NULL), pSpriteGrain(NULL)
+CardGeneral::CardGeneral(UInt8 cValue, UInt8 color):CardBase(cValue, color)
 {
+	LS_P_INIT(pSpriteZi);
+	LS_P_INIT(pSpriteHua);
+	LS_P_INIT(pSpriteGrain);
 	init();
 }
 
 CardGeneral::~CardGeneral()
 {
-	clearCard();
+	LS_P_RELEASE(pSpriteZi);
+	LS_P_RELEASE(pSpriteHua);
+	LS_P_RELEASE(pSpriteGrain);
 }
 
 void CardGeneral::setCardZiP()
 {
-	if (pSpriteZi)
+	if (getpSpriteZi())
 	{
-		pSpriteZi->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteZi->setPosition(Point(8,125));            //set position
+		getpSpriteZi()->setAnchorPoint(Point(0, 0));         //set anchor point
+		getpSpriteZi()->setPosition(Point(8,125));            //set position
 	}
 }
 
 void CardGeneral::setCardHuaP()
 {
-	if (pSpriteHua)
+	if (getpSpriteHua())
 	{
-		pSpriteHua->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteHua->setPosition(Point(6,85));            //set position
+		getpSpriteHua()->setAnchorPoint(Point(0, 0));         //set anchor point
+		getpSpriteHua()->setPosition(Point(6,85));            //set position
 	}
 }
 
 void CardGeneral::setCardGrainP()
 {
-	if (pSpriteGrain)
+	if (getpSpriteGrain())
 	{
-		pSpriteGrain->setAnchorPoint(Point(0, 0));         //set anchor point
-		pSpriteGrain->setPosition(Point(20,0));            //set position
+		getpSpriteGrain()->setAnchorPoint(Point(0, 0));         //set anchor point
+		getpSpriteGrain()->setPosition(Point(20,0));            //set position
 	}
 }
 
@@ -69,36 +74,42 @@ void CardGeneral::drawCard()
 	if (cardColor == 0 || cardColor == 2)
 	{
 		//draw card background
-		pSpriteGrain = Sprite::createWithSpriteFrameName(s_pNameListRedGGrain[gid].c_str());
-		backGround->addChild(pSpriteGrain);
+	 	Sprite *pSGrain = Sprite::createWithSpriteFrameName(s_pNameListRedGGrain[gid].c_str());
+		setpSpriteGrain(pSGrain);
+		getbackGround()->addChild(getpSpriteGrain());
 		setCardGrainP();
 
-		pSpriteZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardBlackZi[_keyValue].c_str());
-		backGround->addChild(pSpriteZi);
+		Sprite *pSZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardBlackZi[_keyValue].c_str());
+	    setpSpriteZi(pSZi);
+		getbackGround()->addChild(getpSpriteZi());
 		//set zi position
 		setCardZiP();
 
 		//draw hua
-		pSpriteHua = Sprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
-		backGround->addChild(pSpriteHua);
+		Sprite *pSHua = Sprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
+		setpSpriteHua(pSHua);
+		getbackGround()->addChild(getpSpriteHua());
 		setCardHuaP();
 	}
 	else if (cardColor == 1 || cardColor == 3)
 	{
 		//draw card background
-		pSpriteGrain = Sprite::createWithSpriteFrameName(s_pNameListBlueGGrain[gid].c_str());
+		Sprite *pSGrain = Sprite::createWithSpriteFrameName(s_pNameListBlueGGrain[gid].c_str());
+		setpSpriteGrain(pSGrain);
 		setCardGrainP();
-		backGround->addChild(pSpriteGrain);
+		getbackGround()->addChild(getpSpriteGrain());
 
-		pSpriteZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardRedZi[_keyValue].c_str());
+		Sprite *pSZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardRedZi[_keyValue].c_str());
+		setpSpriteZi(pSZi);
 		//set zi position
 		setCardZiP();
-		backGround->addChild(pSpriteZi);
+		getbackGround()->addChild(getpSpriteZi());
 
 		//draw hua
-		pSpriteHua = Sprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
+		Sprite *pSHua = Sprite::createWithSpriteFrameName(s_pNameListHua[cardColor].c_str());
+		setpSpriteHua(pSHua);
 		setCardHuaP();
-		backGround->addChild(pSpriteHua);
+		getbackGround()->addChild(getpSpriteHua());
 	}
 	else
 	{
@@ -108,10 +119,11 @@ void CardGeneral::drawCard()
 
 void CardGeneral::clearCard()
 {
-	this->removeChild(backGround, true);
-	this->removeChild(pSpriteZi, true);
-	this->removeChild(pSpriteHua, true);
-	this->removeChild(pSpriteGrain, true);
+	
+	this->removeChild(getpSpriteZi(), true);
+	this->removeChild(getpSpriteHua(), true);
+	this->removeChild(getpSpriteGrain(), true);
+	this->removeChild(getbackGround(), true);
 
 	if (this->getParent() != NULL)
 	{
