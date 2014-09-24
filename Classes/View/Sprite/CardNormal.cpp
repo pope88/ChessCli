@@ -8,7 +8,6 @@ CardNormal::CardNormal(UInt8 cValue, UInt8 color):CardBase(cValue, color)
 	LS_P_INIT(pSpriteZi);
 	LS_P_INIT(pSpriteHua);
 	LS_P_INIT(pSpriteGrain);
-	init();
 }
 
 CardNormal::~CardNormal()
@@ -44,7 +43,7 @@ void CardNormal::setCardHuaP()
 
 void CardNormal::setCardGrainP()
 {
-	if (getpSpriteGrain())
+	if (getpSpriteGrain() != NULL)
 	{
 		getpSpriteGrain()->setAnchorPoint(Point(0, 0));         //set anchor point
 		getpSpriteGrain()->setPosition(Point(25,30));           //set position

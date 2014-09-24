@@ -8,7 +8,6 @@ CardGeneral::CardGeneral(UInt8 cValue, UInt8 color):CardBase(cValue, color)
 	LS_P_INIT(pSpriteZi);
 	LS_P_INIT(pSpriteHua);
 	LS_P_INIT(pSpriteGrain);
-	init();
 }
 
 CardGeneral::~CardGeneral()

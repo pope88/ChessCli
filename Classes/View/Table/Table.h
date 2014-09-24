@@ -4,6 +4,7 @@
 #include "View/Table/VOtherPlayer.h"
 #include "ui/CocosGUI.h"
 #include "../../Packet/Builder.h"
+#include "../PreConfig.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -42,6 +43,7 @@ namespace View
 	{
 	public:
 		Table();
+		~Table();
 		//CREATE_FUNC(Table);
 		static Scene* creatScene();
 		virtual void onEnter();
@@ -58,6 +60,7 @@ namespace View
 		void onPokerStart(UInt32 mBaseChip, UInt8 bBlindPos, UInt8 sBlindPos);
 		void onPokerEnd();
 		void dealingCard();
+		void renderCardByPos(UInt8 pos);
 		void initCardBacks(UInt8 others);
 		void initCardBacksPos();
 		void initAni();
@@ -76,10 +79,16 @@ namespace View
 		void onPlayerEnter(const std::vector<PlayerInfo> &pInfos);
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }
 		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
-		inline VBasePlayer* getPMy() { return _pMy; }
+		//inline VBasePlayer* getPMy() { return _pMy; }
 	private:
-		Sprite *_backGroud;
-		Sprite *_bossSprite;
+
+		LS_PROPERTY_RETAIN(Sprite*, backGroud, backGroud);
+		LS_PROPERTY_RETAIN(Sprite*, bossSprite, bossSprite);
+		LS_PROPERTY_RETAIN(VPlayer*, pMy, pMy);
+	    LS_PROPERTY_RETAIN(VBaseSeat*, pMySeat, pMySeat);
+		LS_PROPERTY_RETAIN(Label*, baseChipLabel, baseChipLabel);
+		LS_PROPERTY_RETAIN(Label*, allChipLabel, allChipLabel);
+
 		std::vector<VBaseSeat*> _votherSeats;
 		std::vector<VOtherPlayer*> _votherPlayers;
 		std::vector<Point> _votherPoints;
@@ -87,10 +96,6 @@ namespace View
 		std::vector<Point> _initCardBackPos;
 		std::vector<Point> _endCardBackPos;
 		std::vector<Point> _bossPos;
-		VPlayer *_pMy;
-		VBaseSeat *_pMySeat;
-		Label *baseChipLabel;
-		Label *allChipLabel;
 	private:
 		Button *_checkButton;
 		Button *_foldButton;

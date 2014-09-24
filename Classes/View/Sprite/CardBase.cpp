@@ -5,7 +5,6 @@
 CardBase::CardBase(UInt8 cValue, UInt8 color):Node(), cardValue(cValue), cardColor(color)
 {
 	LS_P_INIT(backGround);
-	this->init();
 }
 
 CardBase::~CardBase()
@@ -28,7 +27,8 @@ void CardBase::drawCard()
 
 void CardBase::clearCard()
 {
-	setbackGround(NULL);
+	this->removeChild(getbackGround(), true);
+
 }
 
 void CardBase::onEnter()

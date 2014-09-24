@@ -5,8 +5,24 @@
 namespace View
 {
 	Table _table;
-	Table::Table(): _backGroud(NULL), _bossSprite(NULL), _pMy(NULL), _pMySeat(NULL), baseChipLabel(NULL), allChipLabel(NULL), _checkButton(NULL), _foldButton(NULL), mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
+	Table::Table(): _checkButton(NULL), _foldButton(NULL), mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
 	{
+		LS_P_INIT(backGroud);
+		LS_P_INIT(bossSprite);
+		LS_P_INIT(pMy);
+		LS_P_INIT(pMySeat);
+		LS_P_INIT(baseChipLabel);
+		LS_P_INIT(allChipLabel);
+	}
+
+	Table::~Table()
+	{
+		LS_P_RELEASE(backGroud);
+		LS_P_RELEASE(bossSprite);
+		LS_P_RELEASE(pMy);
+		LS_P_RELEASE(pMySeat);
+		LS_P_RELEASE(baseChipLabel);
+		LS_P_RELEASE(allChipLabel);
 	}
 
 	Scene* Table::creatScene()
@@ -95,14 +111,15 @@ namespace View
 	void Table::initMySelf()
 	{
 		auto vSize = Director::getInstance()->getVisibleSize();
-		_pMySeat =  VBaseSeat::create();
-		this->addChild(_pMySeat);
-		_pMySeat->setPosition(Point(VisibleRect::bottom().x, VisibleRect::left().y - vSize.height/3));
+		VBaseSeat* _pMs =  VBaseSeat::create();
+		setpMySeat(_pMs);
+		this->addChild(getpMySeat());
+		getpMySeat()->setPosition(Point(VisibleRect::bottom().x, VisibleRect::left().y - vSize.height/3));
 
-		_pMy = VPlayer::create();
-		this->addChild(_pMy);
-		_pMy->setPosition(Point(VisibleRect::bottom().x, VisibleRect::left().y - vSize.height/3));
-
+		VPlayer *pmy = VPlayer::create();
+		setpMy(pmy);
+		this->addChild(getpMy());
+		getpMy()->setPosition(Point(VisibleRect::bottom().x, VisibleRect::left().y - vSize.height/3));
 	}
 
 	bool Table::init()
@@ -121,29 +138,34 @@ namespace View
 		auto vOrigin = Director::getInstance()->getVisibleOrigin();
 		auto vSize = Director::getInstance()->getVisibleSize();
 		Point pCenter = Point(vOrigin.x + vSize.width/2, vOrigin.y + vSize.height/2);
-		_backGroud = Sprite::create(spTableBackGroud);
-		_backGroud->setPosition(pCenter.x, pCenter.y);
+	
+		Sprite* bg = Sprite::create(spTableBackGroud);
+		setbackGroud(bg);
+		getbackGroud()->setPosition(pCenter.x, pCenter.y);
 		
 		auto s = Sprite::create(spStest);
 		s->setAnchorPoint(Point(0.5, 0.5));
 		s->setPosition(VisibleRect::center().x, VisibleRect::center().y);
-		this->addChild(_backGroud);
+		this->addChild(getbackGroud());
 		this->addChild(s);
 
-		baseChipLabel = Label::create("", "LubalinGraphStd-Medium", 28);
-		this->addChild(baseChipLabel);
-		baseChipLabel->setPosition(VisibleRect::top().x - 30, VisibleRect::top().y - 30);
-		baseChipLabel->setString("BASECHIP:");
+		Label *bcl = Label::create("", "LubalinGraphStd-Medium", 28);
+		setbaseChipLabel(bcl);
+		this->addChild(getbaseChipLabel());
+		getbaseChipLabel()->setPosition(VisibleRect::top().x - 30, VisibleRect::top().y - 30);
+		getbaseChipLabel()->setString("BASECHIP:");
 
-		allChipLabel = Label::create("", "LubalinGraphStd-Medium", 28);
-		this->addChild(allChipLabel);
-		allChipLabel->setPosition(VisibleRect::top().x - 25, VisibleRect::top().y - 60);
-		allChipLabel->setString("ALLCHIP:");
+		Label *acl = Label::create("", "LubalinGraphStd-Medium", 28);
+		setallChipLabel(acl);
+		this->addChild(getallChipLabel());
+		getallChipLabel()->setPosition(VisibleRect::top().x - 25, VisibleRect::top().y - 60);
+		getallChipLabel()->setString("ALLCHIP:");
 
-		_bossSprite = Sprite::create("spBoss");
-		this->addChild(_bossSprite);
-		_bossSprite->setPosition(_bossPos[0]);
-		_bossSprite->setVisible(false);
+		Sprite* bSp = Sprite::create("spBoss");
+		setbossSprite(bSp);
+		this->addChild(getbossSprite());
+		getbossSprite()->setPosition(_bossPos[0]);
+		getbossSprite()->setVisible(false);
 
 		initOtherSeats(OTHER);
 		initOtherPlayers(OTHER);
@@ -167,8 +189,8 @@ namespace View
 		char bchipstr[30];
 		sprintf(bchipstr, "BASECHIP: %d", mBaseChip);
 		std::string bchipStr(bchipstr);
-		baseChipLabel->setString(bchipStr);
-		allChipLabel->setString("ALLCHIP: 0");
+		getbaseChipLabel()->setString(bchipStr);
+		getallChipLabel()->setString("ALLCHIP: 0");
 	}
 
 	bool Table::onTouchBegan(Touch *touch, Event *unused_event)
@@ -207,6 +229,25 @@ namespace View
 		_cardBacks[3]->runAction(move3);
 		_cardBacks[4]->runAction(move4);
 		_cardBacks[5]->runAction(move5);
+	}
+
+	void Table::renderCardByPos(UInt8 pos)
+	{
+		if (pos >= MAXPLAYER)
+		{
+			return;
+		}
+		if (pos == 0)
+		{
+			this->addChild(getpMy()->get_handCards0());
+			getpMy()->get_handCards0()->setPosition();
+			this->addChild(getpMy()->get_handCards1());
+			getpMy()->get_handCards1()->setPosition();
+		}
+		else
+		{
+			//_votherPlayers[pos-1]->get
+		}
 	}
 
 	void Table::initCardBacks(UInt8 others)
@@ -333,10 +374,10 @@ namespace View
 			if (i == 0) // mine chairid of server
 			{ 
 				onwerCharid = pInfos[0].chairid;
-				_pMy->setNickName(pInfos[0].nickname);
+				getpMy()->setNickName(pInfos[0].nickname);
 				char chipStr[30];
 				sprintf(chipStr, "%d", pInfos[i].allchips);
-				_pMy->setChips(chipStr);
+				getpMy()->setChips(chipStr);
 			}
 			else
 			{

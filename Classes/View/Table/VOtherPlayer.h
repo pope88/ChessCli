@@ -3,6 +3,8 @@
 #include "cocos2d.h"
 #include "../Sprite/CardBase.h"
 #include "../../Common/CCard.h"
+#include "../Sprite/CCardSprite.h"
+#include "../PreConfig.h"
 USING_NS_CC;
 namespace View
 {
@@ -13,6 +15,7 @@ namespace View
 	public:
 		CREATE_FUNC(VBaseSeat);
 		VBaseSeat();
+		~VBaseSeat();
 		const Size& getSeatSize();
 		//bool onTouchBegan(Touch *touch, Event *event);
 		//void onTouchEnded(Touch *touch, Event *event);
@@ -30,6 +33,8 @@ namespace View
 	public:
 		CREATE_FUNC(VBasePlayer);
 		VBasePlayer();
+		virtual ~VBasePlayer();
+		bool init();
 		void reInit();
 		const Size& getSeatSize();
 		bool onTouchBegan(Touch *touch, Event *event);
@@ -42,10 +47,11 @@ namespace View
 		virtual void clearCards();
 		void renDerCards(const std::vector<CCard> &hcVec);
  	protected:
-		CardBase *_handCards[2];
-		Sprite *baseFloor;
-		Label *nameLabel;
-		Label *chipLabel;
+		LS_PROPERTY_RETAIN(CCardSprite*, _handCards0, _handCards0);
+		LS_PROPERTY_RETAIN(CCardSprite*, _handCards1, _handCards1);
+		LS_PROPERTY_RETAIN(Sprite*, baseFloor, baseFloor);
+		LS_PROPERTY_RETAIN(Label*, nameLabel, nameLabel);
+		LS_PROPERTY_RETAIN(Label*, chipLabel, chipLabel);
 		UInt8 _pos;
 	};
 

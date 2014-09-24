@@ -6,12 +6,14 @@
 
 CardKing::CardKing(UInt8 cValue, UInt8 color):CardBase(cValue, color)
 {
-	init();
+	LS_P_INIT(pSpriteHua);
+	LS_P_INIT(pSpriteGrain);
 }
 
 CardKing::~CardKing()
 {
-	clearCard();
+	LS_P_RELEASE(pSpriteHua);
+	LS_P_RELEASE(pSpriteGrain);
 }
 
 bool CardKing::init()

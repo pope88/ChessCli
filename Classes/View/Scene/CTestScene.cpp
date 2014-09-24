@@ -146,19 +146,19 @@ namespace View
 		pcard->setPosition(Point(origin.x + 300, origin.y+100));
 		testLayer->addChild(pcard);
 
-		CCardSprite carda;
-		carda.m_nValue = 3;
-		carda.m_nColor = 1;
-		carda.getCardSprite()->setAnchorPoint(Point(0, 0));
-		carda.getCardSprite()->setPosition(Point(200, 200));
-		testLayer->addChild(carda.getCardSprite());
+		//CCardSprite carda;
+		//carda.m_nValue = 3;
+		//carda.m_nColor = 1;
+		//carda.getCardSprite()->setAnchorPoint(Point(0, 0));
+		//carda.getCardSprite()->setPosition(Point(200, 200));
+		//testLayer->addChild(carda.getCardSprite());
 
-		CCardSprite cardb;
-		cardb.m_nValue = 3;
-		cardb.m_nColor = 1;
-		cardb.getCardSprite()->setAnchorPoint(Point(0, 0));
-		cardb.getCardSprite()->setPosition(Point(400, 200));
-		testLayer->addChild(cardb.getCardSprite());
+		//CCardSprite cardb;
+		//cardb.m_nValue = 3;
+		//cardb.m_nColor = 1;
+		//cardb.getCardSprite()->setAnchorPoint(Point(0, 0));
+		//cardb.getCardSprite()->setPosition(Point(400, 200));
+		//testLayer->addChild(cardb.getCardSprite());
 	}
 
 	void CTestScene::runThisScene( )

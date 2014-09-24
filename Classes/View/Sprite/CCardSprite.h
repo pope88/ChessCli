@@ -4,13 +4,42 @@
 #include "CardGeneral.h"
 #include "CardKing.h"
 #include "../../Common/CCard.h"
+#include "../PreConfig.h"
 
-
-class CCardSprite : public CCard
+class CCardSprite : public CCard, public CCNode
 {
 public:
+	CREATE_FUNC2(CCardSprite, int, int);
 	CCardSprite() :CCard(), cardSprite(NULL) {}
-	CCardSprite(int nColor, int nValue, CardBase *pb) : CCard(nColor, nValue), cardSprite(pb) {}
+	CCardSprite(int nColor, int nValue) : CCard(nColor, nValue)
+	{
+		if ((m_nValue >= 3 && m_nValue <= 10) || m_nValue == 14 || m_nValue == 15 )
+		{
+			cardSprite = CardNormal::create(m_nValue, m_nColor);
+		}
+		else if (m_nValue>= 11 && m_nValue<= 13)
+		{
+			cardSprite = CardGeneral::create(m_nValue, m_nColor);
+		}
+		else if (m_nValue == 16 || m_nValue == 17)
+		{
+			cardSprite = CardKing::create(m_nValue, m_nColor);
+		}
+	}
+
+	bool CCardSprite::init()
+	{
+		if (!CCNode::init())
+		{
+			return false;
+		}
+		if (cardSprite != NULL)
+		{
+			this->addChild(cardSprite);
+		}
+		return true;
+	}
+
 	CCardSprite (const CCardSprite &srcCard)
 	{
 		if(this == &srcCard)
@@ -33,27 +62,15 @@ public:
 		return (m_nColor == srcCard.m_nColor && m_nValue == srcCard.m_nValue && cardSprite == srcCard.cardSprite);
 	}
 public:
-	inline CardBase* getCardSprite()
+	void clearCard()
 	{
 		if (cardSprite != NULL)
 		{
-			return cardSprite;
+			cardSprite->clearCard();
 		}
-		else
+		if (this->getParent() != NULL)
 		{
-			if ((m_nValue >= 3 && m_nValue <= 10) || m_nValue == 14 || m_nValue == 15 )
-			{
-				cardSprite = new CardNormal(m_nValue, m_nColor);
-			}
-			else if (m_nValue>= 11 && m_nValue<= 13)
-			{
-				cardSprite = new CardGeneral(m_nValue, m_nColor);
-			}
-			else if (m_nValue == 16 || m_nValue == 17)
-			{
-				cardSprite = new CardKing(m_nValue, m_nColor);
-			}
-			return cardSprite;
+			this->getParent()->removeChild(this, true);
 		}
 	}
 public:
