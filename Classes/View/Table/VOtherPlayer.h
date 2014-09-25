@@ -66,7 +66,10 @@ namespace View
 	class VPlayer : public VBasePlayer
 	{
 	public:
+		VPlayer();
+		~VPlayer();
 		CREATE_FUNC(VPlayer);
+
 	};
 }
 #endif // !_VOTHERPLAYER_H_

@@ -5,7 +5,7 @@
 namespace View
 {
 	Table _table;
-	Table::Table(): _checkButton(NULL), _foldButton(NULL), mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
+	Table::Table(): mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
 	{
 		LS_P_INIT(backGroud);
 		LS_P_INIT(bossSprite);
@@ -13,6 +13,8 @@ namespace View
 		LS_P_INIT(pMySeat);
 		LS_P_INIT(baseChipLabel);
 		LS_P_INIT(allChipLabel);
+		LS_P_INIT(checkButton);
+		LS_P_INIT(foldButton);
 	}
 
 	Table::~Table()
@@ -23,6 +25,8 @@ namespace View
 		LS_P_RELEASE(pMySeat);
 		LS_P_RELEASE(baseChipLabel);
 		LS_P_RELEASE(allChipLabel);
+		LS_P_INIT(checkButton);
+		LS_P_INIT(foldButton);
 	}
 
 	Scene* Table::creatScene()
@@ -106,6 +110,32 @@ namespace View
 		_bossPos[4] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 		_bossPos[5] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 		_bossPos[6] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+	}
+
+	void Table::initCardsPos()
+	{
+		_cardsPos.resize(MAXPLAYER);
+
+		_cardsPos[0] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_cardsPos[1] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+
+		_cardsPos[2] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_cardsPos[3] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+
+		_cardsPos[4] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_cardsPos[5] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+
+		_cardsPos[6] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_cardsPos[7] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+
+		_cardsPos[8] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_cardsPos[9] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+
+		_cardsPos[10] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_cardsPos[11] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+
+		_cardsPos[12] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_cardsPos[13] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 	}
 
 	void Table::initMySelf()
@@ -231,7 +261,7 @@ namespace View
 		_cardBacks[5]->runAction(move5);
 	}
 
-	void Table::renderCardByPos(UInt8 pos)
+	void Table::renderCardByPos(UInt8 pos, const std::vector<CCard> &cards)
 	{
 		if (pos >= MAXPLAYER)
 		{
@@ -239,14 +269,25 @@ namespace View
 		}
 		if (pos == 0)
 		{
-			this->addChild(getpMy()->get_handCards0());
-			getpMy()->get_handCards0()->setPosition();
-			this->addChild(getpMy()->get_handCards1());
-			getpMy()->get_handCards1()->setPosition();
+			if (getpMy() != NULL)
+			{
+				getpMy()->renDerCards(cards);
+				this->addChild(getpMy()->get_handCards0());
+				getpMy()->get_handCards0()->setPosition(_cardsPos[0]);
+				this->addChild(getpMy()->get_handCards1());
+				getpMy()->get_handCards1()->setPosition(_cardsPos[1]);
+			}
 		}
 		else
 		{
-			//_votherPlayers[pos-1]->get
+			if (_votherPlayers[pos-1] != NULL)
+			{
+				_votherPlayers[pos-1]->renDerCards(cards);
+				this->addChild(_votherPlayers[pos-1]->get_handCards0());
+				_votherPlayers[pos-1]->get_handCards0()->setPosition(_cardsPos[pos*2]);
+				this->addChild(_votherPlayers[pos-1]->get_handCards1());
+				_votherPlayers[pos-1]->get_handCards1()->setPosition(_cardsPos[pos*2+1]);
+			}
 		}
 	}
 

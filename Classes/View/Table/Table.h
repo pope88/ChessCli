@@ -18,6 +18,7 @@ namespace View
     static const UInt8 OTHER = 6;
 	static const float DEALINGTIME = 0.5;
 	static const UInt8 MAXPLAYER = 7;
+
 	enum GameFlag
 	{
 		GAMEBEGIN = 1,
@@ -51,6 +52,7 @@ namespace View
 		void reInit();
 		void initOtherPos(UInt8 others = OTHER);
 		void initBossPos();
+		void initCardsPos();
 		inline Point& getBossPos(UInt8 pos) { if(pos < MAXPLAYER) return _bossPos[pos]; }
 		void initOtherSeats(UInt8 others);
 		void initOtherPlayers(UInt8 ohters);
@@ -60,7 +62,7 @@ namespace View
 		void onPokerStart(UInt32 mBaseChip, UInt8 bBlindPos, UInt8 sBlindPos);
 		void onPokerEnd();
 		void dealingCard();
-		void renderCardByPos(UInt8 pos);
+		void renderCardByPos(UInt8 pos, const std::vector<CCard> &cards);
 		void initCardBacks(UInt8 others);
 		void initCardBacksPos();
 		void initAni();
@@ -88,6 +90,8 @@ namespace View
 	    LS_PROPERTY_RETAIN(VBaseSeat*, pMySeat, pMySeat);
 		LS_PROPERTY_RETAIN(Label*, baseChipLabel, baseChipLabel);
 		LS_PROPERTY_RETAIN(Label*, allChipLabel, allChipLabel);
+		LS_PROPERTY_RETAIN(Button*, checkButton);
+		LS_PROPERTY_RETAIN(Button*, foldButton);
 
 		std::vector<VBaseSeat*> _votherSeats;
 		std::vector<VOtherPlayer*> _votherPlayers;
@@ -95,10 +99,8 @@ namespace View
 		std::vector<Sprite*> _cardBacks;
 		std::vector<Point> _initCardBackPos;
 		std::vector<Point> _endCardBackPos;
+		std::vector<Point> _cardsPos;
 		std::vector<Point> _bossPos;
-	private:
-		Button *_checkButton;
-		Button *_foldButton;
 	private:
 		UInt32 mBaseChip;
 		UInt8 mBankerPos;
