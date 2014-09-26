@@ -15,6 +15,11 @@ namespace View
 	static const std::string spCardBacks[3] = { "flump/table/cardback0.png", "flump/table/cardback1.png", "flump/table/cardback2.png" };
 	static const std::string spBoss = "flump/table/boss.png";
 
+	static const std::string spCheck = "flump/table/btn/check_btn.png";
+	static const std::string spRaise = "flump/table/btn/raise_btn.png";
+	static const std::string spFold = "flump/table/btn/fold_btn.png";
+	static const std::string spCall = "flump/table/btn/call_btn.png";
+
     static const UInt8 OTHER = 6;
 	static const float DEALINGTIME = 0.5;
 	static const UInt8 MAXPLAYER = 7;
@@ -59,6 +64,11 @@ namespace View
 		void initMySelf();
 		bool onTouchBegan(Touch *touch, Event *unused_event);
 		void onTouchEnded(Touch *touch, Event *unused_event);
+		void onTouchCheckEnd(Ref* sender, Button::TouchEventType event);
+		void onTouchRaiseEnd(Ref* sender, Button::TouchEventType event);
+		void onTouchFoldEnd(Ref* sender, Button::TouchEventType event);
+		void onTouchCallEnd(Ref* sender, Button::TouchEventType event);
+
 		void onPokerStart(UInt32 mBaseChip, UInt8 bBlindPos, UInt8 sBlindPos);
 		void onPokerEnd();
 		void dealingCard();
@@ -90,8 +100,11 @@ namespace View
 	    LS_PROPERTY_RETAIN(VBaseSeat*, pMySeat, pMySeat);
 		LS_PROPERTY_RETAIN(Label*, baseChipLabel, baseChipLabel);
 		LS_PROPERTY_RETAIN(Label*, allChipLabel, allChipLabel);
-		LS_PROPERTY_RETAIN(Button*, checkButton);
-		LS_PROPERTY_RETAIN(Button*, foldButton);
+		
+		LS_PROPERTY_RETAIN(Button*, checkButton, checkButton);
+		LS_PROPERTY_RETAIN(Button*, raiseButton, raiseButton);
+		LS_PROPERTY_RETAIN(Button*, foldButton, foldButton);
+		LS_PROPERTY_RETAIN(Button*, callButton, callButton);
 
 		std::vector<VBaseSeat*> _votherSeats;
 		std::vector<VOtherPlayer*> _votherPlayers;
@@ -101,6 +114,7 @@ namespace View
 		std::vector<Point> _endCardBackPos;
 		std::vector<Point> _cardsPos;
 		std::vector<Point> _bossPos;
+
 	private:
 		UInt32 mBaseChip;
 		UInt8 mBankerPos;

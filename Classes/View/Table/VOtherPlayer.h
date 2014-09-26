@@ -59,6 +59,8 @@ namespace View
 	class VOtherPlayer : public VBasePlayer
 	{
 	public:
+		VOtherPlayer() {}
+		~VOtherPlayer() {}
 		CREATE_FUNC(VOtherPlayer);
 	};
 
@@ -66,8 +68,8 @@ namespace View
 	class VPlayer : public VBasePlayer
 	{
 	public:
-		VPlayer();
-		~VPlayer();
+		VPlayer() {}
+		~VPlayer() {}
 		CREATE_FUNC(VPlayer);
 
 	};

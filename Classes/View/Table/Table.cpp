@@ -13,8 +13,11 @@ namespace View
 		LS_P_INIT(pMySeat);
 		LS_P_INIT(baseChipLabel);
 		LS_P_INIT(allChipLabel);
+
 		LS_P_INIT(checkButton);
+		LS_P_INIT(raiseButton);
 		LS_P_INIT(foldButton);
+		LS_P_INIT(callButton);	
 	}
 
 	Table::~Table()
@@ -25,8 +28,11 @@ namespace View
 		LS_P_RELEASE(pMySeat);
 		LS_P_RELEASE(baseChipLabel);
 		LS_P_RELEASE(allChipLabel);
-		LS_P_INIT(checkButton);
-		LS_P_INIT(foldButton);
+
+		LS_P_RELEASE(checkButton);
+		LS_P_RELEASE(raiseButton);
+		LS_P_RELEASE(foldButton);
+		LS_P_RELEASE(callButton);
 	}
 
 	Scene* Table::creatScene()
@@ -159,6 +165,15 @@ namespace View
 			return false;
 		}
 
+		initOtherSeats(OTHER);
+		initOtherPlayers(OTHER);
+		initOtherPos(OTHER);
+		initCardBacks(OTHER);
+
+		initBossPos();
+
+		initMySelf();
+
 		auto listener = EventListenerTouchOneByOne::create();
 		listener->setSwallowTouches(true);
 		listener->onTouchBegan = CC_CALLBACK_2(Table::onTouchBegan, this);
@@ -176,7 +191,7 @@ namespace View
 		auto s = Sprite::create(spStest);
 		s->setAnchorPoint(Point(0.5, 0.5));
 		s->setPosition(VisibleRect::center().x, VisibleRect::center().y);
-		this->addChild(getbackGroud());
+		this->addChild(getbackGroud(), -1);
 		this->addChild(s);
 
 		Label *bcl = Label::create("", "LubalinGraphStd-Medium", 28);
@@ -191,18 +206,35 @@ namespace View
 		getallChipLabel()->setPosition(VisibleRect::top().x - 25, VisibleRect::top().y - 60);
 		getallChipLabel()->setString("ALLCHIP:");
 
-		Sprite* bSp = Sprite::create("spBoss");
+		Sprite* bSp = Sprite::create(spBoss);
 		setbossSprite(bSp);
 		this->addChild(getbossSprite());
 		getbossSprite()->setPosition(_bossPos[0]);
 		getbossSprite()->setVisible(false);
 
-		initOtherSeats(OTHER);
-		initOtherPlayers(OTHER);
-		initOtherPos(OTHER);
-		initCardBacks(OTHER);
-		
-		initMySelf();
+		Button *cbtn = Button::create(spCheck);
+		setcheckButton(cbtn);
+		getcheckButton()->setPosition(Point(VisibleRect::bottom().x - 50 , VisibleRect::bottom().y + vSize.height/4));
+		this->addChild(getcheckButton());
+		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCheckEnd,this));
+
+		Button *raisebtn = Button::create(spRaise);
+		setraiseButton(raisebtn);
+		getraiseButton()->setPosition(Point(VisibleRect::bottom().x + 50 , VisibleRect::bottom().y + vSize.height/4));
+		this->addChild(getraiseButton());
+		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchRaiseEnd,this));
+
+		Button *callbtn = Button::create(spCall);
+		setcallButton(callbtn);
+		getcallButton()->setPosition(Point(VisibleRect::bottom().x - 50 , VisibleRect::bottom().y + vSize.height/4));
+		this->addChild(getcallButton());
+		getcallButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCallEnd, this));
+
+		Button *fbtn = Button::create(spFold);
+		setfoldButton(fbtn);
+		getfoldButton()->setPosition(Point(VisibleRect::bottom().x + 50 , VisibleRect::bottom().y + vSize.height/4));
+		this->addChild(getfoldButton());
+		getfoldButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchFoldEnd, this));
 		
 		this->scheduleUpdate();
 		//auto listener  = EventListenerTouchOneByOne::create();
@@ -232,6 +264,26 @@ namespace View
 	{
 		UInt8 t = 0;
 		++t;
+	}
+
+	void Table::onTouchCheckEnd(Ref* sender, Button::TouchEventType event)
+	{
+
+	}
+
+	void Table::onTouchRaiseEnd(Ref* sender, Button::TouchEventType event)
+	{
+
+	}
+
+	void Table::onTouchFoldEnd(Ref* sender, Button::TouchEventType event)
+	{
+
+	}
+
+	void Table::onTouchCallEnd(Ref* sender, Button::TouchEventType event)
+	{
+
 	}
 
 	void Table::onPokerStart(UInt32 mChip, UInt8 bBlindPos, UInt8 sBlindPos)
