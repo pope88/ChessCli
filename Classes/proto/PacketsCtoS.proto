@@ -87,6 +87,8 @@ message CSPlayerOperate_0x14
 {
   //操作(弃牌，跟注)
   required uint32 opcode = 1;
+  //chips
+  optional uint32 chips = 2;
 }
 
 //0x16

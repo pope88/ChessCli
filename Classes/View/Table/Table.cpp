@@ -5,7 +5,7 @@
 namespace View
 {
 	Table _table;
-	Table::Table(): mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0)
+	Table::Table(): mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0), mCallChips(0)
 	{
 		LS_P_INIT(backGroud);
 		LS_P_INIT(bossSprite);
@@ -14,10 +14,10 @@ namespace View
 		LS_P_INIT(baseChipLabel);
 		LS_P_INIT(allChipLabel);
 
-		LS_P_INIT(checkButton);
-		LS_P_INIT(raiseButton);
 		LS_P_INIT(foldButton);
 		LS_P_INIT(callButton);	
+		LS_P_INIT(checkButton);
+		LS_P_INIT(betButton);
 	}
 
 	Table::~Table()
@@ -29,10 +29,11 @@ namespace View
 		LS_P_RELEASE(baseChipLabel);
 		LS_P_RELEASE(allChipLabel);
 
-		LS_P_RELEASE(checkButton);
-		LS_P_RELEASE(raiseButton);
 		LS_P_RELEASE(foldButton);
 		LS_P_RELEASE(callButton);
+
+		LS_P_RELEASE(checkButton);
+		LS_P_RELEASE(betButton);
 	}
 
 	Scene* Table::creatScene()
@@ -144,6 +145,19 @@ namespace View
 		_cardsPos[13] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 	}
 
+	void Table::initCommonCardPos()
+	{
+		if (_commonCardPos.empty())
+		{
+			_commonCardPos.resize(5);
+		}
+		_commonCardPos[0] == Point(Point(VisibleRect::center().x - 200, VisibleRect::center().y - 100));
+		_commonCardPos[1] == Point(Point(VisibleRect::center().x - 100, VisibleRect::center().y - 100));
+		_commonCardPos[2] == Point(Point(VisibleRect::center().x, VisibleRect::center().y - 100));
+		_commonCardPos[3] == Point(Point(VisibleRect::center().x + 100, VisibleRect::center().y - 100));
+		_commonCardPos[4] == Point(Point(VisibleRect::center().x + 200, VisibleRect::center().y - 100));
+	}
+
 	void Table::initMySelf()
 	{
 		auto vSize = Director::getInstance()->getVisibleSize();
@@ -171,6 +185,8 @@ namespace View
 		initCardBacks(OTHER);
 
 		initBossPos();
+		initCardsPos();
+		initCommonCardPos();
 
 		initMySelf();
 
@@ -212,29 +228,29 @@ namespace View
 		getbossSprite()->setPosition(_bossPos[0]);
 		getbossSprite()->setVisible(false);
 
-		Button *cbtn = Button::create(spCheck);
-		setcheckButton(cbtn);
-		getcheckButton()->setPosition(Point(VisibleRect::bottom().x - 50 , VisibleRect::bottom().y + vSize.height/4));
-		this->addChild(getcheckButton());
-		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCheckEnd,this));
-
-		Button *raisebtn = Button::create(spRaise);
-		setraiseButton(raisebtn);
-		getraiseButton()->setPosition(Point(VisibleRect::bottom().x + 50 , VisibleRect::bottom().y + vSize.height/4));
-		this->addChild(getraiseButton());
-		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchRaiseEnd,this));
+		Button *fbtn = Button::create(spFold);
+		setfoldButton(fbtn);
+		getfoldButton()->setPosition(Point(VisibleRect::bottom().x - 80 , VisibleRect::bottom().y + vSize.height/4));
+		this->addChild(getfoldButton());
+		getfoldButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchFoldEnd, this));
 
 		Button *callbtn = Button::create(spCall);
 		setcallButton(callbtn);
-		getcallButton()->setPosition(Point(VisibleRect::bottom().x - 50 , VisibleRect::bottom().y + vSize.height/4));
+		getcallButton()->setPosition(Point(VisibleRect::bottom().x + 80 , VisibleRect::bottom().y + vSize.height/4));
 		this->addChild(getcallButton());
 		getcallButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCallEnd, this));
 
-		Button *fbtn = Button::create(spFold);
-		setfoldButton(fbtn);
-		getfoldButton()->setPosition(Point(VisibleRect::bottom().x + 50 , VisibleRect::bottom().y + vSize.height/4));
-		this->addChild(getfoldButton());
-		getfoldButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchFoldEnd, this));
+		Button *cbtn = Button::create(spCheck);
+		setcheckButton(cbtn);
+		getcheckButton()->setPosition(Point(VisibleRect::bottom().x - 80 , VisibleRect::bottom().y + vSize.height/4));
+		this->addChild(getcheckButton());
+		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCheckEnd,this));
+
+		Button *betbtn = Button::create(spRaise);
+		setbetButton(betbtn);
+		getbetButton()->setPosition(Point(VisibleRect::bottom().x + 80 , VisibleRect::bottom().y + vSize.height/4));
+		this->addChild(getbetButton());
+		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchBetEnd,this));
 		
 		this->scheduleUpdate();
 		//auto listener  = EventListenerTouchOneByOne::create();
@@ -255,6 +271,17 @@ namespace View
 		getallChipLabel()->setString("ALLCHIP: 0");
 	}
 
+	void Table::newRound()
+	{
+		reInit();
+		mBaseChip = 0;
+		mBankerPos = 0;
+		mBigBlindPos = 0;
+		mSmallBlindPos = 0;
+		mGameFlag = 0;
+		mCallChips = 0;
+	}
+
 	bool Table::onTouchBegan(Touch *touch, Event *unused_event)
 	{
 		return true;
@@ -268,20 +295,90 @@ namespace View
 
 	void Table::onTouchCheckEnd(Ref* sender, Button::TouchEventType event)
 	{
-
+		onMyOperate(CHECK, 0);
 	}
 
-	void Table::onTouchRaiseEnd(Ref* sender, Button::TouchEventType event)
+	void Table::onTouchBetEnd(Ref* sender, Button::TouchEventType event)
 	{
-
+		onMyOperate(ADDCHIPS, 200);
 	}
 
 	void Table::onTouchFoldEnd(Ref* sender, Button::TouchEventType event)
 	{
-
+		onMyOperate(GIVEUP, 0);
 	}
 
 	void Table::onTouchCallEnd(Ref* sender, Button::TouchEventType event)
+	{
+		onMyOperate(GIVEUP, 0);
+	}
+
+	void Table::onCommonCards(UInt8 stage, const std::vector<CCard> &cards)
+	{
+	    if (stage == 1)
+		{
+			if (cards.size() != 3)
+				return;
+			else
+			{
+				if(!_commonCards.empty())
+					_commonCards.clear();
+				if (!_commonCardPos.empty())
+				{
+					for (auto it = cards.begin(); it != cards.end(); ++it)
+					{
+						CCardSprite *cs = CCardSprite::create(it->m_nValue, it->m_nColor);
+						_commonCards.push_back(cs);
+						this->addChild(cs);
+					}
+				}
+			}
+		}
+		else if (stage == 2 || stage == 3 || stage == 4)
+		{
+			if (cards.size() != 1)
+				return;
+			CCardSprite *cs = CCardSprite::create(cards[0].m_nValue, cards[0].m_nColor);
+			_commonCards.push_back(cs);
+			this->addChild(cs);
+		}
+	}
+
+	void Table::askMyOperate(UInt8 opcode, UInt32 chips)
+	{
+		if (opcode & GIVEUP)
+		{
+			getfoldButton()->setVisible(true);
+		}
+
+		if (opcode & CALL)
+		{
+			getcallButton()->setVisible(true);
+		}
+
+		if (opcode & CHECK)
+		{
+			getcheckButton()->setVisible(true);
+		}
+
+		if (opcode & ADDCHIPS)
+		{
+			getbetButton()->setVisible(true);
+		}
+	}
+
+	void Table::onMyOperate(UInt8 opcode, UInt32 chips)
+	{
+		Packet::PlayerOperate po;
+		po.SetOpcode(opcode);
+		if (chips > 0)
+		{
+			po.SetChips(chips);
+		}
+		po.send();
+	}
+
+	void Table::onPlayerOperateAck(UInt8 opcode, UInt32 chips)
 	{
 
 	}
@@ -484,7 +581,20 @@ namespace View
 					_votherPlayers[i]->setChips(chipStr);
 				}
 			}
-
 		}
+	}
+
+	void Table::clearCommonCards()
+	{
+		for(int i = 0; i < _commonCards.size(); ++i)
+		{
+			_commonCards[i]->clearCard();
+		}
+		_commonCards.clear();
+	}
+
+	void Table::showOperateButton(bool bshow)
+	{
+
 	}
 }

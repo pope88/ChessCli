@@ -200,6 +200,7 @@ size_t CSUserPlayNow_0x08::Size() const {
 
 uint8_t * CSPlayerOperate_0x14::PackBuffer(uint8_t * buf) {
   buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _opcode);
+  if(HasChips()) buf = ::ssu::Utils::PackUInt32Tag(buf, 2, _chips);
   return buf;
 }
 
@@ -211,6 +212,10 @@ bool CSPlayerOperate_0x14::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) 
      case 1:
       if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _opcode)) return false;
       break;
+     case 2:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _chips)) return false;
+      _isSetFlag[0] |= 0x01;
+      break;
      default: break;
     }
   }
@@ -218,7 +223,7 @@ bool CSPlayerOperate_0x14::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) 
 }
 
 size_t CSPlayerOperate_0x14::Size() const {
-  return 1 + ::ssu::Utils::SizeUInt32(_opcode);
+  return 1 + ::ssu::Utils::SizeUInt32(_opcode) + (HasChips() ? (1 + ::ssu::Utils::SizeUInt32(_chips)) : 0);
 }
 
 uint8_t * CSUserLeaveTable_0x16::PackBuffer(uint8_t * buf) {

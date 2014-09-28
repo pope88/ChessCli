@@ -194,7 +194,8 @@ class CSUserPlayNow_0x08: public ::ssu::Object {
 
 class CSPlayerOperate_0x14: public ::ssu::Object {
  public:
-  inline CSPlayerOperate_0x14(): _opcode(0) { }
+  inline CSPlayerOperate_0x14(): _opcode(0), _chips(0)
+  { memset(_isSetFlag, 0, sizeof(_isSetFlag)); }
 
   virtual ~CSPlayerOperate_0x14() { }
 
@@ -207,8 +208,15 @@ class CSPlayerOperate_0x14: public ::ssu::Object {
   inline uint32_t Opcode() const { return _opcode; }
   inline void SetOpcode(uint32_t val__) { _opcode = val__; }
 
+  inline uint32_t Chips() const { return _chips; }
+  inline void SetChips(uint32_t val__) { _chips = val__; _isSetFlag[0] |= 0x01; }
+  inline bool HasChips() const { return (_isSetFlag[0] & 0x01) > 0; }
+
  protected:
   uint32_t _opcode;
+  uint32_t _chips;
+
+  uint32_t _isSetFlag[1];
 
 };
 
