@@ -10,6 +10,7 @@ namespace View
 {
 
 	static const std::string spathSitOpen = "flump/table_player/sit_open.png";
+	static const std::string spathChips = "flump/table/chips.png";
 	class VBaseSeat : public Node
 	{
 	public:
@@ -46,12 +47,14 @@ namespace View
 		void setChips(std::string chips);
 		virtual void clearCards();
 		void renDerCards(const std::vector<CCard> &hcVec);
+		void putChips(UInt32 chips);
  	protected:
 		LS_PROPERTY_RETAIN(CCardSprite*, _handCards0, _handCards0);
 		LS_PROPERTY_RETAIN(CCardSprite*, _handCards1, _handCards1);
 		LS_PROPERTY_RETAIN(Sprite*, baseFloor, baseFloor);
 		LS_PROPERTY_RETAIN(Label*, nameLabel, nameLabel);
 		LS_PROPERTY_RETAIN(Label*, chipLabel, chipLabel);
+		LS_PROPERTY_RETAIN(Sprite*, throwchips, throwchips);
 		UInt8 _pos;
 	};
 

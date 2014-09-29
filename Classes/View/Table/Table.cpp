@@ -121,7 +121,7 @@ namespace View
 
 	void Table::initCardsPos()
 	{
-		_cardsPos.resize(MAXPLAYER);
+		_cardsPos.resize(MAXPLAYER*2);
 
 		_cardsPos[0] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 		_cardsPos[1] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
@@ -158,6 +158,24 @@ namespace View
 		_commonCardPos[4] == Point(Point(VisibleRect::center().x + 200, VisibleRect::center().y - 100));
 	}
 
+	void Table::initThrowChipsPos()
+	{
+	    float posPlus = 100;
+		auto vSize = Director::getInstance()->getVisibleSize();
+		if (_throwChipPos.empty())
+		{
+			_throwChipPos.resize(MAXPLAYER);
+
+			_throwChipPos[0] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y + 100);
+			_throwChipPos[1] = Point(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y - vSize.height/3);
+			_throwChipPos[2] = Point(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y);
+			_throwChipPos[3] = Point(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y + vSize.height/3);
+			_throwChipPos[4] = Point(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::right().y +  - vSize.height/3);
+			_throwChipPos[5] = Point(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::left().y);
+			_throwChipPos[6] = Point(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::left().y -  - vSize.height/3);
+		}
+	}
+
 	void Table::initMySelf()
 	{
 		auto vSize = Director::getInstance()->getVisibleSize();
@@ -187,6 +205,7 @@ namespace View
 		initBossPos();
 		initCardsPos();
 		initCommonCardPos();
+		initThrowChipsPos();
 
 		initMySelf();
 
@@ -301,6 +320,9 @@ namespace View
 	void Table::onTouchBetEnd(Ref* sender, Button::TouchEventType event)
 	{
 		onMyOperate(ADDCHIPS, 200);
+		getpMy()->putChips(200);
+		this->addChild(getpMy()->getthrowchips());
+		getpMy()->getthrowchips()->setPosition(_throwChipPos[0]);
 	}
 
 	void Table::onTouchFoldEnd(Ref* sender, Button::TouchEventType event)
@@ -310,7 +332,10 @@ namespace View
 
 	void Table::onTouchCallEnd(Ref* sender, Button::TouchEventType event)
 	{
-		onMyOperate(GIVEUP, 0);
+		onMyOperate(CALL, 100);
+		getpMy()->putChips(100);
+		this->addChild(getpMy()->getthrowchips());
+		getpMy()->getthrowchips()->setPosition(_throwChipPos[0]);
 	}
 
 	void Table::onCommonCards(UInt8 stage, const std::vector<CCard> &cards)
@@ -346,25 +371,7 @@ namespace View
 
 	void Table::askMyOperate(UInt8 opcode, UInt32 chips)
 	{
-		if (opcode & GIVEUP)
-		{
-			getfoldButton()->setVisible(true);
-		}
-
-		if (opcode & CALL)
-		{
-			getcallButton()->setVisible(true);
-		}
-
-		if (opcode & CHECK)
-		{
-			getcheckButton()->setVisible(true);
-		}
-
-		if (opcode & ADDCHIPS)
-		{
-			getbetButton()->setVisible(true);
-		}
+		showOperateButton(opcode, true);
 	}
 
 	void Table::onMyOperate(UInt8 opcode, UInt32 chips)
@@ -593,8 +600,26 @@ namespace View
 		_commonCards.clear();
 	}
 
-	void Table::showOperateButton(bool bshow)
+	void Table::showOperateButton(UInt32 opcode, bool bshow)
 	{
+		if ((opcode & GIVEUP) > 0)
+		{
+			getfoldButton()->setVisible(bshow);
+		}
 
+		if ((opcode & CALL) > 0)
+		{
+			getcallButton()->setVisible(bshow);
+		}
+
+		if ((opcode & CHECK) > 0)
+		{
+			getcheckButton()->setVisible(bshow);
+		}
+
+		if ((opcode & ADDCHIPS) > 0)
+		{
+			getbetButton()->setVisible(bshow);
+		}
 	}
 }

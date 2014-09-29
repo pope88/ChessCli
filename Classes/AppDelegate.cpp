@@ -49,19 +49,20 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//auto scene = View::GameLayer::creatScene();
 	// run
 
-	//auto scene = View::LoginBar::createScene();
-	auto scene = View::Table::creatScene();
+	auto scene = View::LoginBar::createScene();
+	View::_table.init();
+	//auto scene = View::Table::creatScene();
 
-	std::vector<View::PlayerInfo> pInfo;
-	View::PlayerInfo pi;
-	pi.chairid = 0;
-	pi.allchips = 1000;
-	pi.nickname = "xiaocelao";
-	for (int i = 0; i < 3; ++i)
-	{
-		pInfo.push_back(pi);
-	}
-	View::_table.onPlayerEnter(pInfo);
+	//std::vector<View::PlayerInfo> pInfo;
+	//View::PlayerInfo pi;
+	//pi.chairid = 0;
+	//pi.allchips = 1000;
+	//pi.nickname = "xiaocelao";
+	//for (int i = 0; i < 3; ++i)
+	//{
+	//	pInfo.push_back(pi);
+	//}
+	//View::_table.onPlayerEnter(pInfo);
 
 	Director::getInstance()->runWithScene(scene); 
 

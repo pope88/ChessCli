@@ -91,6 +91,7 @@ namespace View
 		void renderCardByPos(UInt8 pos, const std::vector<CCard> &cards);
 		void initCardBacks(UInt8 others);
 		void initCardBacksPos();
+		void initThrowChipsPos();
 		void initAni();
 		void initUI();
 		void initPos();
@@ -106,7 +107,7 @@ namespace View
 		void onOtherPlayerLeave(UInt8 charid);
 		void onPlayerEnter(const std::vector<PlayerInfo> &pInfos);
 		void clearCommonCards();
-		void showOperateButton(bool bshow);
+		void showOperateButton(UInt32 opcode, bool bshow);
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }
 		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
 		//inline VBasePlayer* getPMy() { return _pMy; }
@@ -133,6 +134,7 @@ namespace View
 		std::vector<Point> _endCardBackPos;
 		std::vector<Point> _cardsPos;
 		std::vector<Point> _bossPos;
+		std::vector<Point> _throwChipPos;
 		std::vector<CCardSprite*> _commonCards;
 		std::vector<Point> _commonCardPos;
 	private:

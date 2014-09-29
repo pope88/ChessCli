@@ -25,6 +25,7 @@ namespace View
 		LS_P_INIT(baseFloor);
 		LS_P_INIT(nameLabel);
 		LS_P_INIT(chipLabel);
+		LS_P_INIT(throwchips);
 	}
 
 	VBasePlayer::~VBasePlayer()
@@ -34,6 +35,7 @@ namespace View
 		LS_P_RELEASE(baseFloor);
 		LS_P_RELEASE(nameLabel);
 		LS_P_RELEASE(chipLabel);
+		LS_P_RELEASE(throwchips);
 	}
 
 	bool VBasePlayer::init()
@@ -142,5 +144,22 @@ namespace View
 		set_handCards1(hc1);
 	}
 
-
+	void VBasePlayer::putChips(UInt32 chips)
+	{
+		if (chips > 0)
+		{
+			if(getthrowchips() != NULL)
+			{
+				if (getthrowchips()->getParent() != NULL)
+				{
+					getthrowchips()->getParent()->removeChild(getthrowchips(), true);
+				}
+			}
+			else
+			{
+				Sprite *tc  = Sprite::create(spathChips);
+				setthrowchips(tc);
+			}
+		}
+	}
 }

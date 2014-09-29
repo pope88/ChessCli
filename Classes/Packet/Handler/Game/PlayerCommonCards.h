@@ -1,3 +1,5 @@
+#include "../../../Common/CCard.h"
+#include "../../../View/Table/Table.h"
 HANDLER_CLASS(PlayerCommonCards, 0x13)
 {
 	std::vector<CCard> cards;
