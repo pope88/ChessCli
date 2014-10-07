@@ -7,7 +7,12 @@ namespace View
 {
 	LoginBar::LoginBar()
 	{
+		LS_P_INIT(loginButton);
+	}
 
+	LoginBar::~LoginBar()
+	{
+		LS_P_RELEASE(loginButton);
 	}
 
 	Scene* LoginBar::createScene()
@@ -32,9 +37,8 @@ namespace View
 		_lbackGround->setPosition(pCenter.x, pCenter.y);
 		this->addChild(_lbackGround);
 
-		bool bConnect = false;
 		bConnect = TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
-		if (bConnect)
+		/*if (bConnect)
 		{
 
 			Packet::UserLogin ulogin;
@@ -45,7 +49,7 @@ namespace View
 			//Packet::UserPlayNow upn;
 			//upn.send();
 
-		}
+		}*/
 
 		return true;
 	}

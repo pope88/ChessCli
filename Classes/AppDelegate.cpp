@@ -50,7 +50,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// run
 
 	auto scene = View::LoginBar::createScene();
-	View::_table.init();
+	//View::_table.init();
 	//auto scene = View::Table::creatScene();
 
 	//std::vector<View::PlayerInfo> pInfo;

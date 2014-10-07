@@ -249,27 +249,27 @@ namespace View
 
 		Button *fbtn = Button::create(spFold);
 		setfoldButton(fbtn);
-		getfoldButton()->setPosition(Point(VisibleRect::bottom().x - 80 , VisibleRect::bottom().y + vSize.height/4));
+		getfoldButton()->setPosition(Point(VisibleRect::bottom().x - 80 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getfoldButton());
 		getfoldButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchFoldEnd, this));
 
 		Button *callbtn = Button::create(spCall);
 		setcallButton(callbtn);
-		getcallButton()->setPosition(Point(VisibleRect::bottom().x + 80 , VisibleRect::bottom().y + vSize.height/4));
+		getcallButton()->setPosition(Point(VisibleRect::bottom().x + 80 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getcallButton());
 		getcallButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCallEnd, this));
 
 		Button *cbtn = Button::create(spCheck);
 		setcheckButton(cbtn);
-		getcheckButton()->setPosition(Point(VisibleRect::bottom().x - 80 , VisibleRect::bottom().y + vSize.height/4));
+		getcheckButton()->setPosition(Point(VisibleRect::bottom().x - 80 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getcheckButton());
 		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCheckEnd,this));
 
 		Button *betbtn = Button::create(spRaise);
 		setbetButton(betbtn);
-		getbetButton()->setPosition(Point(VisibleRect::bottom().x + 80 , VisibleRect::bottom().y + vSize.height/4));
+		getbetButton()->setPosition(Point(VisibleRect::bottom().x + 80 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getbetButton());
-		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchBetEnd,this));
+		getbetButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchBetEnd,this));
 		
 		this->scheduleUpdate();
 		//auto listener  = EventListenerTouchOneByOne::create();

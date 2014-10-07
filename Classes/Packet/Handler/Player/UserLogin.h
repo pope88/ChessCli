@@ -19,7 +19,7 @@ HANDLER_CLASS(UserLogin, 0x02)
 	{
 		// create a scene. it's an autorelease object
 		auto scene = View::Hall::createScene();
-		Director::getInstance()->runWithScene(scene);
+		Director::getInstance()->replaceScene(scene);
 	}
 	else
 	{
