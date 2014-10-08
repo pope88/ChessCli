@@ -40,6 +40,9 @@ namespace View
 	{
 		auto scene = Scene::create();
 		//auto layer = Table::create();
+		if ()
+		{
+		}
 		scene->addChild(&_table);
 		_table.init();
 		//layer->createCards();
@@ -347,25 +350,27 @@ namespace View
 			else
 			{
 				if(!_commonCards.empty())
-					_commonCards.clear();
-				if (!_commonCardPos.empty())
+					clearCommonCards();
+
+				int i = 0;
+				for (auto it = cards.begin(); it != cards.end(); ++it)
 				{
-					for (auto it = cards.begin(); it != cards.end(); ++it)
-					{
-						CCardSprite *cs = CCardSprite::create(it->m_nValue, it->m_nColor);
-						_commonCards.push_back(cs);
-						this->addChild(cs);
-					}
+					CCardSprite *cs = CCardSprite::create(it->m_nValue, it->m_nColor);
+					_commonCards.push_back(cs);
+					this->addChild(cs);
+					cs->setPosition(_commonCardPos[i]);
+					++i;
 				}
 			}
 		}
-		else if (stage == 2 || stage == 3 || stage == 4)
+		else if (stage == 2 || stage == 3 )
 		{
 			if (cards.size() != 1)
 				return;
 			CCardSprite *cs = CCardSprite::create(cards[0].m_nValue, cards[0].m_nColor);
 			_commonCards.push_back(cs);
 			this->addChild(cs);
+			cs->setPosition(_commonCardPos[stage+1]);
 		}
 	}
 
@@ -581,11 +586,11 @@ namespace View
 				UInt8 pos = S2CPos(pInfos[i].chairid);
 				if (pos < MAXPLAYER)
 				{
-					_votherPlayers[i]->setNickName(pInfos[i].nickname);
+					_votherPlayers[pos-1]->setNickName(pInfos[i].nickname);
 
 					char chipStr[30];
 					sprintf(chipStr, "%d", pInfos[i].allchips);
-					_votherPlayers[i]->setChips(chipStr);
+					_votherPlayers[pos-1]->setChips(chipStr);
 				}
 			}
 		}

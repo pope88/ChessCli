@@ -5,7 +5,7 @@
 
 namespace View
 {
-	LoginBar::LoginBar()
+	LoginBar::LoginBar() : bConnect(false)
 	{
 		LS_P_INIT(loginButton);
 	}
@@ -37,20 +37,26 @@ namespace View
 		_lbackGround->setPosition(pCenter.x, pCenter.y);
 		this->addChild(_lbackGround);
 
+		Button *lb = Button::create(spLoginBtn);
+		setloginButton(lb);
+		addChild(getloginButton());
+		lb->setPosition(pCenter);
+
+		getloginButton()->addTouchEventListener(CC_CALLBACK_2(LoginBar::onClickLoginBtn, this));
+
 		bConnect = TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
-		/*if (bConnect)
-		{
-
-			Packet::UserLogin ulogin;
-			ulogin.SetUsername("chess1@pope");
-			ulogin.SetPwd("123456");
-			ulogin.send();
-
-			//Packet::UserPlayNow upn;
-			//upn.send();
-
-		}*/
 
 		return true;
+	}
+
+	void LoginBar::onClickLoginBtn(Ref* sender, Button::TouchEventType event)
+	{
+		if (bConnect)
+		{
+			Packet::UserLogin ulogin;
+			ulogin.SetUsername("chess2@pope");
+			ulogin.SetPwd("123456");
+			ulogin.send();
+		}
 	}
 }

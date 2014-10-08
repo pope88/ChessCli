@@ -1,7 +1,6 @@
 #include "../../View/Table/Table.h"
 HANDLER_CLASS(UserEnterTable, 0x07)
 {
-	Director::getInstance()->replaceScene(View::_table.creatScene());
 	if (pkt.HasRes())  //other player enter
 	{
 		View::PlayerInfo pi;
@@ -13,6 +12,9 @@ HANDLER_CLASS(UserEnterTable, 0x07)
 	}
 	else // when i enter table , show me other players
 	{
+		auto scene = View::_table.creatScene();
+		Director::getInstance()->replaceScene(scene);
+
 		if (pkt.Res() == 0)
 		{
 			std::vector<View::PlayerInfo> pInfo;

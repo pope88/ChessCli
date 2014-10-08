@@ -11,6 +11,7 @@ using namespace ui;
 namespace View
 {
 	static const std::string spLoginBackGround = "flump/login/login0.jpg";
+	static const std::string spLoginBtn = "Images/Login/loginbtn.png";
 	class LoginBar : public Layer
 	{
 	public:
@@ -19,6 +20,7 @@ namespace View
 		CREATE_FUNC(LoginBar);
 		static Scene* createScene();
 		bool init();
+		void onClickLoginBtn(Ref* sender, Button::TouchEventType event);
 	private:
 		Sprite *_lbackGround;
 		LS_PROPERTY_RETAIN(Button*, loginButton, loginButton);
