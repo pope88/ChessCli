@@ -226,3 +226,13 @@ message SCUserLeaveTable_0x16
  //桌子号
   required uint32 chairid = 1;
 }
+
+//0x17
+//服务端控制客户端定时
+message SCUserTimerStart_0x17
+{
+  //位置(nil common timer)
+  optional uint32 chairid = 1;
+  //定时
+  required uint32 timer = 2;
+}

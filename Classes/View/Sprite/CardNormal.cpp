@@ -19,6 +19,8 @@ CardNormal::~CardNormal()
 
 bool CardNormal::init()
 {
+	if (!CardBase::init())
+		return false;
 	drawCard();
 	return true;
 }
@@ -73,6 +75,9 @@ void CardNormal::drawCard()
 	{
 		Sprite* pZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardBlackZi[_keyValue].c_str());
 		setpSpriteZi(pZi);
+		Sprite *pGround = NULL;
+		pGround = getbackGround();
+		Sprite *pzi = getpSpriteZi();
 		getbackGround()->addChild(getpSpriteZi());
 		//set zi position
 		setCardZiP();

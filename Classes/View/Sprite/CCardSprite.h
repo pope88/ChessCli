@@ -11,7 +11,7 @@ class CCardSprite : public CCard, public CCNode
 public:
 	CREATE_FUNC2(CCardSprite, int, int);
 	CCardSprite() :CCard(), cardSprite(NULL) {}
-	CCardSprite(int nColor, int nValue) : CCard(nColor, nValue)
+	CCardSprite(int nValue, int nColor) : CCard(nValue, nColor)
 	{
 		if ((m_nValue >= 3 && m_nValue <= 10) || m_nValue == 14 || m_nValue == 15 )
 		{
@@ -73,9 +73,6 @@ public:
 			this->getParent()->removeChild(this, true);
 		}
 	}
-public:
-	char m_nColor;  //花色,-1表示没有任意花色
-	char m_nValue;  //数值,-1表示还没有牌
 private:
 	CardBase *cardSprite;
 };

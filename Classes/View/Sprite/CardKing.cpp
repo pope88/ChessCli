@@ -18,6 +18,9 @@ CardKing::~CardKing()
 
 bool CardKing::init()
 {
+	if (!CardBase::init())
+		return false;
+
 	drawCard();
 	return true;
 }

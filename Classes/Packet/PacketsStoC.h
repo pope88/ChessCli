@@ -592,6 +592,34 @@ class SCUserLeaveTable_0x16: public ::ssu::Object {
 
 };
 
+class SCUserTimerStart_0x17: public ::ssu::Object {
+ public:
+  inline SCUserTimerStart_0x17(): _chairid(0), _timer(0)
+  { memset(_isSetFlag, 0, sizeof(_isSetFlag)); }
+
+  virtual ~SCUserTimerStart_0x17() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+ public:
+  inline uint32_t Chairid() const { return _chairid; }
+  inline void SetChairid(uint32_t val__) { _chairid = val__; _isSetFlag[0] |= 0x01; }
+  inline bool HasChairid() const { return (_isSetFlag[0] & 0x01) > 0; }
+
+  inline uint32_t Timer() const { return _timer; }
+  inline void SetTimer(uint32_t val__) { _timer = val__; }
+
+ protected:
+  uint32_t _chairid;
+  uint32_t _timer;
+
+  uint32_t _isSetFlag[1];
+
+};
+
 }
 }
 }

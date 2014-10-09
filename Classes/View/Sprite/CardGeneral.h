@@ -1,3 +1,7 @@
+#ifndef _CARDGENERAL_H_
+#define _CARDGENERAL_H_
+
+
 #include "CardBase.h"
 class CardGeneral : public CardBase
 {
@@ -18,3 +22,5 @@ private:
 	LS_PROPERTY_RETAIN(Sprite*, pSpriteGrain, pSpriteGrain);
 
 };
+
+#endif // !

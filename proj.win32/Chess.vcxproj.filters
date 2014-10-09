@@ -545,6 +545,9 @@
     <ClInclude Include="..\Classes\View\Sprite\CCardSprite.h">
       <Filter>Classes\View\Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Packet\Handler\Game\UserTimerStart.h">
+      <Filter>Classes\Packet\Handler\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

@@ -15,12 +15,12 @@ public:
 	virtual ~CardBase();
 	CREATE_FUNC2(CardBase, UInt8, UInt8);
 public:
-	virtual bool init();
-	virtual void drawCard();
-	virtual void clearCard();
-	inline UInt8 getCardValue() { return cardValue; }
+	bool init();
+	void drawCard();
+	void clearCard();
+	UInt8 getCardValue() { return cardValue; }
 	inline UInt8 getCardColor() { return cardColor; }
-	virtual void onEnter();
+	void onEnter();
 	virtual void onExit();
 	virtual bool ccTouchBegan(Touch* touch, Event* event);
 	virtual void ccTouchMoved(Touch *pTouch, Event *pEvent);

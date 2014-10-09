@@ -4,45 +4,75 @@
 
 namespace View
 {
-	TimerBar::TimerBar(): _timeElapsed(0), _totalSeconds(10), _secondsLeft(0), _timePct(0.0)
+	TimerBar::TimerBar(): _timeElapsed(0), _totalSeconds(10), _secondsLeft(0), _pathLength(0), _timePct(0.0)
 	{
+		LS_P_INIT(bar);
+		LS_P_INIT(underStroke);
+		LS_P_INIT(glowOutStroke);
+		LS_P_INIT(gradientPill);
+		LS_P_INIT(timerLabel);
+		LS_P_INIT(ribbon);
+	
+		memset(_segments, 0.0, sizeof(_segments));
+	}
+	TimerBar::~TimerBar()
+	{
+		LS_P_RELEASE(bar);
+		LS_P_RELEASE(underStroke);
+		LS_P_RELEASE(glowOutStroke);
+		LS_P_RELEASE(gradientPill);
+		LS_P_RELEASE(timerLabel);
+		LS_P_RELEASE(ribbon);
+	}
+
+	bool TimerBar::init()
+	{
+		if (!Node::init())
+			return false;
+
 		_clockColor = gimmyColor(GREEN, 3);
 		//CCScale9Sprite
 		auto glowBounds = CCRectMake(0,0,86,68);
 		auto glowCenter = CCRectMake(34,18,18,32);
-	    auto gradientBounds = CCRectMake(0,0,54,34);
+		auto gradientBounds = CCRectMake(0,0,54,34);
 		auto gradientCenter = CCRectMake(18,2,18,30);
-		_underStroke = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGlowTable, glowBounds, glowCenter);
-		addChild(_underStroke);
-        _underStroke->setColor(ccc3(0x5c, 0xff, 0x00));
+		
+		cocos2d::extension::Scale9Sprite *understroke = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGlowTable, glowBounds, glowCenter);
+		setunderStroke(understroke);
+		addChild(getunderStroke());
+		getunderStroke()->setColor(ccc3(0x5c, 0xff, 0x00));
 
 
-		_glowOutStroke = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGlowTable,glowBounds, glowCenter);
-		addChild(_glowOutStroke);
+		cocos2d::extension::Scale9Sprite *glowoutstroke = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGlowTable,glowBounds, glowCenter);
+		setglowOutStroke(glowoutstroke);
+		addChild(getglowOutStroke());
 
-		_ribbon = MotionStreak::create(100, 5, 1, ccc3(66, 66, 66), s_pPathTimeWite);
-		addChild(_ribbon, 10);
+		MotionStreak *ribbon = MotionStreak::create(100, 5, 1, ccc3(66, 66, 66), s_pPathTimeWite);
+		setribbon(ribbon);
+		addChild(getribbon(), 10);
 
-		_gradientPill = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGradient, gradientBounds, gradientCenter);
-		addChild(_gradientPill, 20);
+		cocos2d::extension::Scale9Sprite *gradientpill = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGradient, gradientBounds, gradientCenter);
+		setgradientPill(gradientpill);
+		addChild(getgradientPill(), 20);
 
-		_timerLabel = LabelTTF::create("", "LubalinGraphStd-Medium", 28);
-        _timerLabel:setPosition(0, 0);
+		LabelTTF *timerlabel = LabelTTF::create("", "LubalinGraphStd-Medium", 28);
+		settimerLabel(timerlabel);
+        gettimerLabel()->setPosition(0, 0);
 
 		if (true)  //
 		{
-			_timerLabel->setAnchorPoint(Point(0.5, 0.5));
+			gettimerLabel()->setAnchorPoint(Point(0.5, 0.5));
 		}
 		else
 		{
-			_timerLabel->setAnchorPoint(Point(0.5, 0.7));
+			gettimerLabel()->setAnchorPoint(Point(0.5, 0.7));
 		}
-		addChild(_timerLabel, 30);
-		_timerLabel->setString("fuck you");
+		addChild(gettimerLabel(), 30);
+		gettimerLabel()->setString("fuck you");
 
 		this->scheduleUpdate();
 
-		reInit(20);
+		return true;
 	}
 
 	RepeatForever* TimerBar::makePulseAction()
@@ -73,9 +103,9 @@ namespace View
 		std::stringstream ss;
 		ss<<timecout;
 		timecout++;
-		_timerLabel->setString(ss.str());
+		gettimerLabel()->setString(ss.str());
 		_timeElapsed += dt*60;
-		_glowOutStroke->runAction(makePulseAction());
+		getglowOutStroke()->runAction(makePulseAction());
 		float timePct  = (float)_timeElapsed  / (_totalSeconds) ;
 		if (timePct < YELLOW_START)
 		{
@@ -139,43 +169,43 @@ namespace View
 		}
 
 
-		_underStroke->setColor(_clockColor);
-		_glowOutStroke->setColor(_clockColor);
-		_gradientPill->setColor(_clockColor);
-		_timerLabel->setColor(_clockColor);
+		getunderStroke()->setColor(_clockColor);
+		getglowOutStroke()->setColor(_clockColor);
+		getgradientPill()->setColor(_clockColor);
+		gettimerLabel()->setColor(_clockColor);
 
 
-		_ribbon->setPosition(Point(xLoc, yLoc) );
+		getribbon()->setPosition(Point(xLoc, yLoc) );
 	}
 
-	void TimerBar::reInit(UInt8 time)
+	void TimerBar::startTimer(UInt8 time)
 	{
 		_totalSeconds = time;
 		_secondsLeft = time;
 		_currentTimerLabel = "";
 		_currentTimerLabel = "500";//util.formatChipAmount(TableTools.getPlayersBySeat(pb_table_state)[pb_table_state.speaking].stack);
         _timePct = _secondsLeft/_totalSeconds;
-		_timerLabel->setString(_currentTimerLabel);
-		auto timeSize = _timerLabel->getContentSize();
+		gettimerLabel()->setString(_currentTimerLabel);
+		auto timeSize = gettimerLabel()->getContentSize();
 
 		auto timerContentWidth = timeSize.width;
 		auto timerContentHeight = timeSize.height;
-		_underStroke->setContentSize(timeSize);
+		getunderStroke()->setContentSize(timeSize);
 
-		auto tx = _timerLabel->getPositionX();
-		auto ty = _timerLabel->getPositionY();
-		_underStroke->setPosition(tx, ty);
+		auto tx = gettimerLabel()->getPositionX();
+		auto ty = gettimerLabel()->getPositionY();
+		getunderStroke()->setPosition(tx, ty);
 
-		_glowOutStroke->setContentSize(timeSize);
-		_glowOutStroke->setPosition(tx, ty);
-		_glowOutStroke->stopAllActions();
-		_glowOutStroke->setOpacity(0);
+		getglowOutStroke()->setContentSize(timeSize);
+		getglowOutStroke()->setPosition(tx, ty);
+		getglowOutStroke()->stopAllActions();
+		getglowOutStroke()->setOpacity(0);
 
-		_gradientPill->setContentSize(timeSize);
-		_gradientPill->setPosition(tx, ty);
+		getgradientPill()->setContentSize(timeSize);
+		getgradientPill()->setPosition(tx, ty);
 
 		_pathSize = Size(timerContentWidth, timerContentHeight);
-		_ribbon->setPosition(Point(tx, ty+_pathSize.height/2));
+		getribbon()->setPosition(Point(tx, ty+_pathSize.height/2));
 		_pathLength = _pathSize.width*2 + M_PI * _pathSize.height;
 
 		_segments[0] = _pathSize.width / 2;

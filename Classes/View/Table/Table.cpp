@@ -5,6 +5,7 @@
 namespace View
 {
 	Table _table;
+	 Scene *tableScene;
 	Table::Table(): mBaseChip(0), mBankerPos(0), mBigBlindPos(0), mSmallBlindPos(0), mGameFlag(0), onwerCharid(0), mCallChips(0)
 	{
 		LS_P_INIT(backGroud);
@@ -18,6 +19,7 @@ namespace View
 		LS_P_INIT(callButton);	
 		LS_P_INIT(checkButton);
 		LS_P_INIT(betButton);
+		LS_P_INIT(timebar);
 	}
 
 	Table::~Table()
@@ -34,19 +36,20 @@ namespace View
 
 		LS_P_RELEASE(checkButton);
 		LS_P_RELEASE(betButton);
+		LS_P_RELEASE(timebar);
 	}
 
 	Scene* Table::creatScene()
 	{
-		auto scene = Scene::create();
-		//auto layer = Table::create();
-		if ()
+		if (tableScene == NULL)
 		{
+			tableScene = Scene::create();
+			//auto layer = Table::create();
+			tableScene->addChild(&_table);
+			_table.init();
+			//layer->createCards();
+			return tableScene;
 		}
-		scene->addChild(&_table);
-		_table.init();
-		//layer->createCards();
-		return scene;
 	}
 
 	void Table::onEnter()
@@ -126,8 +129,8 @@ namespace View
 	{
 		_cardsPos.resize(MAXPLAYER*2);
 
-		_cardsPos[0] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
-		_cardsPos[1] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+		_cardsPos[0] = Point(VisibleRect::bottom().x - 30, VisibleRect::bottom().y + 50);
+		_cardsPos[1] = Point(VisibleRect::bottom().x + 30, VisibleRect::bottom().y + 50);
 
 		_cardsPos[2] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 		_cardsPos[3] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
@@ -159,6 +162,21 @@ namespace View
 		_commonCardPos[2] == Point(Point(VisibleRect::center().x, VisibleRect::center().y - 100));
 		_commonCardPos[3] == Point(Point(VisibleRect::center().x + 100, VisibleRect::center().y - 100));
 		_commonCardPos[4] == Point(Point(VisibleRect::center().x + 200, VisibleRect::center().y - 100));
+	}
+
+	void Table::initTimeBarPos()
+	{
+		if (_timeBarPos.empty())
+		{
+			_timeBarPos.resize(MAXPLAYER);
+			_timeBarPos[0] = Point(VisibleRect::center().x, VisibleRect::center().y);
+			_timeBarPos[1] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+			_timeBarPos[2] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+			_timeBarPos[3] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+			_timeBarPos[4] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+			_timeBarPos[5] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
+			_timeBarPos[6] = Point(VisibleRect::center().x, VisibleRect::center().y);
+		}
 	}
 
 	void Table::initThrowChipsPos()
@@ -209,6 +227,7 @@ namespace View
 		initCardsPos();
 		initCommonCardPos();
 		initThrowChipsPos();
+		initTimeBarPos();
 
 		initMySelf();
 
@@ -255,18 +274,21 @@ namespace View
 		getfoldButton()->setPosition(Point(VisibleRect::bottom().x - 80 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getfoldButton());
 		getfoldButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchFoldEnd, this));
+		getfoldButton()->setVisible(false);
 
 		Button *callbtn = Button::create(spCall);
 		setcallButton(callbtn);
 		getcallButton()->setPosition(Point(VisibleRect::bottom().x + 80 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getcallButton());
 		getcallButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCallEnd, this));
+		getcallButton()->setVisible(false);
 
 		Button *cbtn = Button::create(spCheck);
 		setcheckButton(cbtn);
 		getcheckButton()->setPosition(Point(VisibleRect::bottom().x - 80 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getcheckButton());
 		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCheckEnd,this));
+		getcheckButton()->setVisible(false);
 
 		Button *betbtn = Button::create(spRaise);
 		setbetButton(betbtn);
@@ -274,6 +296,11 @@ namespace View
 		this->addChild(getbetButton());
 		getbetButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchBetEnd,this));
 		
+
+		SpriteFrameCache *cache = SpriteFrameCache::getInstance();
+		cache->addSpriteFramesWithFile(s_pPlistDDZcards);
+
+
 		this->scheduleUpdate();
 		//auto listener  = EventListenerTouchOneByOne::create();
 		//listener->setSwallowTouches(true);
@@ -625,6 +652,16 @@ namespace View
 		if ((opcode & ADDCHIPS) > 0)
 		{
 			getbetButton()->setVisible(bshow);
+		}
+	}
+
+	void Table::startTimer(UInt8 pos, UInt16 seconds)
+	{
+		if (gettimebar() == NULL)
+		{
+			auto tb = TimerBar::create();
+			settimebar(tb);
+			gettimebar()->startTimer(seconds);
 		}
 	}
 }

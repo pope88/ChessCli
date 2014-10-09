@@ -47,6 +47,9 @@ void CardGeneral::setCardGrainP()
 
 bool CardGeneral::init()
 {
+	if (!CardBase::init())
+		return false;
+
 	drawCard();
 	return  true;
 }

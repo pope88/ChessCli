@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "../../Packet/Builder.h"
 #include "../PreConfig.h"
+#include "View/Anima/TimeBar.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -19,6 +20,7 @@ namespace View
 	static const std::string spRaise = "flump/table/btn/raise_btn.png";
 	static const std::string spFold = "flump/table/btn/fold_btn.png";
 	static const std::string spCall = "flump/table/btn/call_btn.png";
+	static const std::string s_pPlistDDZcards = "Images/Game/cards/cards.plist";
 
     static const UInt8 OTHER = 6;
 	static const float DEALINGTIME = 0.5;
@@ -70,6 +72,7 @@ namespace View
 		void initBossPos();
 		void initCardsPos();
 		void initCommonCardPos();
+		void initTimeBarPos();
 		inline Point& getBossPos(UInt8 pos) { if(pos < MAXPLAYER) return _bossPos[pos]; }
 		void initOtherSeats(UInt8 others);
 		void initOtherPlayers(UInt8 ohters);
@@ -111,6 +114,7 @@ namespace View
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }
 		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
 		//inline VBasePlayer* getPMy() { return _pMy; }
+		void startTimer(UInt8 pos, UInt16 seconds);
 	private:
 
 		LS_PROPERTY_RETAIN(Sprite*, backGroud, backGroud);
@@ -126,6 +130,8 @@ namespace View
 		LS_PROPERTY_RETAIN(Button*, checkButton, checkButton);
 		LS_PROPERTY_RETAIN(Button*, betButton, betButton);
 
+		LS_PROPERTY_RETAIN(TimerBar*, timebar, timebar);
+
 		std::vector<VBaseSeat*> _votherSeats;
 		std::vector<VOtherPlayer*> _votherPlayers;
 		std::vector<Point> _votherPoints;
@@ -137,6 +143,7 @@ namespace View
 		std::vector<Point> _throwChipPos;
 		std::vector<CCardSprite*> _commonCards;
 		std::vector<Point> _commonCardPos;
+		std::vector<Point> _timeBarPos;
 	private:
 		UInt32 mBaseChip;
 		UInt8 mBankerPos;
@@ -148,5 +155,6 @@ namespace View
 		UInt32 mCallChips;
 	};
 	extern Table _table;
+	extern Scene *tableScene;
 }
 #endif // !_TABLE_H_

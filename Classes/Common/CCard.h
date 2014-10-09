@@ -26,8 +26,8 @@ public:
 class CCard
 {
 public:
-	CCard() : m_nColor(-1), m_nValue(-1) {}
-	CCard(int nColor, int nValue) : m_nColor(nColor), m_nValue(nValue) {}
+	CCard() : m_nValue(-1), m_nColor(-1) {}
+	CCard(int nValue, int nColor) : m_nValue(nValue), m_nColor(nColor) {}
 	CCard (const CCard &srcCard)
 	{
 		if(this == &srcCard)
@@ -48,8 +48,8 @@ public:
 		return (m_nColor == srcCard.m_nColor && m_nValue == srcCard.m_nValue);
 	}
 public:
-	char m_nColor;  //花色,-1表示没有任意花色
 	char m_nValue;  //数值,-1表示还没有牌
+	char m_nColor;  //花色,-1表示没有任意花色
 };
 
 #endif

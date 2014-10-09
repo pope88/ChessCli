@@ -7,6 +7,7 @@
 #include "View/Sprite/CSeat.h"
 #include "View/Anima/TimeBar.h"
 
+#include "View/Sprite/CCardSprite.h"
 
 namespace View
 {
@@ -28,8 +29,7 @@ bool GameLayer::init()
 	listener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	SpriteFrameCache *cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile(s_pPlistDDZcards);
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_pPlistDDZcards);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Point origin = Director::getInstance()->getVisibleOrigin();
@@ -40,7 +40,8 @@ bool GameLayer::init()
 	spBackGround->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 	this->addChild(spBackGround);
 
-	forTest();
+	//forTest();
+	forTestCard();
 
 	return true;
 }
@@ -56,13 +57,13 @@ Scene* GameLayer::creatScene()
 
 void GameLayer::createCards()
 {
-	for (int i = 0; i < 7; ++i)
-	{
-		CardBase *pcard = new CardNormal(3+i, 0);
-		this->addChild(pcard);
-		pcard->setPosition(100+30*i, 100);
-		cardsList.push_back(pcard);
-	}
+	//for (int i = 0; i < 7; ++i)
+	//{
+	//	CardBase *pcard = new CardNormal(3+i, 0);
+	//	this->addChild(pcard);
+	//	pcard->setPosition(100+30*i, 100);
+	//	cardsList.push_back(pcard);
+	//}
 }
 
 void GameLayer::clearCards()
@@ -84,6 +85,21 @@ void GameLayer::onTouchEnded(Touch* touch, Event  *event)
 {
 	//clearCards();
 	//return true;
+}
+
+void GameLayer::forTestCard()
+{
+	CCardSprite *hc0 = CCardSprite::create(3, 2);
+	//CardNormal *hc0 = CardNormal::create(3, 2);
+	
+	//Sprite * hc0 = Sprite::createWithSpriteFrameName("bcardbigking.png");
+	this->addChild(hc0);
+	hc0->setPosition(100, 100);
+
+	auto timerbar = TimerBar::create();
+	this->addChild(timerbar);
+	timerbar->setPosition(300, 600);
+	
 }
 
 void GameLayer::forTest()

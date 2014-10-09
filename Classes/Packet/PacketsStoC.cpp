@@ -635,6 +635,34 @@ size_t SCUserLeaveTable_0x16::Size() const {
   return 1 + ::ssu::Utils::SizeUInt32(_chairid);
 }
 
+uint8_t * SCUserTimerStart_0x17::PackBuffer(uint8_t * buf) {
+  if(HasChairid()) buf = ::ssu::Utils::PackUInt32Tag(buf, 1, _chairid);
+  buf = ::ssu::Utils::PackUInt32Tag(buf, 2, _timer);
+  return buf;
+}
+
+bool SCUserTimerStart_0x17::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  uint32_t tag_; uint8_t type_;
+  while(leftSize > 0) {
+    if(!::ssu::Utils::UnpackTag(buf, leftSize, tag_, type_)) return false;
+    switch(tag_) {
+     case 1:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _chairid)) return false;
+      _isSetFlag[0] |= 0x01;
+      break;
+     case 2:
+      if(type_ != 0 || !::ssu::Utils::UnpackUInt32(buf, leftSize, _timer)) return false;
+      break;
+     default: break;
+    }
+  }
+  return true;
+}
+
+size_t SCUserTimerStart_0x17::Size() const {
+  return (HasChairid() ? (1 + ::ssu::Utils::SizeUInt32(_chairid)) : 0) + 1 + ::ssu::Utils::SizeUInt32(_timer);
+}
+
 }
 }
 }
