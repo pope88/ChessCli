@@ -39,7 +39,7 @@ namespace View
 		void startTimer(UInt8 time);
 	protected:
 	private:
-		UInt32 _timeElapsed;
+		float _timeElapsed;
 		UInt32 _totalSeconds;
 		UInt32 _secondsLeft;
 		UInt32 _pathLength;

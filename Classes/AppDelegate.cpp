@@ -50,7 +50,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//auto scene = View::GameLayer::creatScene();
 	// run
 
-	//auto scene = View::LoginBar::createScene();
+	auto scene = View::LoginBar::createScene();
 	
 	//View::_table.init();
 	//auto scene = View::Table::creatScene();
@@ -66,11 +66,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//}
 	//View::_table.onPlayerEnter(pInfo);
 
-	auto scene = View::GameLayer::creatScene();
+	//auto scene = View::GameLayer::creatScene();
 
 	Director::getInstance()->runWithScene(scene); 
-
-
 
 	return true;
 }

@@ -34,8 +34,8 @@ namespace View
 		//CCScale9Sprite
 		auto glowBounds = CCRectMake(0,0,86,68);
 		auto glowCenter = CCRectMake(34,18,18,32);
-		auto gradientBounds = CCRectMake(0,0,54,34);
-		auto gradientCenter = CCRectMake(18,2,18,30);
+		auto gradientBounds = CCRectMake(0,0,54,33);
+		auto gradientCenter = CCRectMake(18,2,18,29);
 		
 		cocos2d::extension::Scale9Sprite *understroke = cocos2d::extension::Scale9Sprite::create(s_pPathTimeGlowTable, glowBounds, glowCenter);
 		setunderStroke(understroke);
@@ -47,7 +47,7 @@ namespace View
 		setglowOutStroke(glowoutstroke);
 		addChild(getglowOutStroke());
 
-		MotionStreak *ribbon = MotionStreak::create(100, 5, 1, ccc3(66, 66, 66), s_pPathTimeWite);
+		MotionStreak *ribbon = MotionStreak::create(100, 0.5, 10, ccc3(66, 66, 66), s_pPathTimeWite);
 		setribbon(ribbon);
 		addChild(getribbon(), 10);
 
@@ -104,7 +104,7 @@ namespace View
 		ss<<timecout;
 		timecout++;
 		gettimerLabel()->setString(ss.str());
-		_timeElapsed += dt*60;
+		_timeElapsed += dt;
 		getglowOutStroke()->runAction(makePulseAction());
 		float timePct  = (float)_timeElapsed  / (_totalSeconds) ;
 		if (timePct < YELLOW_START)
@@ -182,8 +182,7 @@ namespace View
 	{
 		_totalSeconds = time;
 		_secondsLeft = time;
-		_currentTimerLabel = "";
-		_currentTimerLabel = "500";//util.formatChipAmount(TableTools.getPlayersBySeat(pb_table_state)[pb_table_state.speaking].stack);
+		_currentTimerLabel = "5000000";//util.formatChipAmount(TableTools.getPlayersBySeat(pb_table_state)[pb_table_state.speaking].stack);
         _timePct = _secondsLeft/_totalSeconds;
 		gettimerLabel()->setString(_currentTimerLabel);
 		auto timeSize = gettimerLabel()->getContentSize();

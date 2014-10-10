@@ -99,7 +99,7 @@ void GameLayer::forTestCard()
 	auto timerbar = TimerBar::create();
 	this->addChild(timerbar);
 	timerbar->setPosition(300, 600);
-	
+	timerbar->startTimer(30);
 }
 
 void GameLayer::forTest()
