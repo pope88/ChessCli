@@ -36,7 +36,8 @@ namespace View
 		static Color3B gimmyColor(const UInt8 c[], UInt8 n);
 		static UInt8 inTerp(UInt8 c0, UInt8 c1, float c2);
 		static Color3B gimmyInterpolatedColor(const UInt8 *c0, const UInt8 *c1, float c2);
-		void startTimer(UInt8 time);
+		void startTimer(UInt8 time, UInt8 pos = 0xFF);
+
 	protected:
 	private:
 		float _timeElapsed;
@@ -55,6 +56,7 @@ namespace View
 		LS_PROPERTY_RETAIN(LabelTTF*, timerLabel, timerLabel);
 		LS_PROPERTY_RETAIN(MotionStreak*, ribbon, ribbon);
 	    float _segments[5];
+		UInt8 _pos;
 		//ccc3();
 	};
 }

@@ -114,7 +114,8 @@ namespace View
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }
 		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
 		//inline VBasePlayer* getPMy() { return _pMy; }
-		void startTimer(UInt8 pos, UInt16 seconds);
+		void startTimer(UInt16 seconds, UInt8 pos = 0xFF);
+		void onTimer(UInt8 time, UInt8 pos = 0xFF);
 	private:
 
 		LS_PROPERTY_RETAIN(Sprite*, backGroud, backGroud);

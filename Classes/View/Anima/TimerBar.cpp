@@ -4,7 +4,7 @@
 
 namespace View
 {
-	TimerBar::TimerBar(): _timeElapsed(0), _totalSeconds(10), _secondsLeft(0), _pathLength(0), _timePct(0.0)
+	TimerBar::TimerBar(): _timeElapsed(0), _totalSeconds(10), _secondsLeft(0), _pathLength(0), _timePct(0.0), _pos(0xFF)
 	{
 		LS_P_INIT(bar);
 		LS_P_INIT(underStroke);
@@ -69,8 +69,6 @@ namespace View
 		}
 		addChild(gettimerLabel(), 30);
 		gettimerLabel()->setString("fuck you");
-
-		this->scheduleUpdate();
 
 		return true;
 	}
@@ -176,11 +174,22 @@ namespace View
 
 
 		getribbon()->setPosition(Point(xLoc, yLoc) );
+
+		if (_timeElapsed >= _totalSeconds)
+		{
+			View::_table.onTimer(time, _totalSeconds);
+			_timeElapsed = 0;
+			_totalSeconds = 0;
+			this->unscheduleUpdate();
+		}
 	}
 
-	void TimerBar::startTimer(UInt8 time)
+	void TimerBar::startTimer(UInt8 time, UInt8 pos)
 	{
+		_pos = pos;
 		_totalSeconds = time;
+		this->scheduleUpdate();
+
 		_secondsLeft = time;
 		_currentTimerLabel = "5000000";//util.formatChipAmount(TableTools.getPlayersBySeat(pb_table_state)[pb_table_state.speaking].stack);
         _timePct = _secondsLeft/_totalSeconds;
@@ -213,5 +222,6 @@ namespace View
 		_segments[3] = _segments[2] + (_pathSize.height/2)*M_PI;
 		_segments[4] = _segments[3] + _pathSize.width/2;
 	}
+
 }
 

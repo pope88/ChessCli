@@ -655,13 +655,28 @@ namespace View
 		}
 	}
 
-	void Table::startTimer(UInt8 pos, UInt16 seconds)
+	void Table::startTimer(UInt16 seconds, UInt8 pos)
 	{
 		if (gettimebar() == NULL)
 		{
 			auto tb = TimerBar::create();
 			settimebar(tb);
-			gettimebar()->startTimer(seconds);
+			gettimebar()->startTimer(seconds, pos);
+			if (true)
+			{
+				gettimebar()->setVisible(true);
+				gettimebar()->setPosition(_timeBarPos[0]);
+			}
 		}
 	}
+
+	void Table::onTimer(UInt8 time, UInt8 pos)
+	{
+		if (gettimebar() != NULL)
+		{
+			gettimebar()->setVisible(false);
+		}
+	}
+
+
 }
