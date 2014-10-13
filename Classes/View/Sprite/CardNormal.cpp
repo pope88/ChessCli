@@ -75,17 +75,17 @@ void CardNormal::drawCard()
 	{
 		Sprite* pZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardBlackZi[_keyValue].c_str());
 		setpSpriteZi(pZi);
-		Sprite *pGround = NULL;
-		pGround = getbackGround();
-		Sprite *pzi = getpSpriteZi();
 		getbackGround()->addChild(getpSpriteZi());
+		
 		//set zi position
 		setCardZiP();
 	}
 	else if (cardColor == 1 || cardColor == 3)
 	{
 		Sprite* pZi = Sprite::createWithSpriteFrameName(s_pNameListNormalCardRedZi[_keyValue].c_str());
-		getbackGround()->addChild(pZi);
+		setpSpriteZi(pZi);
+		getbackGround()->addChild(getpSpriteZi());
+		
 		//set zi position
 		setCardZiP();
 	}

@@ -1,6 +1,7 @@
 
 #include "Config.h"
 #include "TimeBar.h"
+#include "../Table/Table.h"
 
 namespace View
 {
@@ -177,7 +178,7 @@ namespace View
 
 		if (_timeElapsed >= _totalSeconds)
 		{
-			View::_table.onTimer(time, _totalSeconds);
+			View::_table.onTimer(_totalSeconds, _pos);
 			_timeElapsed = 0;
 			_totalSeconds = 0;
 			this->unscheduleUpdate();
