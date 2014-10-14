@@ -271,28 +271,28 @@ namespace View
 
 		Button *fbtn = Button::create(spFold);
 		setfoldButton(fbtn);
-		getfoldButton()->setPosition(Point(VisibleRect::bottom().x - 150 , VisibleRect::bottom().y + vSize.height/3));
+		getfoldButton()->setPosition(Point(VisibleRect::bottom().x - 160 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getfoldButton());
 		getfoldButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchFoldEnd, this));
 		getfoldButton()->setVisible(false);
 
 		Button *callbtn = Button::create(spCall);
 		setcallButton(callbtn);
-		getcallButton()->setPosition(Point(VisibleRect::bottom().x-50 , VisibleRect::bottom().y + vSize.height/3));
+		getcallButton()->setPosition(Point(VisibleRect::bottom().x , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getcallButton());
 		getcallButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCallEnd, this));
 		getcallButton()->setVisible(false);
 
 		Button *cbtn = Button::create(spCheck);
 		setcheckButton(cbtn);
-		getcheckButton()->setPosition(Point(VisibleRect::bottom().x - 150 , VisibleRect::bottom().y + vSize.height/3));
+		getcheckButton()->setPosition(Point(VisibleRect::bottom().x - 160 , VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getcheckButton());
 		getcheckButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchCheckEnd,this));
 		getcheckButton()->setVisible(false);
 
 		Button *betbtn = Button::create(spRaise);
 		setbetButton(betbtn);
-		getbetButton()->setPosition(Point(VisibleRect::bottom().x + 80 + 80, VisibleRect::bottom().y + vSize.height/3));
+		getbetButton()->setPosition(Point(VisibleRect::bottom().x + 160, VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getbetButton());
 		getbetButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchBetEnd,this));
 		getbetButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchBetEnd,this));
