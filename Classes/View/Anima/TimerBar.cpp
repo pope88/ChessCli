@@ -193,7 +193,15 @@ namespace View
 
 		_secondsLeft = time;
 		_currentTimerLabel = "5000000";//util.formatChipAmount(TableTools.getPlayersBySeat(pb_table_state)[pb_table_state.speaking].stack);
-        _timePct = _secondsLeft/_totalSeconds;
+       if (_totalSeconds == 0)
+       {
+		   _timePct = 0;
+       }
+	   else
+	   {
+		   _timePct = _secondsLeft/_totalSeconds;
+	   }
+		
 		gettimerLabel()->setString(_currentTimerLabel);
 		auto timeSize = gettimerLabel()->getContentSize();
 
