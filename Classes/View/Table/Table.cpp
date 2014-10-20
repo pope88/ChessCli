@@ -169,7 +169,7 @@ namespace View
 		if (_timeBarPos.empty())
 		{
 			_timeBarPos.resize(MAXPLAYER);
-			_timeBarPos[0] = Point(VisibleRect::center().x, VisibleRect::center().y);
+			_timeBarPos[0] = Point(VisibleRect::rightTop().x-50, VisibleRect::rightTop().y -50);
 			_timeBarPos[1] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 			_timeBarPos[2] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
 			_timeBarPos[3] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y);
@@ -663,7 +663,17 @@ namespace View
 		{
 			auto tb = TimerBar::create();
 			settimebar(tb);
-			gettimebar()->startTimer(seconds, pos);
+			gettimebar()->startTimer(seconds, 0);
+			if (true)
+			{
+				gettimebar()->setVisible(true);
+				gettimebar()->setPosition(_timeBarPos[0]);
+				this->addChild(gettimebar());
+			}
+		}
+		else
+		{
+			gettimebar()->startTimer(seconds, 0);
 			if (true)
 			{
 				gettimebar()->setVisible(true);

@@ -158,7 +158,7 @@ void TcpNet::runRecvMsg()
 		else if (nRecvSize <= 0 && ( m_tcpsocket->lastErr() == WEINPROGRESS || m_tcpsocket->lastErr() == WEWOULDBLOCK) )
 		{
 			//std::cout << "等待接受数据!" << std::endl;
-			continue;;
+			continue;
 		}
 
 		// 接收到的数据够不够一个包头的长度
