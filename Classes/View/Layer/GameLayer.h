@@ -2,6 +2,8 @@
 #define _GAMELAYER_H_
 #include "cocos2d.h"
 #include "../Sprite/CardBase.h"
+#include "ui/CocosGUI.h"
+using namespace ui;
 
 namespace View
 {
@@ -33,6 +35,7 @@ namespace View
 		void onButtonClick4(Ref *psender);
 		void onButtonClick5(Ref *psender);
 		void update(float ft);
+		void GameLayer::onClickBtnTest(Ref* sender, Button::TouchEventType event);
 	private:
 		Sprite *spBackGround;
 		std::vector<CardBase*> cardsList;

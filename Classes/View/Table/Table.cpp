@@ -295,7 +295,6 @@ namespace View
 		getbetButton()->setPosition(Point(VisibleRect::bottom().x + 160, VisibleRect::bottom().y + vSize.height/3));
 		this->addChild(getbetButton());
 		getbetButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchBetEnd,this));
-		getbetButton()->addTouchEventListener(CC_CALLBACK_2(Table::onTouchBetEnd,this));
 		getbetButton()->setVisible(false);
 
 

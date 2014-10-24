@@ -37,12 +37,15 @@ namespace View
 		_lbackGround->setPosition(pCenter.x, pCenter.y);
 		this->addChild(_lbackGround);
 
-		Button *lb = Button::create(spLoginBtn);
+		Button *lb = Button::create(
+			spLoginBtn,
+			spLoginBtn);
+
 		setloginButton(lb);
 		addChild(getloginButton());
 		lb->setPosition(pCenter);
+		lb->addTouchEventListener(CC_CALLBACK_2(LoginBar::onClickLoginBtn, this));
 
-		getloginButton()->addTouchEventListener(CC_CALLBACK_2(LoginBar::onClickLoginBtn, this));
 
 		bConnect = TcpNetWork::_tcpnet.connect("127.0.0.1", 7771, 50);
 
@@ -51,12 +54,27 @@ namespace View
 
 	void LoginBar::onClickLoginBtn(Ref* sender, Button::TouchEventType event)
 	{
-		if (bConnect)
+		switch (event)
 		{
-			Packet::UserLogin ulogin;
-			ulogin.SetUsername("chess2@pope");
-			ulogin.SetPwd("123456");
-			ulogin.send();
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::MOVED:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			{
+				Packet::UserLogin ulogin;
+				ulogin.SetUsername("chess1@pope");
+				ulogin.SetPwd("123456");
+				ulogin.send();
+			}
+			break;
+		case cocos2d::ui::Widget::TouchEventType::CANCELED:
+			break;
+		default:
+			break;
 		}
+
 	}
+
+
 }

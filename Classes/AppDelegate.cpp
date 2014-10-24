@@ -4,7 +4,7 @@
 //#include "TcpNetwork/TcpNet.h"
 #include "View/Layer/GameLayer.h"
 #include "View/Table/Table.h"
-#include "View/Login//LoginBar.h"
+#include "View/Login/LoginBar.h"
 #include "View/Hall/Hall.h"
 
 

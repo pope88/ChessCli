@@ -9,6 +9,7 @@
 
 #include "View/Sprite/CCardSprite.h"
 
+
 namespace View
 {
 
@@ -100,6 +101,21 @@ void GameLayer::forTestCard()
 	this->addChild(timerbar);
 	timerbar->setPosition(300, 600);
 	timerbar->startTimer(30);
+
+
+	Button *lb = Button::create("Images/Login/loginbtn.png");
+	this->addChild(lb);
+	this->setPosition(300,300);
+	lb->addTouchEventListener(CC_CALLBACK_2(GameLayer::onClickBtnTest, this));
+}
+
+void GameLayer::onClickBtnTest(Ref* sender, Button::TouchEventType event)
+{
+
+		Packet::UserLogin ulogin;
+		ulogin.SetUsername("chess2@pope");
+		ulogin.SetPwd("123456");
+		ulogin.send();
 }
 
 void GameLayer::forTest()
@@ -198,10 +214,10 @@ void GameLayer::onButtonClick2(Ref* pSender)
 {
 	dynamic_cast<LabelTTF*>(this->getChildByTag(101))->setString("User Login");
 
-	Packet::UserLogin ulogin;
-	ulogin.SetUsername("chess@pope");
-	ulogin.SetPwd("123456");
-	ulogin.send();
+	//Packet::UserLogin ulogin;
+	//ulogin.SetUsername("chess@pope");
+	//ulogin.SetPwd("123456");
+	//ulogin.send();
 }
 
 void GameLayer::onButtonClick3(Ref* pSender)
