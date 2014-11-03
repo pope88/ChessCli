@@ -98,7 +98,6 @@ namespace View
 
 	void TimerBar::update(float dt)
 	{
-
 		std::stringstream ss;
 		ss<<timecout;
 		timecout++;
