@@ -86,7 +86,7 @@ void Processor::addHandler(UInt16 op, UInt8 type, Handler *handler)
 void Processor::update(float delta)
 {
 	this->process();
-	printf("process!!!!");
+	//printf("process!!!!");
 }
 
 void Processor::process()

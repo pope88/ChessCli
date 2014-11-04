@@ -96,7 +96,7 @@ namespace View
 			_votherPoints[2] = Point(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y + vSize.height/3);
 			_votherPoints[3] = Point(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::right().y +  - vSize.height/3);
 			_votherPoints[4] = Point(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::left().y);
-			_votherPoints[5] = Point(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::left().y -  - vSize.height/3);
+			_votherPoints[5] = Point(VisibleRect::right().x -_votherSeats[0]->getSeatSize().width/2 - posPlus, VisibleRect::left().y - vSize.height/3);
 			for (size_t i = 0; i < others; ++i)
 			{
 				_votherSeats[i]->setPosition(_votherPoints[i]);
@@ -345,28 +345,88 @@ namespace View
 
 	void Table::onTouchCheckEnd(Ref* sender, Button::TouchEventType event)
 	{
-		onMyOperate(CHECK, 0);
+		switch (event)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::MOVED:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			{
+				onMyOperate(CHECK, 0);
+			}
+			break;
+		case cocos2d::ui::Widget::TouchEventType::CANCELED:
+			break;
+		default:
+			break;
+		}
 	}
 
 	void Table::onTouchBetEnd(Ref* sender, Button::TouchEventType event)
 	{
-		onMyOperate(ADDCHIPS, 200);
-		getpMy()->putChips(200);
-		this->addChild(getpMy()->getthrowchips());
-		getpMy()->getthrowchips()->setPosition(_throwChipPos[0]);
+		switch (event)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::MOVED:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			{
+				onMyOperate(ADDCHIPS, 200);
+				getpMy()->putChips(200);
+				this->addChild(getpMy()->getthrowchips());
+				getpMy()->getthrowchips()->setPosition(_throwChipPos[0]);
+			}
+			break;
+		case cocos2d::ui::Widget::TouchEventType::CANCELED:
+			break;
+		default:
+			break;
+		}
 	}
 
 	void Table::onTouchFoldEnd(Ref* sender, Button::TouchEventType event)
 	{
-		onMyOperate(GIVEUP, 0);
+		switch (event)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::MOVED:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			{
+				onMyOperate(GIVEUP, 0);
+			}
+			break;
+		case cocos2d::ui::Widget::TouchEventType::CANCELED:
+			break;
+		default:
+			break;
+		}
 	}
 
 	void Table::onTouchCallEnd(Ref* sender, Button::TouchEventType event)
 	{
-		onMyOperate(CALL, 100);
-		getpMy()->putChips(100);
-		this->addChild(getpMy()->getthrowchips());
-		getpMy()->getthrowchips()->setPosition(_throwChipPos[0]);
+		switch (event)
+		{
+		case cocos2d::ui::Widget::TouchEventType::BEGAN:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::MOVED:
+			break;
+		case cocos2d::ui::Widget::TouchEventType::ENDED:
+			{
+				onMyOperate(CALL, 200);
+				getpMy()->putChips(200);
+				this->addChild(getpMy()->getthrowchips());
+				getpMy()->getthrowchips()->setPosition(_throwChipPos[0]);
+			}
+			break;
+		case cocos2d::ui::Widget::TouchEventType::CANCELED:
+			break;
+		default:
+			break;
+		}
 	}
 
 	void Table::onCommonCards(UInt8 stage, const std::vector<CCard> &cards)
