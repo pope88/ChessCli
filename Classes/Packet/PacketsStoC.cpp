@@ -663,6 +663,18 @@ size_t SCUserTimerStart_0x17::Size() const {
   return (HasChairid() ? (1 + ::ssu::Utils::SizeUInt32(_chairid)) : 0) + 1 + ::ssu::Utils::SizeUInt32(_timer);
 }
 
+uint8_t * SCEndRound_0x18::PackBuffer(uint8_t * buf) {
+  return buf;
+}
+
+bool SCEndRound_0x18::UnpackBuffer(const uint8_t *& buf, size_t& leftSize) {
+  return true;
+}
+
+size_t SCEndRound_0x18::Size() const {
+  return 0;
+}
+
 }
 }
 }

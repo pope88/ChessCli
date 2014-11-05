@@ -109,13 +109,16 @@ namespace View
 		void onOhterPlayerEnter(const PlayerInfo &pi);
 		void onOtherPlayerLeave(UInt8 charid);
 		void onPlayerEnter(const std::vector<PlayerInfo> &pInfos);
-		void clearCommonCards();
 		void showOperateButton(UInt32 opcode, bool bshow);
 		inline UInt8 getOnwerChairId() { return  onwerCharid; }
 		inline void setOnwerChairId(UInt8 c) { onwerCharid = c; }
 		//inline VBasePlayer* getPMy() { return _pMy; }
 		void startTimer(UInt16 seconds, UInt8 pos = 0xFF);
 		void onTimer(UInt8 time, UInt8 pos = 0xFF);
+		
+		void clearCommonCards();
+		void clearHandsCards();
+		void roundEnd();
 	private:
 
 		LS_PROPERTY_RETAIN(Sprite*, backGroud, backGroud);

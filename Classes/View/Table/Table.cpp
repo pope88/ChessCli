@@ -354,6 +354,7 @@ namespace View
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			{
 				onMyOperate(CHECK, 0);
+				clearAllButton();
 			}
 			break;
 		case cocos2d::ui::Widget::TouchEventType::CANCELED:
@@ -377,6 +378,7 @@ namespace View
 				getpMy()->putChips(200);
 				this->addChild(getpMy()->getthrowchips());
 				getpMy()->getthrowchips()->setPosition(_throwChipPos[0]);
+				clearAllButton();
 			}
 			break;
 		case cocos2d::ui::Widget::TouchEventType::CANCELED:
@@ -397,6 +399,7 @@ namespace View
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			{
 				onMyOperate(GIVEUP, 0);
+				clearAllButton();
 			}
 			break;
 		case cocos2d::ui::Widget::TouchEventType::CANCELED:
@@ -420,6 +423,7 @@ namespace View
 				getpMy()->putChips(200);
 				this->addChild(getpMy()->getthrowchips());
 				getpMy()->getthrowchips()->setPosition(_throwChipPos[0]);
+				clearAllButton();
 			}
 			break;
 		case cocos2d::ui::Widget::TouchEventType::CANCELED:
@@ -612,7 +616,10 @@ namespace View
 
 	void Table::clearAllButton()
 	{
-
+		getfoldButton()->setVisible(false);
+		getcallButton()->setVisible(false);
+		getcheckButton()->setVisible(false);
+	    getbetButton()->setVisible(false);
 	}
 
 	int Table::S2CPos(char cChair)
@@ -684,15 +691,6 @@ namespace View
 		}
 	}
 
-	void Table::clearCommonCards()
-	{
-		for(int i = 0; i < _commonCards.size(); ++i)
-		{
-			_commonCards[i]->clearCard();
-		}
-		_commonCards.clear();
-	}
-
 	void Table::showOperateButton(UInt32 opcode, bool bshow)
 	{
 		if ((opcode & GIVEUP) > 0)
@@ -749,5 +747,22 @@ namespace View
 		}
 	}
 
+	void Table::clearCommonCards()
+	{
+		for(int i = 0; i < _commonCards.size(); ++i)
+		{
+			_commonCards[i]->clearCard();
+		}
+		_commonCards.clear();
+	}
+
+	void Table::clearHandsCards()
+	{
+		
+	}
+
+	void Table::roundEnd()
+	{
+	}
 
 }

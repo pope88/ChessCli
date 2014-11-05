@@ -1,4 +1,4 @@
-#include "../../View/Table/Table.h"
+
 HANDLER_CLASS(UserEnterTable, 0x07)
 {
 	if (pkt.HasRes())  //other player enter

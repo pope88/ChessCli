@@ -63,7 +63,7 @@ namespace View
 		case cocos2d::ui::Widget::TouchEventType::ENDED:
 			{
 				Packet::UserLogin ulogin;
-				ulogin.SetUsername("chess2@pope");
+				ulogin.SetUsername("chess1@pope");
 				ulogin.SetPwd("123456");
 				ulogin.send();
 			}

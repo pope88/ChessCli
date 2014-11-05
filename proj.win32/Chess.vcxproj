@@ -208,6 +208,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\Game\Player.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\Packet\Builder.h" />
+    <ClInclude Include="..\Classes\Packet\Handler\Game\EndRound.h" />
     <ClInclude Include="..\Classes\Packet\Handler\Game\PlayerBlindChips.h" />
     <ClInclude Include="..\Classes\Packet\Handler\Game\PlayerCommonCards.h" />
     <ClInclude Include="..\Classes\Packet\Handler\Game\PlayerGameSart.h" />

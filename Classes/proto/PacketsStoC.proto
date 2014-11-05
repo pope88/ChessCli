@@ -236,3 +236,9 @@ message SCUserTimerStart_0x17
   //定时
   required uint32 timer = 2;
 }
+
+//0x20
+//游戏结束
+message SCEndRound_0x18
+{
+}

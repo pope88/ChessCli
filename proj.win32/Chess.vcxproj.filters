@@ -548,6 +548,9 @@
     <ClInclude Include="..\Classes\Packet\Handler\Game\UserTimerStart.h">
       <Filter>Classes\Packet\Handler\Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Packet\Handler\Game\EndRound.h">
+      <Filter>Classes\Packet\Handler\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

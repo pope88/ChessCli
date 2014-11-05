@@ -620,6 +620,18 @@ class SCUserTimerStart_0x17: public ::ssu::Object {
 
 };
 
+class SCEndRound_0x18: public ::ssu::Object {
+ public:
+  virtual ~SCEndRound_0x18() { }
+
+ public:
+  virtual uint8_t * PackBuffer(uint8_t * buf);
+  virtual bool UnpackBuffer(const uint8_t *& buf, size_t& leftSize);
+  virtual size_t Size() const;
+
+
+};
+
 }
 }
 }
