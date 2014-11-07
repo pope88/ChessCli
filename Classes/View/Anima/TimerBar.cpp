@@ -161,11 +161,6 @@ namespace View
 			xLoc = -_pathSize.width/2 + segmentLoc;
 			yLoc = 0;
 		}
-		else
-		{
-			return;
-		}
-
 
 		getunderStroke()->setColor(_clockColor);
 		getglowOutStroke()->setColor(_clockColor);

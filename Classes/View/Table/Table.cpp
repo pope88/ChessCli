@@ -187,7 +187,7 @@ namespace View
 		{
 			_throwChipPos.resize(MAXPLAYER);
 
-			_throwChipPos[0] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y + 100);
+			_throwChipPos[0] = Point(VisibleRect::bottom().x, VisibleRect::bottom().y + 300);
 			_throwChipPos[1] = Point(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y - vSize.height/3);
 			_throwChipPos[2] = Point(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y);
 			_throwChipPos[3] = Point(_votherSeats[0]->getSeatSize().width/2 + posPlus, VisibleRect::left().y + vSize.height/3);
@@ -758,11 +758,34 @@ namespace View
 
 	void Table::clearHandsCards()
 	{
-		
+		getpMy()->clearCards();
+
+		for (auto it = _votherPlayers.begin(); it != _votherPlayers.end(); ++it)
+		{
+			if (*it != NULL)
+			{
+				(*it)->clearCards();
+			}
+		}
 	}
+
+	void Table::clearPlayerChips()
+	{
+		for (auto it = _votherPlayers.begin(); it != _votherPlayers.end(); ++it)
+		{
+			if (*it != NULL)
+			{
+				(*it)->clearChips();
+			}
+		}
+	}
+
 
 	void Table::roundEnd()
 	{
+		clearCommonCards();
+		clearHandsCards();
+		clearPlayerChips();
 	}
 
 }

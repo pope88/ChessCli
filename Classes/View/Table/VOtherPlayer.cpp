@@ -162,4 +162,15 @@ namespace View
 			}
 		}
 	}
+
+	void VBasePlayer::clearChips()
+	{
+		if(getthrowchips() != NULL)
+		{
+			if (getthrowchips()->getParent() != NULL)
+			{
+				getthrowchips()->getParent()->removeChild(getthrowchips(), true);
+			}
+		}
+	}
 }

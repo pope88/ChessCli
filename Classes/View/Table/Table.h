@@ -118,6 +118,7 @@ namespace View
 		
 		void clearCommonCards();
 		void clearHandsCards();
+		void clearPlayerChips();
 		void roundEnd();
 	private:
 

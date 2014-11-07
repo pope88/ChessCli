@@ -48,6 +48,7 @@ namespace View
 		virtual void clearCards();
 		void renDerCards(const std::vector<CCard> &hcVec);
 		void putChips(UInt32 chips);
+		void clearChips();
  	protected:
 		LS_PROPERTY_RETAIN(CCardSprite*, _handCards0, _handCards0);
 		LS_PROPERTY_RETAIN(CCardSprite*, _handCards1, _handCards1);
