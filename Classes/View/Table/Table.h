@@ -117,6 +117,8 @@ namespace View
 		void onTimer(UInt8 time, UInt8 pos = 0xFF);
 		
 		void clearCommonCards();
+		void resetHandsBack();
+		void clearHandsBack(bool bClear = true);
 		void clearHandsCards();
 		void clearPlayerChips();
 		void roundEnd();

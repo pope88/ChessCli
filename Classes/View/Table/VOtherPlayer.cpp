@@ -126,7 +126,7 @@ namespace View
 
 		if (get_handCards1() != NULL)
 		{
-			get_handCards0()->clearCard();
+			get_handCards1()->clearCard();
 		}
 	}
 	

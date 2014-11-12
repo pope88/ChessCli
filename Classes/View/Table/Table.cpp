@@ -769,6 +769,41 @@ namespace View
 		}
 	}
 
+	void Table::resetHandsBack()
+	{
+		for (auto it = _votherPlayers.begin(); it != _votherPlayers.end(); ++it)
+		{
+			if (*it != NULL)
+			{
+				(*it)->clearCards();
+			}
+		}
+	}
+
+	void Table::clearHandsBack(bool bClear)
+	{
+		if (bClear)
+		{
+			for (auto it = _cardBacks.begin(); it != _cardBacks.end(); ++it)
+			{
+				if (*it != NULL && (*it)->getParent() != NULL)
+				{
+					(*it)->getParent()->removeChild(*it);
+				}
+			}
+		}
+		else
+		{
+			for (auto it = _cardBacks.begin(); it != _cardBacks.end(); ++it)
+			{
+				if (*it != NULL)
+				{
+					(*it)->setVisible(false);
+				}
+			}
+		}
+	}
+
 	void Table::clearPlayerChips()
 	{
 		for (auto it = _votherPlayers.begin(); it != _votherPlayers.end(); ++it)
@@ -783,6 +818,7 @@ namespace View
 
 	void Table::roundEnd()
 	{
+		clearAllButton();
 		clearCommonCards();
 		clearHandsCards();
 		clearPlayerChips();
